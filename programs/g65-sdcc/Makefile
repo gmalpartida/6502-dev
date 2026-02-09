@@ -1,9 +1,8 @@
-AS=/opt/vbcc/bin/vasm6502_oldstyle
-LD=/opt/vbcc/bin/vlink
+AS=/opt/sdcc/bin/sdas6500
+LD=/opt/sdcc/bin/sdld
 VI=vi
 HEXDUMP=hexdump
 UCSIM=/opt/sdcc/bin/ucsim_mos6502
-OBJCOPY=/opt/sdcc/bin/sdobjcopy
 
 TARGET=$(notdir $(CURDIR))
 
@@ -15,28 +14,28 @@ CFG_DIR=cfg
 LST_FILE=$(BIN_DIR)/$(TARGET).lst
 OBJ_FILE=$(BIN_DIR)/$(TARGET).o
 SRC_FILE=$(SRC_DIR)/$(TARGET).asm
+CFG_FILE=$(CFG_DIR)/$(TARGET).cfg
 MAP_FILE=$(BIN_DIR)/$(TARGET).map
 BIN_FILE=$(BIN_DIR)/$(TARGET).bin
-LD_FILE=$(CFG_DIR)/$(TARGET).ld
+LD_FILE=$(SRC_DIR)/$(TARGET).ld
 UC_SIM_FILE=$(CFG_DIR)/$(TARGET).ucsim
+REL_FILE=$(BIN_DIR)/$(TARGET).rel
 IHX_FILE=$(BIN_DIR)/$(TARGET).ihx
 
-AS_FLAGS=-I $(INC_DIR) -Fvobj -sect -wfail -dotdir -L $(LST_FILE) -o $(OBJ_FILE) 
-LD_FLAGS= -T$(LD_FILE) -bihex -o $(IHX_FILE) -M > $(MAP_FILE)
+AS_FLAGS=-los -I$(INC_DIR) $(REL_FILE) 
+LD_FLAGS= -i
 HEXDUMP_FLAGS=-C
 UCSIM_FLAGS= -t 65C02 -C $(UC_SIM_FILE)
-OBJCOPY_FLAGS= -I ihex -O binary $(IHX_FILE)
 
-.PHONY: all link build edit dump clean sim
+.PHONY: all build edit dump clean sim
 
 all: link
 
 link: build
-	$(LD) $(LD_FLAGS) $(OBJ_FILE) bin/string.o
-	$(OBJCOPY) $(OBJCOPY_FLAGS) $(BIN_FILE)
+	$(LD) $(LD_FLAGS) $(REL_FILE)
+
 build:
 	@mkdir -p $(BIN_DIR)
-	$(AS) -I $(INC_DIR) -Fvobj -sect -wfail -dotdir -L bin/string.lst -o bin/string.o src/string.asm
 	$(AS) $(AS_FLAGS) $(SRC_FILE)
 edit:
 	$(VI) $(SRC_FILE)

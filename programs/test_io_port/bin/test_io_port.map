@@ -1,0 +1,37 @@
+
+Files:
+  test_io_port.o:  .text e000(1b), .vectors e01b(4) hex
+
+
+Section mapping (numbers in hex):
+------------------------------
+  0000e000 .text  (size 1b)
+           0000e000 - 0000e01b test_io_port.o(.text)
+------------------------------
+  0000fffa .vectors  (size 4, allocated 2)
+           0000e01b - 0000e01f test_io_port.o(.vectors)
+
+
+Symbols of .text:
+  0x0000 R0L: local abs, size 0
+  0x0000 R0: local abs, size 0
+  0x0001 R0H: local abs, size 0
+  0x0001 R1: local abs, size 0
+  0x0002 R2L: local abs, size 0
+  0x0002 R2: local abs, size 0
+  0x0003 R2H: local abs, size 0
+  0x0003 R3: local abs, size 0
+  0x0004 R4L: local abs, size 0
+  0x0004 R4: local abs, size 0
+  0x0005 R4H: local abs, size 0
+  0x0005 R5: local abs, size 0
+  0x0006 R6: local abs, size 0
+  0x0007 R7: local abs, size 0
+  0x6000 port: local abs, size 0
+  0xe000 reset: local reloc, size 0
+  0xe006 walking_bit: local reloc, size 0
+  0xe008 loop: local reloc, size 0
+  0xe00d delay_out: local reloc, size 0
+  0xe00f delay_in: local reloc, size 0
+
+Linker symbols:

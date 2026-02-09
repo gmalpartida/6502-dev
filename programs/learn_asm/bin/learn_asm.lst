@@ -1,0 +1,49 @@
+Sections:
+00: ".text" (0-7)
+01: ".rodata" (0-2D)
+02: ".vectors" (0-6)
+
+
+Source: "learn_asm.asm"
+                        	     1: 	.section .text
+                        	     2: 
+                        	     3: reset_isr:
+00:0000 78              	     4:     sei             ; Disable interrupts
+00:0001 D8              	     5:     cld             ; Clear decimal mode
+00:0002 A2FF            	     6:     ldx #$ff        ; Initialize stack pointer to $01ff
+00:0004 9A              	     7:     txs
+                        	     8: 
+                        	     9: nmi_isr:
+00:0005 40              	    10:     rti             ; Return from Non-Maskable Interrupt
+                        	    11: 
+                        	    12: irq_isr:
+00:0006 40              	    13:     rti             ; Return from Maskable Interrupt / BRK
+                        	    14: 
+                        	    15: 	.section .rodata
+01:0000 5468652071756963	    16: little_brown_fox_txt: .asciiz "The quick brown fox jumps over the lazy dog."
+01:0008 6B2062726F776E20
+01:0010 666F78206A756D70
+01:0018 73206F7665722074
+01:0020 6865206C617A7920
+01:0028 646F672E
+01:002C 00
+                        	    17: 
+                        	    18: 	.section .vectors
+02:0000 0500            	    19: 	.word	nmi_isr		; nmi vector
+02:0002 0000            	    20: 	.word	reset_isr	;points to start of code
+02:0004 0600            	    21: 	.word	irq_isr		; irq vector
+                        	    22: 
+                        	    23: 
+
+
+Symbols by name:
+irq_isr                         00:0006
+little_brown_fox_txt            01:0000
+nmi_isr                         00:0005
+reset_isr                       00:0000
+
+Symbols by value:
+0000 little_brown_fox_txt
+0000 reset_isr
+0005 nmi_isr
+0006 irq_isr

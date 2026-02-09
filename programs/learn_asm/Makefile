@@ -27,16 +27,15 @@ HEXDUMP_FLAGS=-C
 UCSIM_FLAGS= -t 65C02 -C $(UC_SIM_FILE)
 OBJCOPY_FLAGS= -I ihex -O binary $(IHX_FILE)
 
-.PHONY: all link build edit dump clean sim
+.PHONY: all build edit dump clean sim
 
 all: link
 
 link: build
-	$(LD) $(LD_FLAGS) $(OBJ_FILE) bin/string.o
+	$(LD) $(LD_FLAGS) $(OBJ_FILE)
 	$(OBJCOPY) $(OBJCOPY_FLAGS) $(BIN_FILE)
 build:
 	@mkdir -p $(BIN_DIR)
-	$(AS) -I $(INC_DIR) -Fvobj -sect -wfail -dotdir -L bin/string.lst -o bin/string.o src/string.asm
 	$(AS) $(AS_FLAGS) $(SRC_FILE)
 edit:
 	$(VI) $(SRC_FILE)

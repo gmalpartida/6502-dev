@@ -1,0 +1,102 @@
+Sections:
+00: ".text" (0-1B)
+01: ".vectors" (0-4)
+
+
+Source: "test_io_port.s"
+                        	     1: ; --- hardware address ---
+                        	     2: port = $6000
+                        	     3: 
+                        	     4: 	.include "stddefs.inc"
+
+Source: "stddefs.inc"
+                        	     1: 
+                        	     2: ; Zero Page Register File (example starts at $00)
+                        	     3: R0   = $00
+                        	     4: R1   = $01
+                        	     5: R2   = $02
+                        	     6: R3   = $03
+                        	     7: R4   = $04
+                        	     8: R5   = $05
+                        	     9: R6   = $06
+                        	    10: R7   = $07
+                        	    11: 
+                        	    12: ; 16-bit Pointer Aliases
+                        	    13: R0L  = R0
+                        	    14: R0H  = R1
+                        	    15: R2L  = R2
+                        	    16: R2H  = R3
+                        	    17: R4L  = R4
+                        	    18: R4H  = R5
+                        	    19: 
+                        	    20: 
+
+Source: "test_io_port.s"
+                        	     5: 	.section .text
+                        	     6: 
+                        	     7: reset:
+00:0000 200600          	     8: 	jsr walking_bit
+00:0003 4C0000          	     9: 	jmp reset
+                        	    10: 
+                        	    11: walking_bit:
+00:0006 A201            	    12:     ldx #$01        ; start with bit 0 (0000 0001)
+                        	    13: 
+                        	    14: loop:
+00:0008 8E0060          	    15:     stx port        ; write pattern to the 74hc373
+                        	    16:     
+                        	    17:     ; --- human-visible delay ---
+                        	    18:     ; at 1.44mhz, we need a "nested" loop to slow it down
+00:000B A000            	    19:     ldy #$00        ; outer loop
+                        	    20: delay_out:
+00:000D A980            	    21:     lda #$80        ; inner loop (adjust this value to speed/slow)
+                        	    22: delay_in:
+00:000F 3A              	    23:     dea				; decrement a
+00:0010 D0FD            	    24:     bne delay_in    ; loop inner
+00:0012 88              	    25:     dey             ; decrement y
+00:0013 D0F8            	    26:     bne delay_out   ; loop outer
+                        	    27: 
+                        	    28:     ; --- shift the bit ---
+00:0015 8A              	    29:     txa             ; move x to accumulator
+00:0016 0A              	    30:     asl             ; shift left (bit 0 -> bit 1, etc.)
+00:0017 AA              	    31:     tax             ; move back to x
+                        	    32:     
+00:0018 D0EE            	    33:     bne loop        ; if we haven't shifted the bit out, keep walking
+00:001A 60              	    34: 	rts
+                        	    35: 
+                        	    36:     ;beq reset       ; if x became 0, start over at bit 0
+                        	    37: 
+                        	    38: ; --- 65c02 vectors (must be at the very end of rom) ---
+                        	    39: 	.section .vectors
+01:0000 0000            	    40:     .word reset     ; reset vector (points to $e000)
+01:0002 00              	    41:     .byte $00, $00     ; irq vector (not used)
+01:0003 00
+                        	    42: 
+
+
+Symbols by name:
+R0                               E:0000
+R1                               E:0001
+R2                               E:0002
+R3                               E:0003
+R4                               E:0004
+R5                               E:0005
+delay_in                        00:000F
+delay_out                       00:000D
+loop                            00:0008
+port                             E:6000
+reset                           00:0000
+walking_bit                     00:0006
+
+Symbols by value:
+0000 R0
+0000 reset
+0001 R1
+0002 R2
+0003 R3
+0004 R4
+0005 R5
+0006 walking_bit
+0008 loop
+000D delay_out
+000F delay_in
+6000 port

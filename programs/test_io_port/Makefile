@@ -14,14 +14,14 @@ CFG_DIR=cfg
 
 LST_FILE=$(BIN_DIR)/$(TARGET).lst
 OBJ_FILE=$(BIN_DIR)/$(TARGET).o
-SRC_FILE=$(SRC_DIR)/$(TARGET).asm
+SRC_FILE=$(SRC_DIR)/$(TARGET).s
 MAP_FILE=$(BIN_DIR)/$(TARGET).map
 BIN_FILE=$(BIN_DIR)/$(TARGET).bin
 LD_FILE=$(CFG_DIR)/$(TARGET).ld
 UC_SIM_FILE=$(CFG_DIR)/$(TARGET).ucsim
 IHX_FILE=$(BIN_DIR)/$(TARGET).ihx
 
-AS_FLAGS=-I $(INC_DIR) -Fvobj -sect -wfail -dotdir -L $(LST_FILE) -o $(OBJ_FILE) 
+AS_FLAGS=-I $(INC_DIR) -Fvobj -wdc02 -sect -wfail -dotdir -L $(LST_FILE) -o $(OBJ_FILE) 
 LD_FLAGS= -T$(LD_FILE) -bihex -o $(IHX_FILE) -M > $(MAP_FILE)
 HEXDUMP_FLAGS=-C
 UCSIM_FLAGS= -t 65C02 -C $(UC_SIM_FILE)
@@ -32,11 +32,10 @@ OBJCOPY_FLAGS= -I ihex -O binary $(IHX_FILE)
 all: link
 
 link: build
-	$(LD) $(LD_FLAGS) $(OBJ_FILE) bin/string.o
+	$(LD) $(LD_FLAGS) $(OBJ_FILE)
 	$(OBJCOPY) $(OBJCOPY_FLAGS) $(BIN_FILE)
 build:
 	@mkdir -p $(BIN_DIR)
-	$(AS) -I $(INC_DIR) -Fvobj -sect -wfail -dotdir -L bin/string.lst -o bin/string.o src/string.asm
 	$(AS) $(AS_FLAGS) $(SRC_FILE)
 edit:
 	$(VI) $(SRC_FILE)
