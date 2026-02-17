@@ -1,0 +1,62 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+AS	Makefile	/^AS=\/opt\/vbcc\/bin\/vasm6502_oldstyle$/;"	m
+AS_FLAGS	Makefile	/^AS_FLAGS=-I $(INC_DIR) -Fvobj -sect -wfail -dotdir -L $(LST_FILE) -o $(OBJ_FILE) $/;"	m
+BIN_DIR	Makefile	/^BIN_DIR=bin$/;"	m
+BIN_FILE	Makefile	/^BIN_FILE=$(BIN_DIR)\/$(TARGET).bin$/;"	m
+CFG_DIR	Makefile	/^CFG_DIR=cfg$/;"	m
+HEXDUMP	Makefile	/^HEXDUMP=hexdump$/;"	m
+HEXDUMP_FLAGS	Makefile	/^HEXDUMP_FLAGS=-C$/;"	m
+IHX_FILE	Makefile	/^IHX_FILE=$(BIN_DIR)\/$(TARGET).ihx$/;"	m
+INC_DIR	Makefile	/^INC_DIR=inc$/;"	m
+LD	Makefile	/^LD=\/opt\/vbcc\/bin\/vlink$/;"	m
+LD_FILE	Makefile	/^LD_FILE=$(CFG_DIR)\/$(TARGET).ld$/;"	m
+LD_FLAGS	Makefile	/^LD_FLAGS= -T$(LD_FILE) -bihex -o $(IHX_FILE) -M > $(MAP_FILE)$/;"	m
+LST_FILE	Makefile	/^LST_FILE=$(BIN_DIR)\/$(TARGET).lst$/;"	m
+MAP_FILE	Makefile	/^MAP_FILE=$(BIN_DIR)\/$(TARGET).map$/;"	m
+OBJCOPY	Makefile	/^OBJCOPY=\/opt\/sdcc\/bin\/sdobjcopy$/;"	m
+OBJCOPY_FLAGS	Makefile	/^OBJCOPY_FLAGS= -I ihex -O binary $(IHX_FILE)$/;"	m
+OBJ_FILE	Makefile	/^OBJ_FILE=$(BIN_DIR)\/$(TARGET).o$/;"	m
+SRC_DIR	Makefile	/^SRC_DIR=src$/;"	m
+SRC_FILE	Makefile	/^SRC_FILE=$(SRC_DIR)\/$(TARGET).asm$/;"	m
+TARGET	Makefile	/^TARGET=$(notdir $(CURDIR))$/;"	m
+UCSIM	Makefile	/^UCSIM=\/opt\/sdcc\/bin\/ucsim_mos6502$/;"	m
+UCSIM_FLAGS	Makefile	/^UCSIM_FLAGS= -t 65C02 -C $(UC_SIM_FILE)$/;"	m
+UC_SIM_FILE	Makefile	/^UC_SIM_FILE=$(CFG_DIR)\/$(TARGET).ucsim$/;"	m
+VI	Makefile	/^VI=vi$/;"	m
+halt	src/g65.asm	/^halt:   $/;"	l
+init_regs	src/g65.asm	/^init_regs:$/;"	l
+irq_isr	src/g65.asm	/^irq_isr:$/;"	l
+little_brown_fox_txt	src/g65.asm	/^		little_brown_fox_txt: .asciiz "The quick brown fox jumps over the lazy dog."$/;"	l
+memchr	src/string.asm	/^memchr:$/;"	l
+memcmp	src/string.asm	/^memcmp:$/;"	l
+memcmp_exit	src/string.asm	/^memcmp_exit:$/;"	l
+memcmp_inc	src/string.asm	/^memcmp_inc:$/;"	l
+memcmp_loop	src/string.asm	/^memcmp_loop:$/;"	l
+memcmp_neg	src/string.asm	/^memcmp_neg:$/;"	l
+memcmp_skip1	src/string.asm	/^memcmp_skip1:$/;"	l
+memcmp_skip2	src/string.asm	/^memcmp_skip2:$/;"	l
+memcmp_skip3	src/string.asm	/^memcmp_skip3:$/;"	l
+memcpy	src/string.asm	/^memcpy:$/;"	l
+memcpy_exit	src/string.asm	/^memcpy_exit:$/;"	l
+memcpy_loop	src/string.asm	/^memcpy_loop:$/;"	l
+memcpy_skip1	src/string.asm	/^memcpy_skip1:$/;"	l
+memcpy_skip2	src/string.asm	/^memcpy_skip2:$/;"	l
+memcpy_skip3	src/string.asm	/^memcpy_skip3:$/;"	l
+memset	src/string.asm	/^memset:$/;"	l
+memset_exit	src/string.asm	/^memset_exit:$/;"	l
+memset_loop	src/string.asm	/^memset_loop:$/;"	l
+memset_skip	src/string.asm	/^memset_skip:$/;"	l
+memset_skip2	src/string.asm	/^memset_skip2:$/;"	l
+nmi_isr	src/g65.asm	/^nmi_isr:$/;"	l
+reset_isr	src/g65.asm	/^reset_isr:$/;"	l
+strcpy	src/string.asm	/^strcpy:$/;"	l
+strcpy_exit	src/string.asm	/^strcpy_exit:$/;"	l
+strcpy_loop	src/string.asm	/^strcpy_loop:$/;"	l
+test_memcmp	src/g65.asm	/^test_memcmp:$/;"	l
+test_memcpy	src/g65.asm	/^test_memcpy:$/;"	l
+test_memset	src/g65.asm	/^test_memset:$/;"	l

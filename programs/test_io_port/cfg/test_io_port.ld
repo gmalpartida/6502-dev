@@ -1,14 +1,16 @@
 MEMORY
 {
     RAM : org = 0x0000, len = 0x0800
-    IO  : org = 0x8000, len = 0x0400
-    ROM : org = 0xE000, len = 0x1ffa
-	VECT: org = 0xfffa, len = 0x0006
+    IO  : org = 0x8000, len = 0x2000
+	VIA : org = 0xC000, len = 0x2000
+    /* Code area: E000 to FFF9 (8186 bytes) */
+    ROM : org = 0xE000, len = 0x1FFA
+    /* Vector area: FFFA to FFFF (6 bytes) */
+    VECT: org = 0xFFFA, len = 0x0006
 }
 
 SECTIONS
 {
-    /* Ensure no spaces between section name and colon */
     .text: {
         *(.text)
         *(.rodata)
@@ -22,9 +24,8 @@ SECTIONS
         *(.bss)
     } > RAM
 
-    /* Pin vectors to the end of ROM ($FFFA) */
     .vectors: {
         *(.vectors)
-    } > ROM AT > VECT 
+    } > VECT
 }
 

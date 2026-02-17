@@ -1,41 +1,104 @@
-; --- hardware address ---
-port = $6000
+; --- Hardware Map ---
+VIA_BASE  = $C000   ; Y6
+UART_BASE = $A000   ; Y5
+TICKS     = $00     ; RAM counter
 
-	.include "stddefs.inc"
-	.section .text
+; UART Register Offsets
+RBR_THR   = UART_BASE + 0
+DLL       = UART_BASE + 0
+DLM       = UART_BASE + 1
+LCR       = UART_BASE + 3
+LSR       = UART_BASE + 5
 
-reset:
-	jsr walking_bit
-	jmp reset
+.section .text
+RESET:
+    LDX #$FF
+    TXS             ; Always init stack first!
 
-walking_bit:
-    ldx #$01        ; start with bit 0 (0000 0001)
-
-loop:
-    stx port        ; write pattern to the 74hc373
+    ; --- 1. Initialize VIA (Walking Bit) ---
+    LDA #$FF
+    STA VIA_BASE + 3 ; DDRA = Output
+    LDA #$01
+    STA VIA_BASE + 1 ; Initial LED (Port A)
     
-    ; --- human-visible delay ---
-    ; at 1.44mhz, we need a "nested" loop to slow it down
-    ldy #$00        ; outer loop
-delay_out:
-    lda #$80        ; inner loop (adjust this value to speed/slow)
-delay_in:
-    dea				; decrement a
-    bne delay_in    ; loop inner
-    dey             ; decrement y
-    bne delay_out   ; loop outer
+    LDA #20          ; Soft-divider for 5Hz
+    STA TICKS
 
-    ; --- shift the bit ---
-    txa             ; move x to accumulator
-    asl             ; shift left (bit 0 -> bit 1, etc.)
-    tax             ; move back to x
+    ; --- 2. Initialize UART (9600 Baud @ 2.88MHz) ---
+    LDA #$80         ; Access Divisor Latches (DLAB=1)
+    STA LCR
+    LDA #$13         ; Divisor = 19 ($13)
+    STA DLL
+    LDA #$00
+    STA DLM
+    LDA #$03         ; 8 data bits, 1 stop, No parity (DLAB=0)
+    STA LCR
+
+    ; --- 3. Test Transmission (Send "!" to PC) ---
+    ; Calling test_tx here confirms the 5.76MHz bus can write to UART
+
+	lda #'H'
+	jsr uart_tx_char
+	lda #'e'
+	jsr uart_tx_char
+	lda #'l'
+	jsr uart_tx_char
+
+
+    ; --- 4. Configure VIA Timer 1 (Interrupts) ---
+    ; 5.76MHz / 100Hz = 57,600 ($E100)
+    LDA #$00
+    STA VIA_BASE + 4 ; T1C-L
+    LDA #$E1
+    STA VIA_BASE + 5 ; T1C-H (Starts Timer)
     
-    bne loop        ; if we haven't shifted the bit out, keep walking
+    LDA #%01000000   ; Continuous interrupts
+    STA VIA_BASE + $B ; ACR
+    LDA #%11000000   ; Enable T1 IRQ
+    STA VIA_BASE + $E ; IER
+
+    CLI              ; Enable Interrupts
+    
+IDLE:
+    WAI              ; CPU sleeps until VIA fires
+    BRA IDLE
+
+; --- Interrupt Service Routine ---
+ISR:
+    PHA
+    BIT VIA_BASE + 4 ; Clear VIA flag
+    
+    DEC TICKS
+    BNE EXIT
+    
+    LDA #20          ; Reset divider
+    STA TICKS
+    
+    ; Walk bit on Port A
+    LDA VIA_BASE + 1
+    ASL
+    BNE store
+    LDA #$01
+store:
+    STA VIA_BASE + 1
+
+EXIT:
+    PLA
+    RTI
+
+; transmits one ascii character via the uart
+; --> a: contains character to be sent
+; <-- none
+uart_tx_char:
+    LDA LSR          	; Read Line Status Register
+    AND #$20         	; Check THRE bit (Transmit Holding Reg Empty)
+    BEQ uart_tx_char	; Wait if busy
+	nop				 	; slow it down a little bit
+    STA RBR_THR      	; Send it!
 	rts
 
-    ;beq reset       ; if x became 0, start over at bit 0
-
-; --- 65c02 vectors (must be at the very end of rom) ---
 	.section .vectors
-    .word reset     ; reset vector (points to $e000)
-    .byte $00, $00     ; irq vector (not used)
+    .word $0000      ; NMI
+    .word RESET      ; RESET
+    .word ISR        ; IRQ at $FFFE
+
