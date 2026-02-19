@@ -8,7 +8,7 @@ RBR_THR   = UART_BASE + 0
 DLL       = UART_BASE + 0
 DLM       = UART_BASE + 1
 LCR       = UART_BASE + 3
-LSR       = UART_BASE + 5
+lsr       = UART_BASE + 5
 
 .section .text
 RESET:
@@ -36,14 +36,18 @@ RESET:
 
     ; --- 3. Test Transmission (Send "!" to PC) ---
     ; Calling test_tx here confirms the 5.76MHz bus can write to UART
-
-	lda #'H'
-	jsr uart_tx_char
-	lda #'e'
-	jsr uart_tx_char
-	lda #'l'
-	jsr uart_tx_char
-
+	;LDX #<hello_world_msg 
+	;LDY #>hello_world_msg
+	;JSR uart_tx_asciz
+uart_echo_loop:
+	jsr uart_rx_char
+	nop
+	nop
+	nop
+	nop
+	nop
+	jsr uart_tx_char 
+	jmp uart_echo_loop
 
     ; --- 4. Configure VIA Timer 1 (Interrupts) ---
     ; 5.76MHz / 100Hz = 57,600 ($E100)
@@ -57,7 +61,7 @@ RESET:
     LDA #%11000000   ; Enable T1 IRQ
     STA VIA_BASE + $E ; IER
 
-    CLI              ; Enable Interrupts
+    ;CLI              ; Enable Interrupts
     
 IDLE:
     WAI              ; CPU sleeps until VIA fires
@@ -90,15 +94,54 @@ EXIT:
 ; --> a: contains character to be sent
 ; <-- none
 uart_tx_char:
-    LDA LSR          	; Read Line Status Register
+	tax
+uart_tx_char_wait:
+    LDA lsr          	; Read Line Status Register
     AND #$20         	; Check THRE bit (Transmit Holding Reg Empty)
-    BEQ uart_tx_char	; Wait if busy
+    BEQ uart_tx_char_wait	; Wait if busy
 	nop				 	; slow it down a little bit
+	txa
     STA RBR_THR      	; Send it!
+	rts
+
+; Usage: LDX #<msg_addr : LDY #>msg_addr : JSR print_str
+uart_tx_asciz:
+    stx $00         ; Use Zero Page $00/$01 as a pointer
+    sty $01
+    ldy #0
+uart_tx_asciiz_loop:
+    lda ($00), y    ; Get char
+    beq done       ; Null terminator?
+    jsr uart_tx_char
+    iny
+    bne uart_tx_asciiz_loop       ; Max 255 chars
+done:
+    rts
+
+uart_rx_char:
+	lda lsr
+	and #$01
+	beq uart_rx_char
+	nop
+	nop
+	nop
+	nop
+	nop
+	lda RBR_THR
+	rts
+
+uart_rx_asciiz:
+
+
 	rts
 
 	.section .vectors
     .word $0000      ; NMI
     .word RESET      ; RESET
     .word ISR        ; IRQ at $FFFE
+
+	.section .text
+
+hello_world_msg: .asciiz "Hello, world!"
+
 

@@ -21,12 +21,13 @@ ISR	src/test_io_port.s	/^ISR:$/;"	l
 LCR	src/test_io_port.s	/^LCR       = UART_BASE + 3$/;"	d
 LD	Makefile	/^LD=\/opt\/vbcc\/bin\/vlink$/;"	m
 LD_FILE	Makefile	/^LD_FILE=$(CFG_DIR)\/$(TARGET).ld$/;"	m
-LD_FLAGS	Makefile	/^LD_FLAGS= -T$(LD_FILE) -b rawbin1 -o $(BIN_FILE) -M > $(MAP_FILE)$/;"	m
-LSR	src/test_io_port.s	/^LSR       = UART_BASE + 5$/;"	d
+LD_FLAGS	Makefile	/^LD_FLAGS= -T$(LD_FILE) -b ihex -o $(IHX_FILE) -M > $(MAP_FILE)$/;"	m
 LST_FILE	Makefile	/^LST_FILE=$(BIN_DIR)\/$(TARGET).lst$/;"	m
 MAP_FILE	Makefile	/^MAP_FILE=$(BIN_DIR)\/$(TARGET).map$/;"	m
+MINICOM	Makefile	/^MINICOM=minicom$/;"	m
+MINICOM_FLAGS	Makefile	/^MINICOM_FLAGS=-D \/dev\/ttyUSB0 -b 9600$/;"	m
 OBJCOPY	Makefile	/^OBJCOPY=\/opt\/sdcc\/bin\/sdobjcopy$/;"	m
-OBJCOPY_FLAGS	Makefile	/^OBJCOPY_FLAGS= -I binary -O ihex $(BIN_FILE)$/;"	m
+OBJCOPY_FLAGS	Makefile	/^OBJCOPY_FLAGS= -I ihex -O binary $(IHX_FILE)$/;"	m
 OBJ_FILE	Makefile	/^OBJ_FILE=$(BIN_DIR)\/$(TARGET).o$/;"	m
 RBR_THR	src/test_io_port.s	/^RBR_THR   = UART_BASE + 0$/;"	d
 RESET	src/test_io_port.s	/^RESET:$/;"	l
@@ -40,5 +41,14 @@ UCSIM_FLAGS	Makefile	/^UCSIM_FLAGS= -t 65C02 -C $(UC_SIM_FILE)$/;"	m
 UC_SIM_FILE	Makefile	/^UC_SIM_FILE=$(CFG_DIR)\/$(TARGET).ucsim$/;"	m
 VI	Makefile	/^VI=vi$/;"	m
 VIA_BASE	src/test_io_port.s	/^VIA_BASE  = $C000   ; Y6$/;"	d
+done	src/test_io_port.s	/^done:$/;"	l
+hello_world_msg	src/test_io_port.s	/^hello_world_msg: .asciiz "Hello, world!"$/;"	l
+lsr	src/test_io_port.s	/^lsr       = UART_BASE + 5$/;"	d
 store	src/test_io_port.s	/^store:$/;"	l
+uart_echo_loop	src/test_io_port.s	/^uart_echo_loop:$/;"	l
+uart_rx_asciiz	src/test_io_port.s	/^uart_rx_asciiz:$/;"	l
+uart_rx_char	src/test_io_port.s	/^uart_rx_char:$/;"	l
+uart_tx_asciiz_loop	src/test_io_port.s	/^uart_tx_asciiz_loop:$/;"	l
+uart_tx_asciz	src/test_io_port.s	/^uart_tx_asciz:$/;"	l
 uart_tx_char	src/test_io_port.s	/^uart_tx_char:$/;"	l
+uart_tx_char_wait	src/test_io_port.s	/^uart_tx_char_wait:$/;"	l

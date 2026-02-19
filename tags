@@ -1,0 +1,168 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+AS	programs/g65-sdcc/Makefile	/^AS=\/opt\/sdcc\/bin\/sdas6500$/;"	m
+AS	programs/g65/Makefile	/^AS=\/opt\/vbcc\/bin\/vasm6502_oldstyle$/;"	m
+AS	programs/learn_asm/Makefile	/^AS=\/opt\/vbcc\/bin\/vasm6502_oldstyle$/;"	m
+AS	programs/test_io_port/Makefile	/^AS=\/opt\/vbcc\/bin\/vasm6502_oldstyle$/;"	m
+AS_FLAGS	programs/g65-sdcc/Makefile	/^AS_FLAGS=-los -I$(INC_DIR) $(REL_FILE) $/;"	m
+AS_FLAGS	programs/g65/Makefile	/^AS_FLAGS=-I $(INC_DIR) -Fvobj -sect -wfail -dotdir -L $(LST_FILE) -o $(OBJ_FILE) $/;"	m
+AS_FLAGS	programs/learn_asm/Makefile	/^AS_FLAGS=-I $(INC_DIR) -Fvobj -sect -wfail -dotdir -L $(LST_FILE) -o $(OBJ_FILE) $/;"	m
+AS_FLAGS	programs/test_io_port/Makefile	/^AS_FLAGS=-I $(INC_DIR) -Fvobj -wdc02 -sect -wfail -dotdir -L $(LST_FILE) -o $(OBJ_FILE) $/;"	m
+BIN_DIR	programs/g65-sdcc/Makefile	/^BIN_DIR=bin$/;"	m
+BIN_DIR	programs/g65/Makefile	/^BIN_DIR=bin$/;"	m
+BIN_DIR	programs/learn_asm/Makefile	/^BIN_DIR=bin$/;"	m
+BIN_DIR	programs/test_io_port/Makefile	/^BIN_DIR=bin$/;"	m
+BIN_FILE	programs/g65-sdcc/Makefile	/^BIN_FILE=$(BIN_DIR)\/$(TARGET).bin$/;"	m
+BIN_FILE	programs/g65/Makefile	/^BIN_FILE=$(BIN_DIR)\/$(TARGET).bin$/;"	m
+BIN_FILE	programs/learn_asm/Makefile	/^BIN_FILE=$(BIN_DIR)\/$(TARGET).bin$/;"	m
+BIN_FILE	programs/test_io_port/Makefile	/^BIN_FILE=$(BIN_DIR)\/$(TARGET).bin$/;"	m
+CFG_DIR	programs/g65-sdcc/Makefile	/^CFG_DIR=cfg$/;"	m
+CFG_DIR	programs/g65/Makefile	/^CFG_DIR=cfg$/;"	m
+CFG_DIR	programs/learn_asm/Makefile	/^CFG_DIR=cfg$/;"	m
+CFG_DIR	programs/test_io_port/Makefile	/^CFG_DIR=cfg$/;"	m
+CFG_FILE	programs/g65-sdcc/Makefile	/^CFG_FILE=$(CFG_DIR)\/$(TARGET).cfg$/;"	m
+DLL	programs/test_io_port/src/test_io_port.s	/^DLL       = UART_BASE + 0$/;"	d
+DLM	programs/test_io_port/src/test_io_port.s	/^DLM       = UART_BASE + 1$/;"	d
+EXIT	programs/test_io_port/src/test_io_port.s	/^EXIT:$/;"	l
+HEXDUMP	programs/g65-sdcc/Makefile	/^HEXDUMP=hexdump$/;"	m
+HEXDUMP	programs/g65/Makefile	/^HEXDUMP=hexdump$/;"	m
+HEXDUMP	programs/learn_asm/Makefile	/^HEXDUMP=hexdump$/;"	m
+HEXDUMP	programs/test_io_port/Makefile	/^HEXDUMP=hexdump$/;"	m
+HEXDUMP_FLAGS	programs/g65-sdcc/Makefile	/^HEXDUMP_FLAGS=-C$/;"	m
+HEXDUMP_FLAGS	programs/g65/Makefile	/^HEXDUMP_FLAGS=-C$/;"	m
+HEXDUMP_FLAGS	programs/learn_asm/Makefile	/^HEXDUMP_FLAGS=-C$/;"	m
+HEXDUMP_FLAGS	programs/test_io_port/Makefile	/^HEXDUMP_FLAGS=-C$/;"	m
+IDLE	programs/test_io_port/src/test_io_port.s	/^IDLE:$/;"	l
+IHX_FILE	programs/g65-sdcc/Makefile	/^IHX_FILE=$(BIN_DIR)\/$(TARGET).ihx$/;"	m
+IHX_FILE	programs/g65/Makefile	/^IHX_FILE=$(BIN_DIR)\/$(TARGET).ihx$/;"	m
+IHX_FILE	programs/learn_asm/Makefile	/^IHX_FILE=$(BIN_DIR)\/$(TARGET).ihx$/;"	m
+IHX_FILE	programs/test_io_port/Makefile	/^IHX_FILE=$(BIN_DIR)\/$(TARGET).ihx$/;"	m
+INC_DIR	programs/g65-sdcc/Makefile	/^INC_DIR=inc$/;"	m
+INC_DIR	programs/g65/Makefile	/^INC_DIR=inc$/;"	m
+INC_DIR	programs/learn_asm/Makefile	/^INC_DIR=inc$/;"	m
+INC_DIR	programs/test_io_port/Makefile	/^INC_DIR=inc$/;"	m
+ISR	programs/test_io_port/src/test_io_port.s	/^ISR:$/;"	l
+LCR	programs/test_io_port/src/test_io_port.s	/^LCR       = UART_BASE + 3$/;"	d
+LD	programs/g65-sdcc/Makefile	/^LD=\/opt\/sdcc\/bin\/sdld$/;"	m
+LD	programs/g65/Makefile	/^LD=\/opt\/vbcc\/bin\/vlink$/;"	m
+LD	programs/learn_asm/Makefile	/^LD=\/opt\/vbcc\/bin\/vlink$/;"	m
+LD	programs/test_io_port/Makefile	/^LD=\/opt\/vbcc\/bin\/vlink$/;"	m
+LD_FILE	programs/g65-sdcc/Makefile	/^LD_FILE=$(SRC_DIR)\/$(TARGET).ld$/;"	m
+LD_FILE	programs/g65/Makefile	/^LD_FILE=$(CFG_DIR)\/$(TARGET).ld$/;"	m
+LD_FILE	programs/learn_asm/Makefile	/^LD_FILE=$(CFG_DIR)\/$(TARGET).ld$/;"	m
+LD_FILE	programs/test_io_port/Makefile	/^LD_FILE=$(CFG_DIR)\/$(TARGET).ld$/;"	m
+LD_FLAGS	programs/g65-sdcc/Makefile	/^LD_FLAGS= -i$/;"	m
+LD_FLAGS	programs/g65/Makefile	/^LD_FLAGS= -T$(LD_FILE) -bihex -o $(IHX_FILE) -M > $(MAP_FILE)$/;"	m
+LD_FLAGS	programs/learn_asm/Makefile	/^LD_FLAGS= -T$(LD_FILE) -bihex -o $(IHX_FILE) -M > $(MAP_FILE)$/;"	m
+LD_FLAGS	programs/test_io_port/Makefile	/^LD_FLAGS= -T$(LD_FILE) -b ihex -o $(IHX_FILE) -M > $(MAP_FILE)$/;"	m
+LST_FILE	programs/g65-sdcc/Makefile	/^LST_FILE=$(BIN_DIR)\/$(TARGET).lst$/;"	m
+LST_FILE	programs/g65/Makefile	/^LST_FILE=$(BIN_DIR)\/$(TARGET).lst$/;"	m
+LST_FILE	programs/learn_asm/Makefile	/^LST_FILE=$(BIN_DIR)\/$(TARGET).lst$/;"	m
+LST_FILE	programs/test_io_port/Makefile	/^LST_FILE=$(BIN_DIR)\/$(TARGET).lst$/;"	m
+MAP_FILE	programs/g65-sdcc/Makefile	/^MAP_FILE=$(BIN_DIR)\/$(TARGET).map$/;"	m
+MAP_FILE	programs/g65/Makefile	/^MAP_FILE=$(BIN_DIR)\/$(TARGET).map$/;"	m
+MAP_FILE	programs/learn_asm/Makefile	/^MAP_FILE=$(BIN_DIR)\/$(TARGET).map$/;"	m
+MAP_FILE	programs/test_io_port/Makefile	/^MAP_FILE=$(BIN_DIR)\/$(TARGET).map$/;"	m
+MINICOM	programs/test_io_port/Makefile	/^MINICOM=minicom$/;"	m
+MINICOM_FLAGS	programs/test_io_port/Makefile	/^MINICOM_FLAGS=-D \/dev\/ttyUSB0 -b 9600$/;"	m
+OBJCOPY	programs/g65/Makefile	/^OBJCOPY=\/opt\/sdcc\/bin\/sdobjcopy$/;"	m
+OBJCOPY	programs/learn_asm/Makefile	/^OBJCOPY=\/opt\/sdcc\/bin\/sdobjcopy$/;"	m
+OBJCOPY	programs/test_io_port/Makefile	/^OBJCOPY=\/opt\/sdcc\/bin\/sdobjcopy$/;"	m
+OBJCOPY_FLAGS	programs/g65/Makefile	/^OBJCOPY_FLAGS= -I ihex -O binary $(IHX_FILE)$/;"	m
+OBJCOPY_FLAGS	programs/learn_asm/Makefile	/^OBJCOPY_FLAGS= -I ihex -O binary $(IHX_FILE)$/;"	m
+OBJCOPY_FLAGS	programs/test_io_port/Makefile	/^OBJCOPY_FLAGS= -I ihex -O binary $(IHX_FILE)$/;"	m
+OBJ_FILE	programs/g65-sdcc/Makefile	/^OBJ_FILE=$(BIN_DIR)\/$(TARGET).o$/;"	m
+OBJ_FILE	programs/g65/Makefile	/^OBJ_FILE=$(BIN_DIR)\/$(TARGET).o$/;"	m
+OBJ_FILE	programs/learn_asm/Makefile	/^OBJ_FILE=$(BIN_DIR)\/$(TARGET).o$/;"	m
+OBJ_FILE	programs/test_io_port/Makefile	/^OBJ_FILE=$(BIN_DIR)\/$(TARGET).o$/;"	m
+RBR_THR	programs/test_io_port/src/test_io_port.s	/^RBR_THR   = UART_BASE + 0$/;"	d
+REL_FILE	programs/g65-sdcc/Makefile	/^REL_FILE=$(BIN_DIR)\/$(TARGET).rel$/;"	m
+RESET	programs/test_io_port/src/test_io_port.s	/^RESET:$/;"	l
+SRC_DIR	programs/g65-sdcc/Makefile	/^SRC_DIR=src$/;"	m
+SRC_DIR	programs/g65/Makefile	/^SRC_DIR=src$/;"	m
+SRC_DIR	programs/learn_asm/Makefile	/^SRC_DIR=src$/;"	m
+SRC_DIR	programs/test_io_port/Makefile	/^SRC_DIR=src$/;"	m
+SRC_FILE	programs/g65-sdcc/Makefile	/^SRC_FILE=$(SRC_DIR)\/$(TARGET).asm$/;"	m
+SRC_FILE	programs/g65/Makefile	/^SRC_FILE=$(SRC_DIR)\/$(TARGET).asm$/;"	m
+SRC_FILE	programs/learn_asm/Makefile	/^SRC_FILE=$(SRC_DIR)\/$(TARGET).asm$/;"	m
+SRC_FILE	programs/test_io_port/Makefile	/^SRC_FILE=$(SRC_DIR)\/$(TARGET).s$/;"	m
+TARGET	programs/g65-sdcc/Makefile	/^TARGET=$(notdir $(CURDIR))$/;"	m
+TARGET	programs/g65/Makefile	/^TARGET=$(notdir $(CURDIR))$/;"	m
+TARGET	programs/learn_asm/Makefile	/^TARGET=$(notdir $(CURDIR))$/;"	m
+TARGET	programs/test_io_port/Makefile	/^TARGET=$(notdir $(CURDIR))$/;"	m
+TICKS	programs/test_io_port/src/test_io_port.s	/^TICKS     = $00     ; RAM counter$/;"	d
+UART_BASE	programs/test_io_port/src/test_io_port.s	/^UART_BASE = $A000   ; Y5$/;"	d
+UCSIM	programs/g65-sdcc/Makefile	/^UCSIM=\/opt\/sdcc\/bin\/ucsim_mos6502$/;"	m
+UCSIM	programs/g65/Makefile	/^UCSIM=\/opt\/sdcc\/bin\/ucsim_mos6502$/;"	m
+UCSIM	programs/learn_asm/Makefile	/^UCSIM=\/opt\/sdcc\/bin\/ucsim_mos6502$/;"	m
+UCSIM	programs/test_io_port/Makefile	/^UCSIM=\/opt\/sdcc\/bin\/ucsim_mos6502$/;"	m
+UCSIM_FLAGS	programs/g65-sdcc/Makefile	/^UCSIM_FLAGS= -t 65C02 -C $(UC_SIM_FILE)$/;"	m
+UCSIM_FLAGS	programs/g65/Makefile	/^UCSIM_FLAGS= -t 65C02 -C $(UC_SIM_FILE)$/;"	m
+UCSIM_FLAGS	programs/learn_asm/Makefile	/^UCSIM_FLAGS= -t 65C02 -C $(UC_SIM_FILE)$/;"	m
+UCSIM_FLAGS	programs/test_io_port/Makefile	/^UCSIM_FLAGS= -t 65C02 -C $(UC_SIM_FILE)$/;"	m
+UC_SIM_FILE	programs/g65-sdcc/Makefile	/^UC_SIM_FILE=$(CFG_DIR)\/$(TARGET).ucsim$/;"	m
+UC_SIM_FILE	programs/g65/Makefile	/^UC_SIM_FILE=$(CFG_DIR)\/$(TARGET).ucsim$/;"	m
+UC_SIM_FILE	programs/learn_asm/Makefile	/^UC_SIM_FILE=$(CFG_DIR)\/$(TARGET).ucsim$/;"	m
+UC_SIM_FILE	programs/test_io_port/Makefile	/^UC_SIM_FILE=$(CFG_DIR)\/$(TARGET).ucsim$/;"	m
+VI	programs/g65-sdcc/Makefile	/^VI=vi$/;"	m
+VI	programs/g65/Makefile	/^VI=vi$/;"	m
+VI	programs/learn_asm/Makefile	/^VI=vi$/;"	m
+VI	programs/test_io_port/Makefile	/^VI=vi$/;"	m
+VIA_BASE	programs/test_io_port/src/test_io_port.s	/^VIA_BASE  = $C000   ; Y6$/;"	d
+done	programs/test_io_port/src/test_io_port.s	/^done:$/;"	l
+halt	programs/g65/src/g65.asm	/^halt:   $/;"	l
+hello_world_msg	programs/test_io_port/src/test_io_port.s	/^hello_world_msg: .asciiz "Hello, world!"$/;"	l
+init_regs	programs/g65/src/g65.asm	/^init_regs:$/;"	l
+irq_isr	programs/g65-sdcc/src/g65-sdcc.asm	/^irq_isr:$/;"	l
+irq_isr	programs/g65-sdcc/src/g65.asm	/^irq_isr:$/;"	l
+irq_isr	programs/g65/src/g65.asm	/^irq_isr:$/;"	l
+irq_isr	programs/learn_asm/src/learn_asm.asm	/^irq_isr:$/;"	l
+little_brown_fox_txt	programs/g65/src/g65.asm	/^		little_brown_fox_txt: .asciiz "The quick brown fox jumps over the lazy dog."$/;"	l
+little_brown_fox_txt	programs/learn_asm/src/learn_asm.asm	/^little_brown_fox_txt: .asciiz "The quick brown fox jumps over the lazy dog."$/;"	l
+lsr	programs/test_io_port/src/test_io_port.s	/^lsr       = UART_BASE + 5$/;"	d
+memchr	programs/g65/src/string.asm	/^memchr:$/;"	l
+memcmp	programs/g65/src/string.asm	/^memcmp:$/;"	l
+memcmp_exit	programs/g65/src/string.asm	/^memcmp_exit:$/;"	l
+memcmp_inc	programs/g65/src/string.asm	/^memcmp_inc:$/;"	l
+memcmp_loop	programs/g65/src/string.asm	/^memcmp_loop:$/;"	l
+memcmp_neg	programs/g65/src/string.asm	/^memcmp_neg:$/;"	l
+memcmp_skip1	programs/g65/src/string.asm	/^memcmp_skip1:$/;"	l
+memcmp_skip2	programs/g65/src/string.asm	/^memcmp_skip2:$/;"	l
+memcmp_skip3	programs/g65/src/string.asm	/^memcmp_skip3:$/;"	l
+memcpy	programs/g65/src/string.asm	/^memcpy:$/;"	l
+memcpy_exit	programs/g65/src/string.asm	/^memcpy_exit:$/;"	l
+memcpy_loop	programs/g65/src/string.asm	/^memcpy_loop:$/;"	l
+memcpy_skip1	programs/g65/src/string.asm	/^memcpy_skip1:$/;"	l
+memcpy_skip2	programs/g65/src/string.asm	/^memcpy_skip2:$/;"	l
+memcpy_skip3	programs/g65/src/string.asm	/^memcpy_skip3:$/;"	l
+memset	programs/g65/src/string.asm	/^memset:$/;"	l
+memset_exit	programs/g65/src/string.asm	/^memset_exit:$/;"	l
+memset_loop	programs/g65/src/string.asm	/^memset_loop:$/;"	l
+memset_skip	programs/g65/src/string.asm	/^memset_skip:$/;"	l
+memset_skip2	programs/g65/src/string.asm	/^memset_skip2:$/;"	l
+nmi_isr	programs/g65-sdcc/src/g65-sdcc.asm	/^nmi_isr:$/;"	l
+nmi_isr	programs/g65-sdcc/src/g65.asm	/^nmi_isr:$/;"	l
+nmi_isr	programs/g65/src/g65.asm	/^nmi_isr:$/;"	l
+nmi_isr	programs/learn_asm/src/learn_asm.asm	/^nmi_isr:$/;"	l
+reset_isr	programs/g65-sdcc/src/g65-sdcc.asm	/^reset_isr:$/;"	l
+reset_isr	programs/g65-sdcc/src/g65.asm	/^reset_isr:$/;"	l
+reset_isr	programs/g65/src/g65.asm	/^reset_isr:$/;"	l
+reset_isr	programs/learn_asm/src/learn_asm.asm	/^reset_isr:$/;"	l
+store	programs/test_io_port/src/test_io_port.s	/^store:$/;"	l
+strcpy	programs/g65/src/string.asm	/^strcpy:$/;"	l
+strcpy_exit	programs/g65/src/string.asm	/^strcpy_exit:$/;"	l
+strcpy_loop	programs/g65/src/string.asm	/^strcpy_loop:$/;"	l
+test_memcmp	programs/g65/src/g65.asm	/^test_memcmp:$/;"	l
+test_memcpy	programs/g65/src/g65.asm	/^test_memcpy:$/;"	l
+test_memset	programs/g65/src/g65.asm	/^test_memset:$/;"	l
+uart_echo_loop	programs/test_io_port/src/test_io_port.s	/^uart_echo_loop:$/;"	l
+uart_rx_asciiz	programs/test_io_port/src/test_io_port.s	/^uart_rx_asciiz:$/;"	l
+uart_rx_char	programs/test_io_port/src/test_io_port.s	/^uart_rx_char:$/;"	l
+uart_tx_asciiz_loop	programs/test_io_port/src/test_io_port.s	/^uart_tx_asciiz_loop:$/;"	l
+uart_tx_asciz	programs/test_io_port/src/test_io_port.s	/^uart_tx_asciz:$/;"	l
+uart_tx_char	programs/test_io_port/src/test_io_port.s	/^uart_tx_char:$/;"	l
+uart_tx_char_wait	programs/test_io_port/src/test_io_port.s	/^uart_tx_char_wait:$/;"	l
