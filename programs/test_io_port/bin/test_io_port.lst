@@ -1,5 +1,5 @@
 Sections:
-00: ".text" (0-A1)
+00: ".text" (0-A4)
 01: ".vectors" (0-6)
 
 
@@ -31,171 +31,175 @@ Source: "test_io_port.s"
 00:000F 8500            	    25:     STA TICKS
                         	    26: 
                         	    27:     ; --- 2. Initialize UART (9600 Baud @ 2.88MHz) ---
-00:0011 A980            	    28:     LDA #$80         ; Access Divisor Latches (DLAB=1)
-00:0013 8D03A0          	    29:     STA LCR
-00:0016 A913            	    30:     LDA #$13         ; Divisor = 19 ($13)
-00:0018 8D00A0          	    31:     STA DLL
-00:001B A900            	    32:     LDA #$00
-00:001D 8D01A0          	    33:     STA DLM
-00:0020 A903            	    34:     LDA #$03         ; 8 data bits, 1 stop, No parity (DLAB=0)
-00:0022 8D03A0          	    35:     STA LCR
-                        	    36: 
-                        	    37:     ; --- 3. Test Transmission (Send "!" to PC) ---
-                        	    38:     ; Calling test_tx here confirms the 5.76MHz bus can write to UART
-                        	    39: 	;LDX #<hello_world_msg 
-                        	    40: 	;LDY #>hello_world_msg
-                        	    41: 	;JSR uart_tx_asciz
-                        	    42: uart_echo_loop:
-00:0025 208200          	    43: 	jsr uart_rx_char
-00:0028 EA              	    44: 	nop
-00:0029 EA              	    45: 	nop
-00:002A EA              	    46: 	nop
-00:002B EA              	    47: 	nop
-00:002C EA              	    48: 	nop
-00:002D 206300          	    49: 	jsr uart_tx_char 
-00:0030 4C2500          	    50: 	jmp uart_echo_loop
-                        	    51: 
-                        	    52:     ; --- 4. Configure VIA Timer 1 (Interrupts) ---
-                        	    53:     ; 5.76MHz / 100Hz = 57,600 ($E100)
-00:0033 A900            	    54:     LDA #$00
-00:0035 8D04C0          	    55:     STA VIA_BASE + 4 ; T1C-L
-00:0038 A9E1            	    56:     LDA #$E1
-00:003A 8D05C0          	    57:     STA VIA_BASE + 5 ; T1C-H (Starts Timer)
+00:0011 208100          	    28: 	jsr uart_init
+                        	    29: 
+                        	    30:     ; --- 3. Test Transmission (Send "!" to PC) ---
+                        	    31:     ; Calling test_tx here confirms the 5.76MHz bus can write to UART
+                        	    32: 	;LDX #<hello_world_msg 
+                        	    33: 	;LDY #>hello_world_msg
+                        	    34: 	;JSR uart_tx_asciz
+                        	    35: uart_echo_loop:
+00:0014 207100          	    36: 	jsr uart_rx_char
+00:0017 EA              	    37: 	nop
+00:0018 EA              	    38: 	nop
+00:0019 EA              	    39: 	nop
+00:001A EA              	    40: 	nop
+00:001B EA              	    41: 	nop
+00:001C 205200          	    42: 	jsr uart_tx_char 
+00:001F 4C1400          	    43: 	jmp uart_echo_loop
+                        	    44: 
+                        	    45:     ; --- 4. Configure VIA Timer 1 (Interrupts) ---
+                        	    46:     ; 5.76MHz / 100Hz = 57,600 ($E100)
+00:0022 A900            	    47:     LDA #$00
+00:0024 8D04C0          	    48:     STA VIA_BASE + 4 ; T1C-L
+00:0027 A9E1            	    49:     LDA #$E1
+00:0029 8D05C0          	    50:     STA VIA_BASE + 5 ; T1C-H (Starts Timer)
+                        	    51:     
+00:002C A940            	    52:     LDA #%01000000   ; Continuous interrupts
+00:002E 8D0BC0          	    53:     STA VIA_BASE + $B ; ACR
+00:0031 A9C0            	    54:     LDA #%11000000   ; Enable T1 IRQ
+00:0033 8D0EC0          	    55:     STA VIA_BASE + $E ; IER
+                        	    56: 
+                        	    57:     ;CLI              ; Enable Interrupts
                         	    58:     
-00:003D A940            	    59:     LDA #%01000000   ; Continuous interrupts
-00:003F 8D0BC0          	    60:     STA VIA_BASE + $B ; ACR
-00:0042 A9C0            	    61:     LDA #%11000000   ; Enable T1 IRQ
-00:0044 8D0EC0          	    62:     STA VIA_BASE + $E ; IER
-                        	    63: 
-                        	    64:     ;CLI              ; Enable Interrupts
-                        	    65:     
-                        	    66: IDLE:
-00:0047 CB              	    67:     WAI              ; CPU sleeps until VIA fires
-00:0048 80FD            	    68:     BRA IDLE
-                        	    69: 
-                        	    70: ; --- Interrupt Service Routine ---
-                        	    71: ISR:
-00:004A 48              	    72:     PHA
-00:004B 2C04C0          	    73:     BIT VIA_BASE + 4 ; Clear VIA flag
-                        	    74:     
-00:004E C600            	    75:     DEC TICKS
-00:0050 D00F            	    76:     BNE EXIT
-                        	    77:     
-00:0052 A914            	    78:     LDA #20          ; Reset divider
-00:0054 8500            	    79:     STA TICKS
-                        	    80:     
-                        	    81:     ; Walk bit on Port A
-00:0056 AD01C0          	    82:     LDA VIA_BASE + 1
-00:0059 0A              	    83:     ASL
-00:005A D002            	    84:     BNE store
-00:005C A901            	    85:     LDA #$01
-                        	    86: store:
-00:005E 8D01C0          	    87:     STA VIA_BASE + 1
-                        	    88: 
-                        	    89: EXIT:
-00:0061 68              	    90:     PLA
-00:0062 40              	    91:     RTI
-                        	    92: 
-                        	    93: ; transmits one ascii character via the uart
-                        	    94: ; --> a: contains character to be sent
-                        	    95: ; <-- none
-                        	    96: uart_tx_char:
-00:0063 AA              	    97: 	tax
-                        	    98: uart_tx_char_wait:
-00:0064 AD05A0          	    99:     LDA lsr          	; Read Line Status Register
-00:0067 2920            	   100:     AND #$20         	; Check THRE bit (Transmit Holding Reg Empty)
-00:0069 F0F9            	   101:     BEQ uart_tx_char_wait	; Wait if busy
-00:006B EA              	   102: 	nop				 	; slow it down a little bit
-00:006C 8A              	   103: 	txa
-00:006D 8D00A0          	   104:     STA RBR_THR      	; Send it!
-00:0070 60              	   105: 	rts
-                        	   106: 
-                        	   107: ; Usage: LDX #<msg_addr : LDY #>msg_addr : JSR print_str
-                        	   108: uart_tx_asciz:
-00:0071 8600            	   109:     stx $00         ; Use Zero Page $00/$01 as a pointer
-00:0073 8401            	   110:     sty $01
-00:0075 A000            	   111:     ldy #0
-                        	   112: uart_tx_asciiz_loop:
-00:0077 B100            	   113:     lda ($00), y    ; Get char
-00:0079 F006            	   114:     beq done       ; Null terminator?
-00:007B 206300          	   115:     jsr uart_tx_char
-00:007E C8              	   116:     iny
-00:007F D0F6            	   117:     bne uart_tx_asciiz_loop       ; Max 255 chars
-                        	   118: done:
-00:0081 60              	   119:     rts
-                        	   120: 
-                        	   121: uart_rx_char:
-00:0082 AD05A0          	   122: 	lda lsr
-00:0085 2901            	   123: 	and #$01
-00:0087 F0F9            	   124: 	beq uart_rx_char
-00:0089 EA              	   125: 	nop
-00:008A EA              	   126: 	nop
-00:008B EA              	   127: 	nop
-00:008C EA              	   128: 	nop
-00:008D EA              	   129: 	nop
-00:008E AD00A0          	   130: 	lda RBR_THR
-00:0091 60              	   131: 	rts
-                        	   132: 
-                        	   133: uart_rx_asciiz:
-                        	   134: 
-                        	   135: 
-00:0092 60              	   136: 	rts
-                        	   137: 
-                        	   138: 	.section .vectors
-01:0000 0000            	   139:     .word $0000      ; NMI
-01:0002 0000            	   140:     .word RESET      ; RESET
-01:0004 4A00            	   141:     .word ISR        ; IRQ at $FFFE
-                        	   142: 
-                        	   143: 	.section .text
+                        	    59: IDLE:
+                        	    60:     ;WAI              ; CPU sleeps until VIA fires
+00:0036 4C3600          	    61:     jmp IDLE
+                        	    62: 
+                        	    63: ; --- Interrupt Service Routine ---
+                        	    64: ISR:
+00:0039 48              	    65:     PHA
+00:003A 2C04C0          	    66:     BIT VIA_BASE + 4 ; Clear VIA flag
+                        	    67:     
+00:003D C600            	    68:     DEC TICKS
+00:003F D00F            	    69:     BNE EXIT
+                        	    70:     
+00:0041 A914            	    71:     LDA #20          ; Reset divider
+00:0043 8500            	    72:     STA TICKS
+                        	    73:     
+                        	    74:     ; Walk bit on Port A
+00:0045 AD01C0          	    75:     LDA VIA_BASE + 1
+00:0048 0A              	    76:     ASL
+00:0049 D002            	    77:     BNE store
+00:004B A901            	    78:     LDA #$01
+                        	    79: store:
+00:004D 8D01C0          	    80:     STA VIA_BASE + 1
+                        	    81: 
+                        	    82: EXIT:
+00:0050 68              	    83:     PLA
+00:0051 40              	    84:     RTI
+                        	    85: 
+                        	    86: ; transmits one ascii character via the uart
+                        	    87: ; --> a: contains character to be sent
+                        	    88: ; <-- none
+                        	    89: uart_tx_char:
+00:0052 AA              	    90: 	tax
+                        	    91: uart_tx_char_wait:
+00:0053 AD05A0          	    92:     LDA lsr          	; Read Line Status Register
+00:0056 2920            	    93:     AND #$20         	; Check THRE bit (Transmit Holding Reg Empty)
+00:0058 F0F9            	    94:     BEQ uart_tx_char_wait	; Wait if busy
+00:005A EA              	    95: 	nop				 	; slow it down a little bit
+00:005B 8A              	    96: 	txa
+00:005C 8D00A0          	    97:     STA RBR_THR      	; Send it!
+00:005F 60              	    98: 	rts
+                        	    99: 
+                        	   100: ; Usage: LDX #<msg_addr : LDY #>msg_addr : JSR print_str
+                        	   101: uart_tx_asciz:
+00:0060 8600            	   102:     stx $00         ; Use Zero Page $00/$01 as a pointer
+00:0062 8401            	   103:     sty $01
+00:0064 A000            	   104:     ldy #0
+                        	   105: uart_tx_asciiz_loop:
+00:0066 B100            	   106:     lda ($00), y    ; Get char
+00:0068 F006            	   107:     beq done       ; Null terminator?
+00:006A 205200          	   108:     jsr uart_tx_char
+00:006D C8              	   109:     iny
+00:006E D0F6            	   110:     bne uart_tx_asciiz_loop       ; Max 255 chars
+                        	   111: done:
+00:0070 60              	   112:     rts
+                        	   113: 
+                        	   114: uart_rx_char:
+00:0071 AD05A0          	   115: 	lda lsr
+00:0074 2901            	   116: 	and #$01
+00:0076 F0F9            	   117: 	beq uart_rx_char
+00:0078 EA              	   118: 	nop
+00:0079 EA              	   119: 	nop
+00:007A EA              	   120: 	nop
+00:007B EA              	   121: 	nop
+00:007C EA              	   122: 	nop
+00:007D AD00A0          	   123: 	lda RBR_THR
+00:0080 60              	   124: 	rts
+                        	   125: 
+                        	   126: uart_rx_asciiz:
+                        	   127: 
+                        	   128: 
+                        	   129: uart_init:
+00:0081 A980            	   130:     LDA #$80         ; Access Divisor Latches (DLAB=1)
+00:0083 8D03A0          	   131:     STA LCR
+00:0086 A913            	   132:     LDA #$13         ; Divisor = 19 ($13)
+00:0088 8D00A0          	   133:     STA DLL
+00:008B A900            	   134:     LDA #$00
+00:008D 8D01A0          	   135:     STA DLM
+00:0090 A903            	   136:     LDA #$03         ; 8 data bits, 1 stop, No parity (DLAB=0)
+00:0092 8D03A0          	   137:     STA LCR
+00:0095 60              	   138: 	rts
+                        	   139: 
+                        	   140: 	.section .vectors
+01:0000 0000            	   141:     .word $0000      ; NMI
+01:0002 0000            	   142:     .word RESET      ; RESET
+01:0004 3900            	   143:     .word ISR        ; IRQ at $FFFE
                         	   144: 
-00:0093 48656C6C6F2C2077	   145: hello_world_msg: .asciiz "Hello, world!"
-00:009B 6F726C6421
-00:00A0 00
+                        	   145: 	.section .text
                         	   146: 
-                        	   147: 
+00:0096 48656C6C6F2C2077	   147: hello_world_msg: .asciiz "Hello, world!"
+00:009E 6F726C6421
+00:00A3 00
                         	   148: 
+                        	   149: 
+                        	   150: 
 
 
 Symbols by name:
 DLL                              E:A000
 DLM                              E:A001
-EXIT                            00:0061
-IDLE                            00:0047
-ISR                             00:004A
+EXIT                            00:0050
+IDLE                            00:0036
+ISR                             00:0039
 LCR                              E:A003
 RBR_THR                          E:A000
 RESET                           00:0000
 TICKS                            E:0000
 UART_BASE                        E:A000
 VIA_BASE                         E:C000
-done                            00:0081
-hello_world_msg                 00:0093
+done                            00:0070
+hello_world_msg                 00:0096
 lsr                              E:A005
-store                           00:005E
-uart_echo_loop                  00:0025
-uart_rx_asciiz                  00:0092
-uart_rx_char                    00:0082
-uart_tx_asciiz_loop             00:0077
-uart_tx_asciz                   00:0071
-uart_tx_char                    00:0063
-uart_tx_char_wait               00:0064
+store                           00:004D
+uart_echo_loop                  00:0014
+uart_init                       00:0081
+uart_rx_asciiz                  00:0081
+uart_rx_char                    00:0071
+uart_tx_asciiz_loop             00:0066
+uart_tx_asciz                   00:0060
+uart_tx_char                    00:0052
+uart_tx_char_wait               00:0053
 
 Symbols by value:
 0000 RESET
 0000 TICKS
-0025 uart_echo_loop
-0047 IDLE
-004A ISR
-005E store
-0061 EXIT
-0063 uart_tx_char
-0064 uart_tx_char_wait
-0071 uart_tx_asciz
-0077 uart_tx_asciiz_loop
-0081 done
-0082 uart_rx_char
-0092 uart_rx_asciiz
-0093 hello_world_msg
+0014 uart_echo_loop
+0036 IDLE
+0039 ISR
+004D store
+0050 EXIT
+0052 uart_tx_char
+0053 uart_tx_char_wait
+0060 uart_tx_asciz
+0066 uart_tx_asciiz_loop
+0070 done
+0071 uart_rx_char
+0081 uart_init
+0081 uart_rx_asciiz
+0096 hello_world_msg
 A000 DLL
 A000 RBR_THR
 A000 UART_BASE

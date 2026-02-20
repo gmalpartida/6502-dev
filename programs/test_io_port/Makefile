@@ -4,6 +4,8 @@ VI=vi
 HEXDUMP=hexdump
 UCSIM=/opt/sdcc/bin/ucsim_mos6502
 OBJCOPY=/opt/sdcc/bin/sdobjcopy
+SCREEN=screen
+SOCAT=socat
 MINICOM=minicom
 
 TARGET=$(notdir $(CURDIR))
@@ -22,14 +24,19 @@ LD_FILE=$(CFG_DIR)/$(TARGET).ld
 UC_SIM_FILE=$(CFG_DIR)/$(TARGET).ucsim
 IHX_FILE=$(BIN_DIR)/$(TARGET).ihx
 
-AS_FLAGS=-I $(INC_DIR) -Fvobj -wdc02 -sect -wfail -dotdir -L $(LST_FILE) -o $(OBJ_FILE) 
-LD_FLAGS= -T$(LD_FILE) -b ihex -o $(IHX_FILE) -M > $(MAP_FILE)
-HEXDUMP_FLAGS=-C
-UCSIM_FLAGS= -t 65C02 -C $(UC_SIM_FILE)
-OBJCOPY_FLAGS= -I ihex -O binary $(IHX_FILE)
-MINICOM_FLAGS=-D /dev/ttyUSB0 -b 9600
+VPORT0=/tmp/ttyV0
+VPORT1=/tmp/ttyV1
 
-.PHONY: all link build edit dump clean sim uart
+AS_FLAGS=-I $(INC_DIR) -Fvobj -sect -wfail -dotdir -L $(LST_FILE) -o $(OBJ_FILE) 
+LD_FLAGS= -T$(LD_FILE) -bihex -o $(IHX_FILE) -M > $(MAP_FILE)
+HEXDUMP_FLAGS=-C
+OBJCOPY_FLAGS= -I ihex -O binary $(IHX_FILE)
+UCSIM_FLAGS= -t 65C02 -C $(UC_SIM_FILE) -s$(VPORT0) -X 5.76768M 
+SOCAT_FLAGS=-d -d PTY,link=$(VPORT0),raw,echo=0 PTY,link=$(VPORT1),raw,echo=0
+MINICOM_FLAGS=-D $(VPORT1)
+SCREEN_FLAGS= -S sim_uart
+
+.PHONY: all link build edit dump clean sim bridge uart screen
 
 all: link
 
@@ -43,11 +50,19 @@ edit:
 	$(VI) $(SRC_FILE)
 dump: link
 	$(HEXDUMP) $(HEXDUMP_FLAGS) $(BIN_FILE)
+
 sim: link
 	$(UCSIM) $(UCSIM_FLAGS) $(IHX_FILE)
 
-uart:
-	$(MINICOM) $(MINICOM_FLAGS)
+bridge:
+	$(SOCAT) $(SOCAT_FLAGS) 
+
+uart: build
+	$(MINICOM) $(MINICOM_FLAGS) 
+
+screen:
+	$(SCREEN) $(SCREEN_FLAGS)
+
 clean:
 	rm -rf $(BIN_DIR)/*
 

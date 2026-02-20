@@ -25,14 +25,7 @@ RESET:
     STA TICKS
 
     ; --- 2. Initialize UART (9600 Baud @ 2.88MHz) ---
-    LDA #$80         ; Access Divisor Latches (DLAB=1)
-    STA LCR
-    LDA #$13         ; Divisor = 19 ($13)
-    STA DLL
-    LDA #$00
-    STA DLM
-    LDA #$03         ; 8 data bits, 1 stop, No parity (DLAB=0)
-    STA LCR
+	jsr uart_init
 
     ; --- 3. Test Transmission (Send "!" to PC) ---
     ; Calling test_tx here confirms the 5.76MHz bus can write to UART
@@ -64,8 +57,8 @@ uart_echo_loop:
     ;CLI              ; Enable Interrupts
     
 IDLE:
-    WAI              ; CPU sleeps until VIA fires
-    BRA IDLE
+    ;WAI              ; CPU sleeps until VIA fires
+    jmp IDLE
 
 ; --- Interrupt Service Routine ---
 ISR:
@@ -133,6 +126,15 @@ uart_rx_char:
 uart_rx_asciiz:
 
 
+uart_init:
+    LDA #$80         ; Access Divisor Latches (DLAB=1)
+    STA LCR
+    LDA #$13         ; Divisor = 19 ($13)
+    STA DLL
+    LDA #$00
+    STA DLM
+    LDA #$03         ; 8 data bits, 1 stop, No parity (DLAB=0)
+    STA LCR
 	rts
 
 	.section .vectors

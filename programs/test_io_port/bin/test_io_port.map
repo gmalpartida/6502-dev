@@ -1,12 +1,12 @@
 
 Files:
-  test_io_port.o:  .text e000(a1), .vectors fffa(6) hex
+  test_io_port.o:  .text e000(a4), .vectors fffa(6) hex
 
 
 Section mapping (numbers in hex):
 ------------------------------
-  0000e000 .text  (size a1, allocated a0)
-           0000e000 - 0000e0a1 test_io_port.o(.text)
+  0000e000 .text  (size a4, allocated a3)
+           0000e000 - 0000e0a4 test_io_port.o(.text)
 ------------------------------
   0000fffa .vectors  (size 6)
            0000fffa - 00010000 test_io_port.o(.vectors)
@@ -22,18 +22,19 @@ Symbols of .text:
   0xa005 lsr: local abs, size 0
   0xc000 VIA_BASE: local abs, size 0
   0xe000 RESET: local reloc, size 0
-  0xe025 uart_echo_loop: local reloc, size 0
-  0xe047 IDLE: local reloc, size 0
-  0xe04a ISR: local reloc, size 0
-  0xe05e store: local reloc, size 0
-  0xe061 EXIT: local reloc, size 0
-  0xe063 uart_tx_char: local reloc, size 0
-  0xe064 uart_tx_char_wait: local reloc, size 0
-  0xe071 uart_tx_asciz: local reloc, size 0
-  0xe077 uart_tx_asciiz_loop: local reloc, size 0
-  0xe081 done: local reloc, size 0
-  0xe082 uart_rx_char: local reloc, size 0
-  0xe092 uart_rx_asciiz: local reloc, size 0
-  0xe093 hello_world_msg: local reloc, size 0
+  0xe014 uart_echo_loop: local reloc, size 0
+  0xe036 IDLE: local reloc, size 0
+  0xe039 ISR: local reloc, size 0
+  0xe04d store: local reloc, size 0
+  0xe050 EXIT: local reloc, size 0
+  0xe052 uart_tx_char: local reloc, size 0
+  0xe053 uart_tx_char_wait: local reloc, size 0
+  0xe060 uart_tx_asciz: local reloc, size 0
+  0xe066 uart_tx_asciiz_loop: local reloc, size 0
+  0xe070 done: local reloc, size 0
+  0xe071 uart_rx_char: local reloc, size 0
+  0xe081 uart_init: local reloc, size 0
+  0xe081 uart_rx_asciiz: local reloc, size 0
+  0xe096 hello_world_msg: local reloc, size 0
 
 Linker symbols:
