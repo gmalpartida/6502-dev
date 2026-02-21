@@ -11,13 +11,10 @@ BIN_FILE	Makefile	/^BIN_FILE=$(BIN_DIR)\/$(TARGET).bin$/;"	m
 CFG_DIR	Makefile	/^CFG_DIR=cfg$/;"	m
 DLL	src/test_io_port.s	/^DLL       = UART_BASE + 0$/;"	d
 DLM	src/test_io_port.s	/^DLM       = UART_BASE + 1$/;"	d
-EXIT	src/test_io_port.s	/^EXIT:$/;"	l
 HEXDUMP	Makefile	/^HEXDUMP=hexdump$/;"	m
 HEXDUMP_FLAGS	Makefile	/^HEXDUMP_FLAGS=-C$/;"	m
-IDLE	src/test_io_port.s	/^IDLE:$/;"	l
 IHX_FILE	Makefile	/^IHX_FILE=$(BIN_DIR)\/$(TARGET).ihx$/;"	m
 INC_DIR	Makefile	/^INC_DIR=inc$/;"	m
-ISR	src/test_io_port.s	/^ISR:$/;"	l
 LCR	src/test_io_port.s	/^LCR       = UART_BASE + 3$/;"	d
 LD	Makefile	/^LD=\/opt\/vbcc\/bin\/vlink$/;"	m
 LD_FILE	Makefile	/^LD_FILE=$(CFG_DIR)\/$(TARGET).ld$/;"	m
@@ -41,11 +38,15 @@ UCSIM_FLAGS	Makefile	/^UCSIM_FLAGS= -t 65C02 -C $(UC_SIM_FILE)$/;"	m
 UC_SIM_FILE	Makefile	/^UC_SIM_FILE=$(CFG_DIR)\/$(TARGET).ucsim$/;"	m
 VI	Makefile	/^VI=vi$/;"	m
 VIA_BASE	src/test_io_port.s	/^VIA_BASE  = $C000   ; Y6$/;"	d
+VIA_DDRA	src/test_io_port.s	/^VIA_DDRA = VIA_BASE + 3$/;"	d
+VIA_PORTA	src/test_io_port.s	/^VIA_PORTA = VIA_BASE + 1$/;"	d
 done	src/test_io_port.s	/^done:$/;"	l
+halt	src/test_io_port.s	/^halt:$/;"	l
 hello_world_msg	src/test_io_port.s	/^hello_world_msg: .asciiz "Hello, world!"$/;"	l
 lsr	src/test_io_port.s	/^lsr       = UART_BASE + 5$/;"	d
-store	src/test_io_port.s	/^store:$/;"	l
+print_hello_world	src/test_io_port.s	/^print_hello_world:$/;"	l
 uart_echo_loop	src/test_io_port.s	/^uart_echo_loop:$/;"	l
+uart_init	src/test_io_port.s	/^uart_init:$/;"	l
 uart_rx_asciiz	src/test_io_port.s	/^uart_rx_asciiz:$/;"	l
 uart_rx_char	src/test_io_port.s	/^uart_rx_char:$/;"	l
 uart_tx_asciiz_loop	src/test_io_port.s	/^uart_tx_asciiz_loop:$/;"	l

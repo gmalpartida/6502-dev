@@ -2,6 +2,9 @@
 VIA_BASE  = $C000   ; Y6
 UART_BASE = $A000   ; Y5
 TICKS     = $00     ; RAM counter
+VIA_PORTA = VIA_BASE + 1
+VIA_DDRA = VIA_BASE + 3
+
 
 ; UART Register Offsets
 RBR_THR   = UART_BASE + 0
@@ -15,80 +18,52 @@ RESET:
     LDX #$FF
     TXS             ; Always init stack first!
 
-    ; --- 1. Initialize VIA (Walking Bit) ---
+    ; --- 1. Initialize VIA 
     LDA #$FF
-    STA VIA_BASE + 3 ; DDRA = Output
-    LDA #$01
-    STA VIA_BASE + 1 ; Initial LED (Port A)
+    STA VIA_DDRA ; DDRA = Output
     
-    LDA #20          ; Soft-divider for 5Hz
-    STA TICKS
-
+	lda #$aa
+	sta VIA_PORTA
     ; --- 2. Initialize UART (9600 Baud @ 2.88MHz) ---
-    LDA #$80         ; Access Divisor Latches (DLAB=1)
-    STA LCR
-    LDA #$13         ; Divisor = 19 ($13)
-    STA DLL
-    LDA #$00
-    STA DLM
-    LDA #$03         ; 8 data bits, 1 stop, No parity (DLAB=0)
-    STA LCR
+	jsr uart_init
 
-    ; --- 3. Test Transmission (Send "!" to PC) ---
-    ; Calling test_tx here confirms the 5.76MHz bus can write to UART
-	;LDX #<hello_world_msg 
-	;LDY #>hello_world_msg
-	;JSR uart_tx_asciz
 uart_echo_loop:
+	lda #'a'
+	jsr uart_tx_char
+
 	jsr uart_rx_char
-	nop
-	nop
-	nop
-	nop
-	nop
-	jsr uart_tx_char 
+
+	sta VIA_PORTA
+
 	jmp uart_echo_loop
 
-    ; --- 4. Configure VIA Timer 1 (Interrupts) ---
-    ; 5.76MHz / 100Hz = 57,600 ($E100)
+halt:
+	jmp halt
+
+uart_init:
+
+    ; Disable Interrupts (since you are polling)
     LDA #$00
-    STA VIA_BASE + 4 ; T1C-L
-    LDA #$E1
-    STA VIA_BASE + 5 ; T1C-H (Starts Timer)
-    
-    LDA #%01000000   ; Continuous interrupts
-    STA VIA_BASE + $B ; ACR
-    LDA #%11000000   ; Enable T1 IRQ
-    STA VIA_BASE + $E ; IER
+    STA $A001       ; IER
 
-    ;CLI              ; Enable Interrupts
-    
-IDLE:
-    WAI              ; CPU sleeps until VIA fires
-    BRA IDLE
+    ; Set Baud Rate (Requires DLAB=1)
+    LDA #$80        ; Bit 7 = 1 (DLAB)
+    STA $A003       ; LCR
+    LDA #$13        ; Divisor Low (for 9600 @ 2.88MHz)
+    STA $A000       ; DLL
+    LDA #$00        ; Divisor High
+    STA $A001       ; DLM
 
-; --- Interrupt Service Routine ---
-ISR:
-    PHA
-    BIT VIA_BASE + 4 ; Clear VIA flag
-    
-    DEC TICKS
-    BNE EXIT
-    
-    LDA #20          ; Reset divider
-    STA TICKS
-    
-    ; Walk bit on Port A
-    LDA VIA_BASE + 1
-    ASL
-    BNE store
-    LDA #$01
-store:
-    STA VIA_BASE + 1
+    ; Configure Format & CLOSE DLAB (Crucial!)
+    LDA #$03        ; 8 bits, 1 stop bit, No parity, DLAB=0
+    STA $A003       ; LCR - Receiver/Transmitter now accessible
 
-EXIT:
-    PLA
-    RTI
+    ; Assert Modem Handshakes
+    ; Even if you aren't using them, the UART logic often needs these "Active"
+    LDA #$03        ; Bit 0 (DTR) and Bit 1 (RTS) set to 1 (Active)
+    STA $A004       ; MCR (Modem Control Register)
+
+    RTS
 
 ; transmits one ascii character via the uart
 ; --> a: contains character to be sent
@@ -122,11 +97,6 @@ uart_rx_char:
 	lda lsr
 	and #$01
 	beq uart_rx_char
-	nop
-	nop
-	nop
-	nop
-	nop
 	lda RBR_THR
 	rts
 
@@ -135,10 +105,18 @@ uart_rx_asciiz:
 
 	rts
 
+print_hello_world:
+
+	ldx #<hello_world_msg 
+	ldy #>hello_world_msg
+	jsr uart_tx_asciz
+	rts
+
 	.section .vectors
     .word $0000      ; NMI
     .word RESET      ; RESET
-    .word ISR        ; IRQ at $FFFE
+    .word $0000; IRQ at $FFFE
+
 
 	.section .text
 
