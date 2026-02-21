@@ -46,6 +46,7 @@ uart_init:
     LDA #$00
     STA $A001       ; IER
 
+<<<<<<< HEAD
     ; Set Baud Rate (Requires DLAB=1)
     LDA #$80        ; Bit 7 = 1 (DLAB)
     STA $A003       ; LCR
@@ -53,6 +54,13 @@ uart_init:
     STA $A000       ; DLL
     LDA #$00        ; Divisor High
     STA $A001       ; DLM
+=======
+    ;CLI              ; Enable Interrupts
+    
+IDLE:
+    ;WAI              ; CPU sleeps until VIA fires
+    jmp IDLE
+>>>>>>> 931091e209a1f8644fcb14986d59cc933609819d
 
     ; Configure Format & CLOSE DLAB (Crucial!)
     LDA #$03        ; 8 bits, 1 stop bit, No parity, DLAB=0
@@ -103,6 +111,15 @@ uart_rx_char:
 uart_rx_asciiz:
 
 
+uart_init:
+    LDA #$80         ; Access Divisor Latches (DLAB=1)
+    STA LCR
+    LDA #$13         ; Divisor = 19 ($13)
+    STA DLL
+    LDA #$00
+    STA DLM
+    LDA #$03         ; 8 data bits, 1 stop, No parity (DLAB=0)
+    STA LCR
 	rts
 
 print_hello_world:

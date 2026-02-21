@@ -1,3 +1,16 @@
+
+; --- Hardware Map ---
+VIA_BASE  = $C000   ; Y6
+UART_BASE = $A000   ; Y5
+TICKS     = $00     ; RAM counter
+
+; UART Register Offsets
+RBR_THR   = UART_BASE + 0
+DLL       = UART_BASE + 0
+DLM       = UART_BASE + 1
+LCR       = UART_BASE + 3
+LSR       = UART_BASE + 5
+
 	.include "stddefs.inc"
 	.section .text
 
@@ -85,6 +98,28 @@ test_memcmp:
 
 halt:   
 	jmp halt          				; End of program
+
+; transmits one ascii character via the uart
+; --> a: contains character to be sent
+; <-- none
+uart_tx_char:
+    LDA LSR          	; Read Line Status Register
+    AND #$20         	; Check THRE bit (Transmit Holding Reg Empty)
+    BEQ uart_tx_char	; Wait if busy
+	nop				 	; slow it down a little bit
+    STA RBR_THR      	; Send it!
+	rts
+
+uart_init:
+    LDA #$80         ; Access Divisor Latches (DLAB=1)
+    STA LCR
+    LDA #$13         ; Divisor = 19 ($13)
+    STA DLL
+    LDA #$00
+    STA DLM
+    LDA #$03         ; 8 data bits, 1 stop, No parity (DLAB=0)
+    STA LCR
+	rts
 
 init_regs:
 	lda #$00
