@@ -7,6 +7,6 @@ memory create chip uart_chip 0x0100 8
 memory create chip via_chip 0x0100 8
 
 memory create addressdecoder rom 0x0000 0x07ff ram_chip 0x0000 
-memory create addressdecoder rom 0x8000 0x80ff uart_chip 0x0000 
+memory create addressdecoder rom 0xA000 0xA0ff uart_chip 0x0000 
 memory create addressdecoder rom 0xe000 0xffff rom_chip 0x0000 
 memory create addressdecoder rom 0xC000 0xc0FF via_chip 0x0000
