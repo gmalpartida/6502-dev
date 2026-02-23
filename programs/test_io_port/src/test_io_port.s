@@ -1,125 +1,116 @@
-; --- Hardware Map ---
-VIA_BASE  = $C000   ; Y6
-UART_BASE = $A000   ; Y5
-TICKS     = $00     ; RAM counter
-VIA_PORTA = VIA_BASE + 1
-VIA_DDRA = VIA_BASE + 3
+; --- hardware map ---
+via_base  = $c000   ; y6
+uart_base = $a000   ; y5
+ticks     = $00     ; ram counter
+via_porta = via_base + 1
+via_ddra = via_base + 3
 
+; Baud Rate Divisors for 1.8432 MHz Crystal
+; Divisor = 1,843,200 / (16 * 9600) = 12 ($000C)
+BAUD_LOW  = $19
+BAUD_HIGH = $00
 
-; UART Register Offsets
-RBR_THR   = UART_BASE + 0
-DLL       = UART_BASE + 0
-DLM       = UART_BASE + 1
-LCR       = UART_BASE + 3
-lsr       = UART_BASE + 5
+; uart register offsets
+uart_rbr_thr	= uart_base + 0
+uart_dll       	= uart_base + 0
+uart_dlm       	= uart_base + 1
+uart_ier		= uart_base + 1
+uart_lcr       	= uart_base + 3
+uart_mcr 		= uart_base + 4
+uart_lsr       	= uart_base + 5
 
 .section .text
-RESET:
-    LDX #$FF
-    TXS             ; Always init stack first!
+reset:
+    ldx #$ff
+    txs             ; always init stack first!
 
-    ; --- 1. Initialize VIA 
-    LDA #$FF
-    STA VIA_DDRA ; DDRA = Output
+    ; --- 1. initialize via 
+    lda #$ff
+    sta via_ddra ; ddra = output
     
 	lda #$aa
-	sta VIA_PORTA
-    ; --- 2. Initialize UART (9600 Baud @ 2.88MHz) ---
+	sta via_porta
+    ; --- 2. initialize uart (9600 baud @ 2.88mhz) ---
 	jsr uart_init
 
-uart_echo_loop:
-	lda #'a'
-	jsr uart_tx_char
+	jsr print_hello_world
 
+	jsr print_newln
+
+uart_echo_loop:
 	jsr uart_rx_char
 
-	sta VIA_PORTA
+	jsr uart_tx_char
+
+	sta via_porta
 
 	jmp uart_echo_loop
 
 halt:
 	jmp halt
-
-uart_init:
-
-    ; Disable Interrupts (since you are polling)
-    LDA #$00
-    STA $A001       ; IER
-
-<<<<<<< HEAD
-    ; Set Baud Rate (Requires DLAB=1)
-    LDA #$80        ; Bit 7 = 1 (DLAB)
-    STA $A003       ; LCR
-    LDA #$13        ; Divisor Low (for 9600 @ 2.88MHz)
-    STA $A000       ; DLL
-    LDA #$00        ; Divisor High
-    STA $A001       ; DLM
-=======
-    ;CLI              ; Enable Interrupts
     
-IDLE:
-    ;WAI              ; CPU sleeps until VIA fires
-    jmp IDLE
->>>>>>> 931091e209a1f8644fcb14986d59cc933609819d
-
-    ; Configure Format & CLOSE DLAB (Crucial!)
-    LDA #$03        ; 8 bits, 1 stop bit, No parity, DLAB=0
-    STA $A003       ; LCR - Receiver/Transmitter now accessible
-
-    ; Assert Modem Handshakes
-    ; Even if you aren't using them, the UART logic often needs these "Active"
-    LDA #$03        ; Bit 0 (DTR) and Bit 1 (RTS) set to 1 (Active)
-    STA $A004       ; MCR (Modem Control Register)
-
-    RTS
-
 ; transmits one ascii character via the uart
 ; --> a: contains character to be sent
 ; <-- none
 uart_tx_char:
 	tax
 uart_tx_char_wait:
-    LDA lsr          	; Read Line Status Register
-    AND #$20         	; Check THRE bit (Transmit Holding Reg Empty)
-    BEQ uart_tx_char_wait	; Wait if busy
+    lda uart_lsr          	; read line status register
+    and #$20         	; check thre bit (transmit holding reg empty)
+    beq uart_tx_char_wait	; wait if busy
 	nop				 	; slow it down a little bit
 	txa
-    STA RBR_THR      	; Send it!
+    sta uart_rbr_thr      	; send it!
 	rts
 
-; Usage: LDX #<msg_addr : LDY #>msg_addr : JSR print_str
+; usage: ldx #<msg_addr : ldy #>msg_addr : jsr print_str
 uart_tx_asciz:
-    stx $00         ; Use Zero Page $00/$01 as a pointer
+    stx $00         ; use zero page $00/$01 as a pointer
     sty $01
     ldy #0
 uart_tx_asciiz_loop:
-    lda ($00), y    ; Get char
-    beq done       ; Null terminator?
+    lda ($00), y    ; get char
+    beq done       ; null terminator?
     jsr uart_tx_char
     iny
-    bne uart_tx_asciiz_loop       ; Max 255 chars
+    bne uart_tx_asciiz_loop       ; max 255 chars
 done:
     rts
 
+
+uart_init:
+    ; 1. Enable DLAB (Bit 7) to access divisor latches
+    lda #$80
+    sta uart_lcr
+
+    ; 2. Set Baud Rate (9600)
+    lda #BAUD_LOW
+    sta uart_dll       ; DLL (same address as RBR/THR when DLAB=1)
+    lda #BAUD_HIGH
+    sta uart_dlm       ; DLM (same address as IER when DLAB=1)
+
+    ; 3. Set Data Format: 8 Bits, No Parity, 1 Stop Bit ($03)
+    ; This also clears DLAB (Bit 7 = 0)
+    lda #$03
+    sta uart_lcr
+
+    ; 4. (Optional) Initialize Modem Control (Set DTR and RTS High)
+    lda #$03
+    sta uart_mcr
+
+    ; 5. Disable all interrupts for simple polling mode
+    lda #$00
+    sta uart_ier
+    rts
+
 uart_rx_char:
-	lda lsr
+	lda uart_lsr
 	and #$01
 	beq uart_rx_char
-	lda RBR_THR
+	lda uart_rbr_thr
 	rts
 
 uart_rx_asciiz:
-
-
-uart_init:
-    LDA #$80         ; Access Divisor Latches (DLAB=1)
-    STA LCR
-    LDA #$13         ; Divisor = 19 ($13)
-    STA DLL
-    LDA #$00
-    STA DLM
-    LDA #$03         ; 8 data bits, 1 stop, No parity (DLAB=0)
-    STA LCR
 	rts
 
 print_hello_world:
@@ -129,14 +120,21 @@ print_hello_world:
 	jsr uart_tx_asciz
 	rts
 
+print_newln:
+	lda #$0a
+	jsr uart_tx_char
+	lda #$0d
+	jsr uart_tx_char
+	rts
+
 	.section .vectors
-    .word $0000      ; NMI
-    .word RESET      ; RESET
-    .word $0000; IRQ at $FFFE
+    .word $0000      	; nmi
+    .word reset      	; reset
+    .word $0000			; irq at $fffe
 
 
 	.section .text
 
-hello_world_msg: .asciiz "Hello, world!"
+hello_world_msg: .asciiz "hello, world!"
 
 
