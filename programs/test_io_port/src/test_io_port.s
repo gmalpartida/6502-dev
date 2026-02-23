@@ -77,7 +77,6 @@ uart_tx_asciiz_loop:
 done:
     rts
 
-
 uart_init:
     ; 1. Enable DLAB (Bit 7) to access divisor latches
     lda #$80
@@ -110,9 +109,6 @@ uart_rx_char:
 	lda uart_rbr_thr
 	rts
 
-uart_rx_asciiz:
-	rts
-
 print_hello_world:
 
 	ldx #<hello_world_msg 
@@ -128,9 +124,9 @@ print_newln:
 	rts
 
 	.section .vectors
-    .word $0000      	; nmi
-    .word reset      	; reset
-    .word $0000			; irq at $fffe
+    .word $0000     ; nmi
+    .word reset     ; reset
+    .word $0000		; irq at $fffe
 
 
 	.section .text
