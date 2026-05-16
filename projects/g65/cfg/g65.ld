@@ -1,6 +1,6 @@
 MEMORY
 {
-    RAM : org = 0x0000, len = 0x0800
+    RAM : org = 0x0000, len = 0x8000
     IO  : org = 0x8000, len = 0x0400
     ROM : org = 0xE000, len = 0x1ffa
 	VECT: org = 0xfffa, len = 0x0006

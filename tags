@@ -8,57 +8,78 @@ AS	programs/g65-sdcc/Makefile	/^AS=\/opt\/sdcc\/bin\/sdas6500$/;"	m
 AS	programs/g65/Makefile	/^AS=\/opt\/vbcc\/bin\/vasm6502_oldstyle$/;"	m
 AS	programs/learn_asm/Makefile	/^AS=\/opt\/vbcc\/bin\/vasm6502_oldstyle$/;"	m
 AS	programs/test_io_port/Makefile	/^AS=\/opt\/vbcc\/bin\/vasm6502_oldstyle$/;"	m
+AS	programs/test_ram/Makefile	/^AS=\/opt\/vbcc\/bin\/vasm6502_oldstyle$/;"	m
 AS_FLAGS	programs/g65-sdcc/Makefile	/^AS_FLAGS=-los -I$(INC_DIR) $(REL_FILE) $/;"	m
 AS_FLAGS	programs/g65/Makefile	/^AS_FLAGS=-I $(INC_DIR) -Fvobj -sect -wfail -dotdir -L $(LST_FILE) -o $(OBJ_FILE) $/;"	m
 AS_FLAGS	programs/learn_asm/Makefile	/^AS_FLAGS=-I $(INC_DIR) -Fvobj -sect -wfail -dotdir -L $(LST_FILE) -o $(OBJ_FILE) $/;"	m
 AS_FLAGS	programs/test_io_port/Makefile	/^AS_FLAGS=-I $(INC_DIR) -Fvobj -sect -wfail -dotdir -L $(LST_FILE) -o $(OBJ_FILE) $/;"	m
+AS_FLAGS	programs/test_ram/Makefile	/^AS_FLAGS=-I $(INC_DIR) -Fvobj -sect -dotdir $/;"	m
 BAUD_HIGH	programs/test_io_port/src/test_io_port.s	/^BAUD_HIGH = $00$/;"	d
 BAUD_LOW	programs/test_io_port/src/test_io_port.s	/^BAUD_LOW  = $19$/;"	d
 BIN_DIR	programs/g65-sdcc/Makefile	/^BIN_DIR=bin$/;"	m
 BIN_DIR	programs/g65/Makefile	/^BIN_DIR=bin$/;"	m
 BIN_DIR	programs/learn_asm/Makefile	/^BIN_DIR=bin$/;"	m
 BIN_DIR	programs/test_io_port/Makefile	/^BIN_DIR=bin$/;"	m
+BIN_DIR	programs/test_ram/Makefile	/^BIN_DIR=bin$/;"	m
 BIN_FILE	programs/g65-sdcc/Makefile	/^BIN_FILE=$(BIN_DIR)\/$(TARGET).bin$/;"	m
 BIN_FILE	programs/g65/Makefile	/^BIN_FILE=$(BIN_DIR)\/$(TARGET).bin$/;"	m
 BIN_FILE	programs/learn_asm/Makefile	/^BIN_FILE=$(BIN_DIR)\/$(TARGET).bin$/;"	m
 BIN_FILE	programs/test_io_port/Makefile	/^BIN_FILE=$(BIN_DIR)\/$(TARGET).bin$/;"	m
+BIN_FILE	programs/test_ram/Makefile	/^BIN_FILE=$(BIN_DIR)\/$(TARGET).bin$/;"	m
 CFG_DIR	programs/g65-sdcc/Makefile	/^CFG_DIR=cfg$/;"	m
 CFG_DIR	programs/g65/Makefile	/^CFG_DIR=cfg$/;"	m
 CFG_DIR	programs/learn_asm/Makefile	/^CFG_DIR=cfg$/;"	m
 CFG_DIR	programs/test_io_port/Makefile	/^CFG_DIR=cfg$/;"	m
+CFG_DIR	programs/test_ram/Makefile	/^CFG_DIR=cfg$/;"	m
 CFG_FILE	programs/g65-sdcc/Makefile	/^CFG_FILE=$(CFG_DIR)\/$(TARGET).cfg$/;"	m
 DLL	programs/g65/src/g65.asm	/^DLL       = UART_BASE + 0$/;"	d
+DLL	programs/test_ram/src/uart_16x450.asm	/^DLL     = RBR$/;"	d
 DLM	programs/g65/src/g65.asm	/^DLM       = UART_BASE + 1$/;"	d
+DLM	programs/test_ram/src/uart_16x450.asm	/^DLM     = IER$/;"	d
 HEXDUMP	programs/g65-sdcc/Makefile	/^HEXDUMP=hexdump$/;"	m
 HEXDUMP	programs/g65/Makefile	/^HEXDUMP=hexdump$/;"	m
 HEXDUMP	programs/learn_asm/Makefile	/^HEXDUMP=hexdump$/;"	m
 HEXDUMP	programs/test_io_port/Makefile	/^HEXDUMP=hexdump$/;"	m
+HEXDUMP	programs/test_ram/Makefile	/^HEXDUMP=hexdump$/;"	m
 HEXDUMP_FLAGS	programs/g65-sdcc/Makefile	/^HEXDUMP_FLAGS=-C$/;"	m
 HEXDUMP_FLAGS	programs/g65/Makefile	/^HEXDUMP_FLAGS=-C$/;"	m
 HEXDUMP_FLAGS	programs/learn_asm/Makefile	/^HEXDUMP_FLAGS=-C$/;"	m
 HEXDUMP_FLAGS	programs/test_io_port/Makefile	/^HEXDUMP_FLAGS=-C$/;"	m
+HEXDUMP_FLAGS	programs/test_ram/Makefile	/^HEXDUMP_FLAGS=-C$/;"	m
+IER	programs/test_ram/src/uart_16x450.asm	/^IER		db 0 $/;"	d
+IER	programs/test_ram/src/uart_16x450.asm	/^IER       = UART_BASE + 1  ; Interrupt Enable$/;"	d
 IHX_FILE	programs/g65-sdcc/Makefile	/^IHX_FILE=$(BIN_DIR)\/$(TARGET).ihx$/;"	m
 IHX_FILE	programs/g65/Makefile	/^IHX_FILE=$(BIN_DIR)\/$(TARGET).ihx$/;"	m
 IHX_FILE	programs/learn_asm/Makefile	/^IHX_FILE=$(BIN_DIR)\/$(TARGET).ihx$/;"	m
 IHX_FILE	programs/test_io_port/Makefile	/^IHX_FILE=$(BIN_DIR)\/$(TARGET).ihx$/;"	m
+IHX_FILE	programs/test_ram/Makefile	/^IHX_FILE=$(BIN_DIR)\/$(TARGET).ihx$/;"	m
+IIR	programs/test_ram/src/uart_16x450.asm	/^IIR     db 0$/;"	d
 INC_DIR	programs/g65-sdcc/Makefile	/^INC_DIR=inc$/;"	m
 INC_DIR	programs/g65/Makefile	/^INC_DIR=inc$/;"	m
 INC_DIR	programs/learn_asm/Makefile	/^INC_DIR=inc$/;"	m
 INC_DIR	programs/test_io_port/Makefile	/^INC_DIR=inc$/;"	m
+INC_DIR	programs/test_ram/Makefile	/^INC_DIR=inc$/;"	m
 LCR	programs/g65/src/g65.asm	/^LCR       = UART_BASE + 3$/;"	d
+LCR	programs/test_ram/src/uart_16x450.asm	/^LCR		db 0$/;"	d
+LCR	programs/test_ram/src/uart_16x450.asm	/^LCR       = UART_BASE + 3  ; Line Control (DLAB is Bit 7)$/;"	d
 LD	programs/g65-sdcc/Makefile	/^LD=\/opt\/sdcc\/bin\/sdld$/;"	m
 LD	programs/g65/Makefile	/^LD=\/opt\/vbcc\/bin\/vlink$/;"	m
 LD	programs/learn_asm/Makefile	/^LD=\/opt\/vbcc\/bin\/vlink$/;"	m
 LD	programs/test_io_port/Makefile	/^LD=\/opt\/vbcc\/bin\/vlink$/;"	m
+LD	programs/test_ram/Makefile	/^LD=\/opt\/vbcc\/bin\/vlink$/;"	m
 LD_FILE	programs/g65-sdcc/Makefile	/^LD_FILE=$(SRC_DIR)\/$(TARGET).ld$/;"	m
 LD_FILE	programs/g65/Makefile	/^LD_FILE=$(CFG_DIR)\/$(TARGET).ld$/;"	m
 LD_FILE	programs/learn_asm/Makefile	/^LD_FILE=$(CFG_DIR)\/$(TARGET).ld$/;"	m
 LD_FILE	programs/test_io_port/Makefile	/^LD_FILE=$(CFG_DIR)\/$(TARGET).ld$/;"	m
+LD_FILE	programs/test_ram/Makefile	/^LD_FILE=$(CFG_DIR)\/$(TARGET).ld$/;"	m
 LD_FLAGS	programs/g65-sdcc/Makefile	/^LD_FLAGS= -i$/;"	m
 LD_FLAGS	programs/g65/Makefile	/^LD_FLAGS= -T$(LD_FILE) -bihex -o $(IHX_FILE) -M > $(MAP_FILE)$/;"	m
 LD_FLAGS	programs/learn_asm/Makefile	/^LD_FLAGS= -T$(LD_FILE) -bihex -o $(IHX_FILE) -M > $(MAP_FILE)$/;"	m
 LD_FLAGS	programs/test_io_port/Makefile	/^LD_FLAGS= -T$(LD_FILE) -bihex -o $(IHX_FILE) -M > $(MAP_FILE)$/;"	m
+LD_FLAGS	programs/test_ram/Makefile	/^LD_FLAGS= -T$(LD_FILE) -bihex -o $(IHX_FILE) -M > $(MAP_FILE)$/;"	m
 LSR	programs/g65/src/g65.asm	/^LSR       = UART_BASE + 5$/;"	d
+LSR	programs/test_ram/src/uart_16x450.asm	/^LSR		db 0$/;"	d
+LSR	programs/test_ram/src/uart_16x450.asm	/^LSR       = UART_BASE + 5  ; Line Status$/;"	d
 LST_FILE	programs/g65-sdcc/Makefile	/^LST_FILE=$(BIN_DIR)\/$(TARGET).lst$/;"	m
 LST_FILE	programs/g65/Makefile	/^LST_FILE=$(BIN_DIR)\/$(TARGET).lst$/;"	m
 LST_FILE	programs/learn_asm/Makefile	/^LST_FILE=$(BIN_DIR)\/$(TARGET).lst$/;"	m
@@ -67,113 +88,209 @@ MAP_FILE	programs/g65-sdcc/Makefile	/^MAP_FILE=$(BIN_DIR)\/$(TARGET).map$/;"	m
 MAP_FILE	programs/g65/Makefile	/^MAP_FILE=$(BIN_DIR)\/$(TARGET).map$/;"	m
 MAP_FILE	programs/learn_asm/Makefile	/^MAP_FILE=$(BIN_DIR)\/$(TARGET).map$/;"	m
 MAP_FILE	programs/test_io_port/Makefile	/^MAP_FILE=$(BIN_DIR)\/$(TARGET).map$/;"	m
+MAP_FILE	programs/test_ram/Makefile	/^MAP_FILE=$(BIN_DIR)\/$(TARGET).map$/;"	m
+MCR	programs/test_ram/src/uart_16x450.asm	/^MCR		db 0$/;"	d
+MCR	programs/test_ram/src/uart_16x450.asm	/^MCR       = UART_BASE + 4  ; Modem Control$/;"	d
 MINICOM	programs/g65/Makefile	/^MINICOM=minicom$/;"	m
 MINICOM	programs/test_io_port/Makefile	/^MINICOM=minicom$/;"	m
+MINICOM	programs/test_ram/Makefile	/^MINICOM=minicom$/;"	m
 MINICOM_FLAGS	programs/g65/Makefile	/^MINICOM_FLAGS=-D $(VPORT1)$/;"	m
 MINICOM_FLAGS	programs/test_io_port/Makefile	/^MINICOM_FLAGS=-D $(VPORT1)$/;"	m
+MINICOM_FLAGS	programs/test_ram/Makefile	/^MINICOM_FLAGS=-D $(VPORT1)$/;"	m
+MSR	programs/test_ram/src/uart_16x450.asm	/^MSR		db 0$/;"	d
 OBJCOPY	programs/g65/Makefile	/^OBJCOPY=\/opt\/sdcc\/bin\/sdobjcopy$/;"	m
 OBJCOPY	programs/learn_asm/Makefile	/^OBJCOPY=\/opt\/sdcc\/bin\/sdobjcopy$/;"	m
 OBJCOPY	programs/test_io_port/Makefile	/^OBJCOPY=\/opt\/sdcc\/bin\/sdobjcopy$/;"	m
+OBJCOPY	programs/test_ram/Makefile	/^OBJCOPY=\/opt\/sdcc\/bin\/sdobjcopy$/;"	m
 OBJCOPY_FLAGS	programs/g65/Makefile	/^OBJCOPY_FLAGS= -I ihex -O binary $(IHX_FILE)$/;"	m
 OBJCOPY_FLAGS	programs/learn_asm/Makefile	/^OBJCOPY_FLAGS= -I ihex -O binary $(IHX_FILE)$/;"	m
 OBJCOPY_FLAGS	programs/test_io_port/Makefile	/^OBJCOPY_FLAGS= -I ihex -O binary $(IHX_FILE)$/;"	m
+OBJCOPY_FLAGS	programs/test_ram/Makefile	/^OBJCOPY_FLAGS= -I ihex -O binary $(IHX_FILE)$/;"	m
+OBJS	programs/test_ram/Makefile	/^OBJS = $(patsubst $(SRC_DIR)\/%.asm, $(BIN_DIR)\/%.o, $(SRCS))$/;"	m
 OBJ_FILE	programs/g65-sdcc/Makefile	/^OBJ_FILE=$(BIN_DIR)\/$(TARGET).o$/;"	m
 OBJ_FILE	programs/g65/Makefile	/^OBJ_FILE=$(BIN_DIR)\/$(TARGET).o$/;"	m
 OBJ_FILE	programs/learn_asm/Makefile	/^OBJ_FILE=$(BIN_DIR)\/$(TARGET).o$/;"	m
 OBJ_FILE	programs/test_io_port/Makefile	/^OBJ_FILE=$(BIN_DIR)\/$(TARGET).o$/;"	m
+R0	programs/test_ram/src/globals.asm	/^R0  .ds $01$/;"	l
+R0H	programs/test_ram/src/globals.asm	/^R0H  = R1$/;"	d
+R0L	programs/test_ram/src/globals.asm	/^R0L  = R0$/;"	d
+R1	programs/test_ram/src/globals.asm	/^R1	.ds $01$/;"	l
+R2	programs/test_ram/src/globals.asm	/^R2	.ds $01$/;"	l
+R2H	programs/test_ram/src/globals.asm	/^R2H  = R3$/;"	d
+R2L	programs/test_ram/src/globals.asm	/^R2L  = R2$/;"	d
+R3	programs/test_ram/src/globals.asm	/^R3	.ds $01$/;"	l
+R4	programs/test_ram/src/globals.asm	/^R4	.ds $01$/;"	l
+R4H	programs/test_ram/src/globals.asm	/^R4H  = R5$/;"	d
+R4L	programs/test_ram/src/globals.asm	/^R4L  = R4$/;"	d
+R5	programs/test_ram/src/globals.asm	/^R5	.ds $01$/;"	l
+R6	programs/test_ram/src/globals.asm	/^R6	.ds $01$/;"	l
+R7	programs/test_ram/src/globals.asm	/^R7	.ds $01$/;"	l
+RBR	programs/test_ram/src/uart_16x450.asm	/^RBR		db 0$/;"	d
 RBR_THR	programs/g65/src/g65.asm	/^RBR_THR   = UART_BASE + 0$/;"	d
 REL_FILE	programs/g65-sdcc/Makefile	/^REL_FILE=$(BIN_DIR)\/$(TARGET).rel$/;"	m
+RHR_THR	programs/test_ram/src/uart_16x450.asm	/^RHR_THR   = UART_BASE + 0  ; Receiver \/ Transmitter Holding$/;"	d
+SCR	programs/test_ram/src/uart_16x450.asm	/^SCR		db 0$/;"	d
 SCREEN	programs/g65/Makefile	/^SCREEN=screen$/;"	m
 SCREEN	programs/test_io_port/Makefile	/^SCREEN=screen$/;"	m
+SCREEN	programs/test_ram/Makefile	/^SCREEN=screen$/;"	m
 SCREEN_FLAGS	programs/g65/Makefile	/^SCREEN_FLAGS= -S sim_uart$/;"	m
 SCREEN_FLAGS	programs/test_io_port/Makefile	/^SCREEN_FLAGS= -S sim_uart$/;"	m
+SCREEN_FLAGS	programs/test_ram/Makefile	/^SCREEN_FLAGS= -S sim_uart$/;"	m
 SOCAT	programs/g65/Makefile	/^SOCAT=socat$/;"	m
 SOCAT	programs/test_io_port/Makefile	/^SOCAT=socat$/;"	m
+SOCAT	programs/test_ram/Makefile	/^SOCAT=socat$/;"	m
 SOCAT_FLAGS	programs/g65/Makefile	/^SOCAT_FLAGS=-d -d PTY,link=$(VPORT0),raw,echo=0 PTY,link=$(VPORT1),raw,echo=0$/;"	m
 SOCAT_FLAGS	programs/test_io_port/Makefile	/^SOCAT_FLAGS=-d -d PTY,link=$(VPORT0),raw,echo=0 PTY,link=$(VPORT1),raw,echo=0$/;"	m
+SOCAT_FLAGS	programs/test_ram/Makefile	/^SOCAT_FLAGS=-d -d PTY,link=$(VPORT0),raw,echo=0 PTY,link=$(VPORT1),raw,echo=0$/;"	m
+SRCS	programs/test_ram/sources.mk	/^SRCS =\\$/;"	m
 SRC_DIR	programs/g65-sdcc/Makefile	/^SRC_DIR=src$/;"	m
 SRC_DIR	programs/g65/Makefile	/^SRC_DIR=src$/;"	m
 SRC_DIR	programs/learn_asm/Makefile	/^SRC_DIR=src$/;"	m
 SRC_DIR	programs/test_io_port/Makefile	/^SRC_DIR=src$/;"	m
+SRC_DIR	programs/test_ram/Makefile	/^SRC_DIR=src$/;"	m
 SRC_FILE	programs/g65-sdcc/Makefile	/^SRC_FILE=$(SRC_DIR)\/$(TARGET).asm$/;"	m
 SRC_FILE	programs/g65/Makefile	/^SRC_FILE=$(SRC_DIR)\/$(TARGET).asm$/;"	m
 SRC_FILE	programs/learn_asm/Makefile	/^SRC_FILE=$(SRC_DIR)\/$(TARGET).asm$/;"	m
 SRC_FILE	programs/test_io_port/Makefile	/^SRC_FILE=$(SRC_DIR)\/$(TARGET).s$/;"	m
+SRC_FILE	programs/test_ram/Makefile	/^SRC_FILE=$(SRC_DIR)\/$(TARGET).asm$/;"	m
 TARGET	programs/g65-sdcc/Makefile	/^TARGET=$(notdir $(CURDIR))$/;"	m
 TARGET	programs/g65/Makefile	/^TARGET=$(notdir $(CURDIR))$/;"	m
 TARGET	programs/learn_asm/Makefile	/^TARGET=$(notdir $(CURDIR))$/;"	m
 TARGET	programs/test_io_port/Makefile	/^TARGET=$(notdir $(CURDIR))$/;"	m
+TARGET	programs/test_ram/Makefile	/^TARGET=$(notdir $(CURDIR))$/;"	m
+THR	programs/test_ram/src/uart_16x450.asm	/^THR     = RBR$/;"	d
 TICKS	programs/g65/src/g65.asm	/^TICKS     = $00     ; RAM counter$/;"	d
 UART_BASE	programs/g65/src/g65.asm	/^UART_BASE = $A000   ; Y5$/;"	d
+UART_BASE	programs/test_ram/src/uart_16x450.asm	/^UART_BASE = $8400$/;"	d
 UCSIM	programs/g65-sdcc/Makefile	/^UCSIM=\/opt\/sdcc\/bin\/ucsim_mos6502$/;"	m
 UCSIM	programs/g65/Makefile	/^UCSIM=\/opt\/sdcc\/bin\/ucsim_mos6502$/;"	m
 UCSIM	programs/learn_asm/Makefile	/^UCSIM=\/opt\/sdcc\/bin\/ucsim_mos6502$/;"	m
 UCSIM	programs/test_io_port/Makefile	/^UCSIM=\/opt\/sdcc\/bin\/ucsim_mos6502$/;"	m
+UCSIM	programs/test_ram/Makefile	/^UCSIM=\/opt\/sdcc\/bin\/ucsim_mos6502$/;"	m
 UCSIM_FLAGS	programs/g65-sdcc/Makefile	/^UCSIM_FLAGS= -t 65C02 -C $(UC_SIM_FILE)$/;"	m
 UCSIM_FLAGS	programs/g65/Makefile	/^UCSIM_FLAGS= -t 65C02 -C $(UC_SIM_FILE) -s$(VPORT0) -X 5.76768M $/;"	m
 UCSIM_FLAGS	programs/learn_asm/Makefile	/^UCSIM_FLAGS= -t 65C02 -C $(UC_SIM_FILE)$/;"	m
 UCSIM_FLAGS	programs/test_io_port/Makefile	/^UCSIM_FLAGS= -t 65C02 -C $(UC_SIM_FILE) -s$(VPORT0) -X 5.76768M $/;"	m
+UCSIM_FLAGS	programs/test_ram/Makefile	/^UCSIM_FLAGS= -t 65C02 -C $(UC_SIM_FILE) -s$(VPORT0) -X 5.76768M $/;"	m
 UC_SIM_FILE	programs/g65-sdcc/Makefile	/^UC_SIM_FILE=$(CFG_DIR)\/$(TARGET).ucsim$/;"	m
 UC_SIM_FILE	programs/g65/Makefile	/^UC_SIM_FILE=$(CFG_DIR)\/$(TARGET).ucsim$/;"	m
 UC_SIM_FILE	programs/learn_asm/Makefile	/^UC_SIM_FILE=$(CFG_DIR)\/$(TARGET).ucsim$/;"	m
 UC_SIM_FILE	programs/test_io_port/Makefile	/^UC_SIM_FILE=$(CFG_DIR)\/$(TARGET).ucsim$/;"	m
+UC_SIM_FILE	programs/test_ram/Makefile	/^UC_SIM_FILE=$(CFG_DIR)\/$(TARGET).ucsim$/;"	m
 VI	programs/g65-sdcc/Makefile	/^VI=vi$/;"	m
 VI	programs/g65/Makefile	/^VI=vi$/;"	m
 VI	programs/learn_asm/Makefile	/^VI=vi$/;"	m
 VI	programs/test_io_port/Makefile	/^VI=vi$/;"	m
+VI	programs/test_ram/Makefile	/^VI=vi$/;"	m
+VIA1_BASE	programs/test_ram/src/via_65x22.asm	/^VIA1_BASE	= $8000$/;"	d
+VIA1_DDRA	programs/test_ram/src/via_65x22.asm	/^VIA1_DDRA	= VIA1_BASE + 3$/;"	d
+VIA1_DDRB	programs/test_ram/src/via_65x22.asm	/^VIA1_DDRB	= VIA1_BASE + 2$/;"	d
+VIA1_DRA	programs/test_ram/src/via_65x22.asm	/^VIA1_DRA	= VIA1_BASE + 1$/;"	d
+VIA1_DRB	programs/test_ram/src/via_65x22.asm	/^VIA1_DRB	= VIA1_BASE + 0$/;"	d
 VIA_BASE	programs/g65/src/g65.asm	/^VIA_BASE  = $C000   ; Y6$/;"	d
 VPORT0	programs/g65/Makefile	/^VPORT0=\/tmp\/ttyV0$/;"	m
 VPORT0	programs/test_io_port/Makefile	/^VPORT0=\/tmp\/ttyV0$/;"	m
+VPORT0	programs/test_ram/Makefile	/^VPORT0=\/tmp\/ttyV0$/;"	m
 VPORT1	programs/g65/Makefile	/^VPORT1=\/tmp\/ttyV1$/;"	m
 VPORT1	programs/test_io_port/Makefile	/^VPORT1=\/tmp\/ttyV1$/;"	m
+VPORT1	programs/test_ram/Makefile	/^VPORT1=\/tmp\/ttyV1$/;"	m
+asc_bin2hex	programs/test_ram/src/test_ram.asm	/^asc_bin2hex:$/;"	l
+bne	programs/test_ram/src/test_ram.asm	/^	bne d1$/;"	d
+bne	programs/test_ram/src/test_ram.asm	/^	bne d2$/;"	d
+d1	programs/test_ram/src/test_ram.asm	/^d1:$/;"	l
+d2	programs/test_ram/src/test_ram.asm	/^d2:$/;"	l
+delay	programs/test_ram/src/test_ram.asm	/^delay:$/;"	l
 done	programs/test_io_port/src/test_io_port.s	/^done:$/;"	l
 halt	programs/g65/src/g65.asm	/^halt:   $/;"	l
 halt	programs/test_io_port/src/test_io_port.s	/^halt:$/;"	l
+halt	programs/test_ram/src/test_ram.asm	/^halt:$/;"	l
 hello_world_msg	programs/test_io_port/src/test_io_port.s	/^hello_world_msg: .asciiz "hello, world!"$/;"	l
 init_regs	programs/g65/src/g65.asm	/^init_regs:$/;"	l
+init_regs	programs/test_ram/src/test_ram.asm	/^init_regs:$/;"	l
 irq_isr	programs/g65-sdcc/src/g65-sdcc.asm	/^irq_isr:$/;"	l
 irq_isr	programs/g65-sdcc/src/g65.asm	/^irq_isr:$/;"	l
 irq_isr	programs/g65/src/g65.asm	/^irq_isr:$/;"	l
 irq_isr	programs/learn_asm/src/learn_asm.asm	/^irq_isr:$/;"	l
+irq_isr	programs/test_ram/src/test_ram.asm	/^irq_isr:$/;"	l
 little_brown_fox_txt	programs/g65/src/g65.asm	/^		little_brown_fox_txt: .asciiz "The quick brown fox jumps over the lazy dog."$/;"	l
 little_brown_fox_txt	programs/learn_asm/src/learn_asm.asm	/^little_brown_fox_txt: .asciiz "The quick brown fox jumps over the lazy dog."$/;"	l
 memchr	programs/g65/src/string.asm	/^memchr:$/;"	l
+memchr	programs/test_ram/src/string.asm	/^memchr:$/;"	l
 memcmp	programs/g65/src/string.asm	/^memcmp:$/;"	l
+memcmp	programs/test_ram/src/string.asm	/^memcmp:$/;"	l
+memcmp	programs/test_ram/src/test_ram.asm	/^memcmp:$/;"	l
 memcmp_exit	programs/g65/src/string.asm	/^memcmp_exit:$/;"	l
+memcmp_exit	programs/test_ram/src/string.asm	/^memcmp_exit:$/;"	l
 memcmp_inc	programs/g65/src/string.asm	/^memcmp_inc:$/;"	l
+memcmp_inc	programs/test_ram/src/string.asm	/^memcmp_inc:$/;"	l
 memcmp_loop	programs/g65/src/string.asm	/^memcmp_loop:$/;"	l
+memcmp_loop	programs/test_ram/src/string.asm	/^memcmp_loop:$/;"	l
 memcmp_neg	programs/g65/src/string.asm	/^memcmp_neg:$/;"	l
+memcmp_neg	programs/test_ram/src/string.asm	/^memcmp_neg:$/;"	l
 memcmp_skip1	programs/g65/src/string.asm	/^memcmp_skip1:$/;"	l
+memcmp_skip1	programs/test_ram/src/string.asm	/^memcmp_skip1:$/;"	l
 memcmp_skip2	programs/g65/src/string.asm	/^memcmp_skip2:$/;"	l
+memcmp_skip2	programs/test_ram/src/string.asm	/^memcmp_skip2:$/;"	l
 memcmp_skip3	programs/g65/src/string.asm	/^memcmp_skip3:$/;"	l
+memcmp_skip3	programs/test_ram/src/string.asm	/^memcmp_skip3:$/;"	l
 memcpy	programs/g65/src/string.asm	/^memcpy:$/;"	l
+memcpy	programs/test_ram/src/string.asm	/^memcpy:$/;"	l
+memcpy	programs/test_ram/src/test_ram.asm	/^memcpy:$/;"	l
 memcpy_exit	programs/g65/src/string.asm	/^memcpy_exit:$/;"	l
+memcpy_exit	programs/test_ram/src/string.asm	/^memcpy_exit:$/;"	l
 memcpy_loop	programs/g65/src/string.asm	/^memcpy_loop:$/;"	l
+memcpy_loop	programs/test_ram/src/string.asm	/^memcpy_loop:$/;"	l
 memcpy_skip1	programs/g65/src/string.asm	/^memcpy_skip1:$/;"	l
+memcpy_skip1	programs/test_ram/src/string.asm	/^memcpy_skip1:$/;"	l
 memcpy_skip2	programs/g65/src/string.asm	/^memcpy_skip2:$/;"	l
+memcpy_skip2	programs/test_ram/src/string.asm	/^memcpy_skip2:$/;"	l
 memcpy_skip3	programs/g65/src/string.asm	/^memcpy_skip3:$/;"	l
+memcpy_skip3	programs/test_ram/src/string.asm	/^memcpy_skip3:$/;"	l
 memset	programs/g65/src/string.asm	/^memset:$/;"	l
+memset	programs/test_ram/src/string.asm	/^memset:$/;"	l
 memset_exit	programs/g65/src/string.asm	/^memset_exit:$/;"	l
+memset_exit	programs/test_ram/src/string.asm	/^memset_exit:$/;"	l
 memset_loop	programs/g65/src/string.asm	/^memset_loop:$/;"	l
+memset_loop	programs/test_ram/src/string.asm	/^memset_loop:$/;"	l
 memset_skip	programs/g65/src/string.asm	/^memset_skip:$/;"	l
+memset_skip	programs/test_ram/src/string.asm	/^memset_skip:$/;"	l
 memset_skip2	programs/g65/src/string.asm	/^memset_skip2:$/;"	l
+memset_skip2	programs/test_ram/src/string.asm	/^memset_skip2:$/;"	l
 nmi_isr	programs/g65-sdcc/src/g65-sdcc.asm	/^nmi_isr:$/;"	l
 nmi_isr	programs/g65-sdcc/src/g65.asm	/^nmi_isr:$/;"	l
 nmi_isr	programs/g65/src/g65.asm	/^nmi_isr:$/;"	l
 nmi_isr	programs/learn_asm/src/learn_asm.asm	/^nmi_isr:$/;"	l
+nmi_isr	programs/test_ram/src/test_ram.asm	/^nmi_isr:$/;"	l
 print_hello_world	programs/test_io_port/src/test_io_port.s	/^print_hello_world:$/;"	l
+print_hex_byte	programs/test_ram/src/test_ram.asm	/^print_hex_byte:$/;"	l
+print_hex_word	programs/test_ram/src/test_ram.asm	/^print_hex_word:$/;"	l
 print_newln	programs/test_io_port/src/test_io_port.s	/^print_newln:$/;"	l
+print_testing_mem_address_msg	programs/test_ram/src/test_ram.asm	/^print_testing_mem_address_msg:$/;"	l
+println	programs/test_ram/src/test_ram.asm	/^println:$/;"	l
+quick_brown_fox_txt	programs/test_ram/src/test_ram.asm	/^quick_brown_fox_txt: .asciiz "The quick brown fox jumps over the lazy dog."$/;"	l
+quick_brown_fox_txt2	programs/test_ram/src/test_ram.asm	/^quick_brown_fox_txt2: .asciiz "The quick brown fox jumps over the lazy dog."$/;"	l
 reset	programs/test_io_port/src/test_io_port.s	/^reset:$/;"	l
 reset_isr	programs/g65-sdcc/src/g65-sdcc.asm	/^reset_isr:$/;"	l
 reset_isr	programs/g65-sdcc/src/g65.asm	/^reset_isr:$/;"	l
 reset_isr	programs/g65/src/g65.asm	/^reset_isr:$/;"	l
 reset_isr	programs/learn_asm/src/learn_asm.asm	/^reset_isr:$/;"	l
+reset_isr	programs/test_ram/src/test_ram.asm	/^reset_isr:$/;"	l
 strcpy	programs/g65/src/string.asm	/^strcpy:$/;"	l
+strcpy	programs/test_ram/src/string.asm	/^strcpy:$/;"	l
 strcpy_exit	programs/g65/src/string.asm	/^strcpy_exit:$/;"	l
+strcpy_exit	programs/test_ram/src/string.asm	/^strcpy_exit:$/;"	l
 strcpy_loop	programs/g65/src/string.asm	/^strcpy_loop:$/;"	l
+strcpy_loop	programs/test_ram/src/string.asm	/^strcpy_loop:$/;"	l
 test_memcmp	programs/g65/src/g65.asm	/^test_memcmp:$/;"	l
 test_memcpy	programs/g65/src/g65.asm	/^test_memcpy:$/;"	l
 test_memset	programs/g65/src/g65.asm	/^test_memset:$/;"	l
+test_ram_failed	programs/test_ram/src/test_ram.asm	/^test_ram_failed:$/;"	l
+test_ram_failed_msg	programs/test_ram/src/test_ram.asm	/^test_ram_failed_msg: .asciiz "Ram test failed."$/;"	l
+test_ram_loop	programs/test_ram/src/test_ram.asm	/^test_ram_loop:$/;"	l
+test_ram_passed	programs/test_ram/src/test_ram.asm	/^test_ram_passed:$/;"	l
+test_ram_passed_msg	programs/test_ram/src/test_ram.asm	/^test_ram_passed_msg: .asciiz "Ram test passed."$/;"	l
+test_via	programs/test_ram/src/test_ram.asm	/^test_via:$/;"	l
+testing_mem_address_msg	programs/test_ram/src/test_ram.asm	/^testing_mem_address_msg: .asciiz "Testing memory address..."$/;"	l
 ticks	programs/test_io_port/src/test_io_port.s	/^ticks     = $00     ; ram counter$/;"	d
 uart_base	programs/test_io_port/src/test_io_port.s	/^uart_base = $a000   ; y5$/;"	d
 uart_dll	programs/test_io_port/src/test_io_port.s	/^uart_dll       	= uart_base + 0$/;"	d
@@ -182,15 +299,22 @@ uart_echo_loop	programs/test_io_port/src/test_io_port.s	/^uart_echo_loop:$/;"	l
 uart_ier	programs/test_io_port/src/test_io_port.s	/^uart_ier		= uart_base + 1$/;"	d
 uart_init	programs/g65/src/g65.asm	/^uart_init:$/;"	l
 uart_init	programs/test_io_port/src/test_io_port.s	/^uart_init:$/;"	l
+uart_init	programs/test_ram/src/uart_16x450.asm	/^uart_init:$/;"	l
 uart_lcr	programs/test_io_port/src/test_io_port.s	/^uart_lcr       	= uart_base + 3$/;"	d
 uart_lsr	programs/test_io_port/src/test_io_port.s	/^uart_lsr       	= uart_base + 5$/;"	d
 uart_mcr	programs/test_io_port/src/test_io_port.s	/^uart_mcr 		= uart_base + 4$/;"	d
 uart_rbr_thr	programs/test_io_port/src/test_io_port.s	/^uart_rbr_thr	= uart_base + 0$/;"	d
 uart_rx_char	programs/test_io_port/src/test_io_port.s	/^uart_rx_char:$/;"	l
+uart_rx_char	programs/test_ram/src/uart_16x450.asm	/^uart_rx_char:$/;"	l
+uart_rx_q	programs/test_ram/src/uart_16x450.asm	/^uart_rx_q:		.ds $100$/;"	l
+uart_rx_q_head	programs/test_ram/src/uart_16x450.asm	/^uart_rx_q_head:	.ds $01$/;"	l
+uart_rx_q_tail	programs/test_ram/src/uart_16x450.asm	/^uart_rx_q_tail:	.ds $01$/;"	l
+uart_tx_asciiz	programs/test_ram/src/uart_16x450.asm	/^uart_tx_asciiz:$/;"	l
 uart_tx_asciiz_loop	programs/test_io_port/src/test_io_port.s	/^uart_tx_asciiz_loop:$/;"	l
 uart_tx_asciz	programs/test_io_port/src/test_io_port.s	/^uart_tx_asciz:$/;"	l
 uart_tx_char	programs/g65/src/g65.asm	/^uart_tx_char:$/;"	l
 uart_tx_char	programs/test_io_port/src/test_io_port.s	/^uart_tx_char:$/;"	l
+uart_tx_char	programs/test_ram/src/uart_16x450.asm	/^uart_tx_char:$/;"	l
 uart_tx_char_wait	programs/test_io_port/src/test_io_port.s	/^uart_tx_char_wait:$/;"	l
 via_base	programs/test_io_port/src/test_io_port.s	/^via_base  = $c000   ; y6$/;"	d
 via_ddra	programs/test_io_port/src/test_io_port.s	/^via_ddra = via_base + 3$/;"	d

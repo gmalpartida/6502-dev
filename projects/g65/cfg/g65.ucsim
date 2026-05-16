@@ -5,7 +5,7 @@ memory create chip ram_chip 0x0800 8
 memory create chip rom_chip 0x2000 8     
 memory create chip io_chip 0x0100 8       
 
-memory create addressdecoder rom 0x0000 0x07ff ram_chip 0x0000 
+memory create addressdecoder rom 0x0000 0x7fff ram_chip 0x0000 
 memory create addressdecoder rom 0x8000 0x80ff io_chip  0x0000 
 memory create addressdecoder rom 0xe000 0xffff rom_chip 0x0000 
 

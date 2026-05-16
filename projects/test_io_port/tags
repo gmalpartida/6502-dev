@@ -1,0 +1,65 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+AS	Makefile	/^AS=\/opt\/vbcc\/bin\/vasm6502_oldstyle$/;"	m
+AS_FLAGS	Makefile	/^AS_FLAGS=-I $(INC_DIR) -Fvobj -sect -wfail -dotdir -L $(LST_FILE) -o $(OBJ_FILE) $/;"	m
+BAUD_HIGH	src/test_io_port.s	/^BAUD_HIGH = $00$/;"	d
+BAUD_LOW	src/test_io_port.s	/^BAUD_LOW  = $19$/;"	d
+BIN_DIR	Makefile	/^BIN_DIR=bin$/;"	m
+BIN_FILE	Makefile	/^BIN_FILE=$(BIN_DIR)\/$(TARGET).bin$/;"	m
+CFG_DIR	Makefile	/^CFG_DIR=cfg$/;"	m
+HEXDUMP	Makefile	/^HEXDUMP=hexdump$/;"	m
+HEXDUMP_FLAGS	Makefile	/^HEXDUMP_FLAGS=-C$/;"	m
+IHX_FILE	Makefile	/^IHX_FILE=$(BIN_DIR)\/$(TARGET).ihx$/;"	m
+INC_DIR	Makefile	/^INC_DIR=inc$/;"	m
+LD	Makefile	/^LD=\/opt\/vbcc\/bin\/vlink$/;"	m
+LD_FILE	Makefile	/^LD_FILE=$(CFG_DIR)\/$(TARGET).ld$/;"	m
+LD_FLAGS	Makefile	/^LD_FLAGS= -T$(LD_FILE) -bihex -o $(IHX_FILE) -M > $(MAP_FILE)$/;"	m
+LST_FILE	Makefile	/^LST_FILE=$(BIN_DIR)\/$(TARGET).lst$/;"	m
+MAP_FILE	Makefile	/^MAP_FILE=$(BIN_DIR)\/$(TARGET).map$/;"	m
+MINICOM	Makefile	/^MINICOM=minicom$/;"	m
+MINICOM_FLAGS	Makefile	/^MINICOM_FLAGS=-D $(VPORT1)$/;"	m
+OBJCOPY	Makefile	/^OBJCOPY=\/opt\/sdcc\/bin\/sdobjcopy$/;"	m
+OBJCOPY_FLAGS	Makefile	/^OBJCOPY_FLAGS= -I ihex -O binary $(IHX_FILE)$/;"	m
+OBJ_FILE	Makefile	/^OBJ_FILE=$(BIN_DIR)\/$(TARGET).o$/;"	m
+SCREEN	Makefile	/^SCREEN=screen$/;"	m
+SCREEN_FLAGS	Makefile	/^SCREEN_FLAGS= -S sim_uart$/;"	m
+SOCAT	Makefile	/^SOCAT=socat$/;"	m
+SOCAT_FLAGS	Makefile	/^SOCAT_FLAGS=-d -d PTY,link=$(VPORT0),raw,echo=0 PTY,link=$(VPORT1),raw,echo=0$/;"	m
+SRC_DIR	Makefile	/^SRC_DIR=src$/;"	m
+SRC_FILE	Makefile	/^SRC_FILE=$(SRC_DIR)\/$(TARGET).s$/;"	m
+TARGET	Makefile	/^TARGET=$(notdir $(CURDIR))$/;"	m
+UCSIM	Makefile	/^UCSIM=\/opt\/sdcc\/bin\/ucsim_mos6502$/;"	m
+UCSIM_FLAGS	Makefile	/^UCSIM_FLAGS= -t 65C02 -C $(UC_SIM_FILE) -s$(VPORT0) -X 5.76768M $/;"	m
+UC_SIM_FILE	Makefile	/^UC_SIM_FILE=$(CFG_DIR)\/$(TARGET).ucsim$/;"	m
+VI	Makefile	/^VI=vi$/;"	m
+VPORT0	Makefile	/^VPORT0=\/tmp\/ttyV0$/;"	m
+VPORT1	Makefile	/^VPORT1=\/tmp\/ttyV1$/;"	m
+done	src/test_io_port.s	/^done:$/;"	l
+halt	src/test_io_port.s	/^halt:$/;"	l
+hello_world_msg	src/test_io_port.s	/^hello_world_msg: .asciiz "hello, world!"$/;"	l
+print_hello_world	src/test_io_port.s	/^print_hello_world:$/;"	l
+print_newln	src/test_io_port.s	/^print_newln:$/;"	l
+reset	src/test_io_port.s	/^reset:$/;"	l
+ticks	src/test_io_port.s	/^ticks     = $00     ; ram counter$/;"	d
+uart_base	src/test_io_port.s	/^uart_base = $a000   ; y5$/;"	d
+uart_dll	src/test_io_port.s	/^uart_dll       	= uart_base + 0$/;"	d
+uart_dlm	src/test_io_port.s	/^uart_dlm       	= uart_base + 1$/;"	d
+uart_echo_loop	src/test_io_port.s	/^uart_echo_loop:$/;"	l
+uart_ier	src/test_io_port.s	/^uart_ier		= uart_base + 1$/;"	d
+uart_init	src/test_io_port.s	/^uart_init:$/;"	l
+uart_lcr	src/test_io_port.s	/^uart_lcr       	= uart_base + 3$/;"	d
+uart_lsr	src/test_io_port.s	/^uart_lsr       	= uart_base + 5$/;"	d
+uart_mcr	src/test_io_port.s	/^uart_mcr 		= uart_base + 4$/;"	d
+uart_rbr_thr	src/test_io_port.s	/^uart_rbr_thr	= uart_base + 0$/;"	d
+uart_rx_char	src/test_io_port.s	/^uart_rx_char:$/;"	l
+uart_tx_asciiz_loop	src/test_io_port.s	/^uart_tx_asciiz_loop:$/;"	l
+uart_tx_asciz	src/test_io_port.s	/^uart_tx_asciz:$/;"	l
+uart_tx_char	src/test_io_port.s	/^uart_tx_char:$/;"	l
+uart_tx_char_wait	src/test_io_port.s	/^uart_tx_char_wait:$/;"	l
+via_base	src/test_io_port.s	/^via_base  = $c000   ; y6$/;"	d
+via_ddra	src/test_io_port.s	/^via_ddra = via_base + 3$/;"	d
+via_porta	src/test_io_port.s	/^via_porta = via_base + 1$/;"	d
