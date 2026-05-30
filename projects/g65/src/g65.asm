@@ -1,18 +1,8 @@
-
-; --- Hardware Map ---
-VIA_BASE  = $C000   ; Y6
-UART_BASE = $A000   ; Y5
-TICKS     = $00     ; RAM counter
-
-; UART Register Offsets
-RBR_THR   = UART_BASE + 0
-DLL       = UART_BASE + 0
-DLM       = UART_BASE + 1
-LCR       = UART_BASE + 3
-LSR       = UART_BASE + 5
-
 	.include "stddefs.inc"
-	.section .text
+
+	.global uart_rx_isr
+
+	.section	.text
 
 reset_isr:
     sei             			; Disable interrupts
@@ -21,105 +11,36 @@ reset_isr:
     txs
 
 	jsr init_regs				; initialize all registers to 00
+	jsr uart_init
+	jsr parser_cmd_line_init
 
-test_memset:
-	lda #$00					; destination buffer
-	sta R0L
-	lda #$02
-	sta R0H
+	lda #$FF        ; Set all Port B pins to output
+    sta VIA1_DDRB
+	sta VIA1_DDRA
+
+	cli
+
+	jsr delay
+
+	jsr print_logo
+	jsr println
+
+	jsr print_copyright
+
+	jsr println
+	jsr println
 	
-	lda #$ff					; character to copy
-	sta R2
+.cmd_prompt_loop:
 
-	lda #$00					; count of bytes to copy
-	sta R4L
-	lda #$06
-	sta R4H
+	jsr print_cmd_prompt
 
-	jsr memset
+	jsr process_user_input
 
-	ldx #$2
-test_memcpy:
-	
-	; load source adddress
-	lda #<little_brown_fox_txt
-	sta R0L
-	lda #>little_brown_fox_txt
-	sta R0H
+	jmp .cmd_prompt_loop
 
-	; load destination address
-	lda #$00
-	sta R2L
-	txa
-	sta R2H
 
-	; load count of bytes to copy
-	lda #$2C
-	sta R4L
-	lda #$00
-	sta R4H
-	stx R2H
-
-	jsr memcpy
-	inx
-	cpx #8
-	bne test_memcpy
-        
-	ldx #$02
-test_memcmp:
-
-	; load source adddress
-	lda #<little_brown_fox_txt
-	sta R0L
-	lda #>little_brown_fox_txt
-	sta R0H
-
-	; load destination address
-	lda #$00
-	sta R2L
-	txa
-	sta R2H
-
-	; load count of bytes to copy
-	lda #$2C
-	sta R4L
-	lda #$00
-	sta R4H
-	stx R2H
-
-	jsr memcmp
-	cmp #$00
-	bmi halt
-	bpl halt
-
-	inx
-	cpx #8
-	bne test_memcmp
-
-halt:   
+halt:
 	jmp halt          				; End of program
-
-; transmits one ascii character via the uart
-; --> a: contains character to be sent
-; <-- none
-uart_tx_char:
-    LDA LSR          	; Read Line Status Register
-    AND #$20         	; Check THRE bit (Transmit Holding Reg Empty)
-    BEQ uart_tx_char	; Wait if busy
-	nop				 	; slow it down a little bit
-    STA RBR_THR      	; Send it!
-	rts
-
-uart_init:
-    LDA #$80         ; Access Divisor Latches (DLAB=1)
-    STA LCR
-    LDA #$13         ; Divisor = 19 ($13)
-    STA DLL
-    LDA #$00
-    STA DLM
-    LDA #$03         ; 8 data bits, 1 stop, No parity (DLAB=0)
-    STA LCR
-	rts
 
 init_regs:
 	lda #$00
@@ -131,20 +52,237 @@ init_regs:
 	sta R5
 	sta R6
 	sta R7
-	
+
 	rts
 
-nmi_isr:
-    rti             				; Return from Non-Maskable Interrupt
+; Simple delay loop (approx. 0.5s at 1MHz)
+delay:
+	ldy #$FF
+d1:
+	ldx #$FF
+d2:
+	dex
+	bne d2
+	dey
+	bne d1
+	rts
 
-irq_isr:
-    rti             				; Return from Maskable Interrupt / BRK
+
+println:
+	lda #$0d
+	jsr uart_tx_char
+	lda #$0a
+	jsr uart_tx_char
+	rts
+
+nib2ahex:
+	lda R7
+    cmp #$0A        ; Check if it's a letter (A-F)
+    bcc .is_digit
+    clc             ; Always clear carry before the first ADC
+    adc #$06        ; Offset for A-F (adds 6 + 1 carry = 7)
+.is_digit:
+    adc #$30        ; Add '0' offset ($30)
+    rts
+
+ahex2nib:
+	lda R7
+    cmp #$61
+    bcc .upper
+    sec
+    sbc #$20
+.upper:
+    sec
+    sbc #$30
+    cmp #$0A
+    bcc .exit
+    sec
+    sbc #$07
+.exit:
+    rts
+
+print_hex_byte:
+	lda R7
+	pha
+	lsr
+	lsr
+	lsr
+	lsr
+	jsr nib2ahex
+	jsr uart_tx_char
+	pla
+	and #$0f
+	jsr nib2ahex
+	jsr uart_tx_char
+
+	rts
+
+
+read_hex_byte:
+	jsr ahex2nib
+
+	rts
+
+read_hex_word:
+	; read first hex char from command line
+	; convert to binary
+	; save to 
+	; read second hex char from command line
+
+	rts
+
+print_hex_word:
+	lda R5
+	jsr print_hex_byte
+	lda R4
+	jsr print_hex_byte
+	rts
+
+print_cmd_prompt:
+	lda #<cmd_prompt_msg
+	sta R6
+	lda #>cmd_prompt_msg
+	sta R7
+	jsr uart_tx_asciiz
+	rts
+
+get_cmd_line:
+	jsr parser_cmd_line_get_buffer
+	jsr uart_rx_asciiz
+	rts
+
+print_logo:
+
+	lda #<g65_logo
+	sta R4
+	lda #>g65_logo
+	sta R5
+	ldy #$00
+
+.next_char:
+	lda (R4), y
+	beq .exit
+	jsr uart_tx_char
+	iny
+	bne .next_char
+	inc R5
+	bra .next_char
+.exit:
+	rts
+
+print_copyright:
+	lda #TAB
+	jsr uart_tx_char
+	jsr uart_tx_char
+	jsr uart_tx_char
+	jsr uart_tx_char
+	lda #<copyright_txt
+	sta R6
+	lda #>copyright_txt
+	sta R7
+	jsr uart_tx_asciiz
+	rts
+
+get_cmd:
+	lda #<cmd
+	sta R6
+	lda #>cmd
+	sta R7
+	jsr parser_cmd_line_next_token
+	lda #NULL
+	sta cmd, y
+	rts
+
+get_addr:
+	lda #<addr
+	sta R6
+	lda #>addr
+	sta R7
+	jsr parser_cmd_line_next_token
+	rts
+
+process_user_input:
+	jsr parser_cmd_line_reset
+	jsr get_cmd_line
+	jsr get_cmd
+	lda #<cmd
+	sta R6
+	lda #>cmd
+	sta R7
+	jsr uart_tx_asciiz
+
+	lda #<cmd
+	sta R6
+	lda #>cmd
+	sta R7
+	lda #<peek_cmd
+	sta R4
+	lda #>peek_cmd
+	sta R5
+	lda #$04
+	sta R2
+	lda #$00
+	sta R3
+	jsr memcmp
+	bcs .error
+	jsr process_peek_command
+	bra .exit
+.error:
+	jsr print_unknown_cmd_msg
+	rts
+.exit
+
+	rts
+
+process_peek_command:
+	lda #SPC
+	jsr uart_tx_char
+	jsr get_addr
+	ldy #$04
+	ldx #$00
+.next_char:
+	lda addr, x
+	jsr uart_tx_char
+	inx
+	dey
+	bne .next_char
+	jsr println
+.error:
+	sec							; error
+	rts
+.exit
+	clc							; no error
+	rts
+
+print_unknown_cmd_msg:
+	lda #<unknown_cmd_msg
+	sta R6
+	lda #>unknown_cmd_msg
+	sta R7
+	jsr uart_tx_asciiz
+	jsr println
+	rts
+
+
+;=========================================================================================================
+nmi_isr:
+    rti             			; Return from Non-Maskable Interrupt
 
 	.section .rodata
-		little_brown_fox_txt: .asciiz "The quick brown fox jumps over the lazy dog."
+cmd_prompt_msg:		.asciiz "g65> "
+unknown_cmd_msg:	.asciiz "Unknown command."
+peek_cmd:			.asciiz "peek"
 
 	.section .vectors
-		.word	nmi_isr				; nmi vector
-		.word	reset_isr			;points to start of code
-		.word	irq_isr				; irq vector
+		.word	nmi_isr			; nmi vector
+		.word	reset_isr		;points to start of code
+		.word	uart_rx_isr			; irq vector
+
+
+	.section .bss
+cmd:		.ds		$20
+addr:		.ds		$04
+byte_value:	.ds		$02
+word_value:	.ds		$04
+
 

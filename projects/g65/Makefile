@@ -8,6 +8,8 @@ SOCAT=socat
 MINICOM=minicom
 SCREEN=screen
 
+include sources.mk
+
 TARGET=$(notdir $(CURDIR))
 
 SRC_DIR=src
@@ -15,43 +17,49 @@ BIN_DIR=bin
 INC_DIR=inc
 CFG_DIR=cfg
 
-LST_FILE=$(BIN_DIR)/$(TARGET).lst
-OBJ_FILE=$(BIN_DIR)/$(TARGET).o
-SRC_FILE=$(SRC_DIR)/$(TARGET).asm
-MAP_FILE=$(BIN_DIR)/$(TARGET).map
-BIN_FILE=$(BIN_DIR)/$(TARGET).bin
-LD_FILE=$(CFG_DIR)/$(TARGET).ld
-UC_SIM_FILE=$(CFG_DIR)/$(TARGET).ucsim
 IHX_FILE=$(BIN_DIR)/$(TARGET).ihx
+MAP_FILE=$(BIN_DIR)/$(TARGET).map
+LD_FILE=$(CFG_DIR)/$(TARGET).ld
+BIN_FILE=$(BIN_DIR)/$(TARGET).bin
+SRC_FILE=$(SRC_DIR)/$(TARGET).asm
+UC_SIM_FILE=$(CFG_DIR)/$(TARGET).ucsim
 
-AS_FLAGS=-I $(INC_DIR) -Fvobj -sect -wfail -dotdir -L $(LST_FILE) -o $(OBJ_FILE) 
+OBJS = $(patsubst $(SRC_DIR)/%.asm, $(BIN_DIR)/%.o, $(SRCS))
+
+AS_FLAGS=-I $(INC_DIR) -Fvobj -sect -dotdir  -wdc02
 LD_FLAGS= -T$(LD_FILE) -bihex -o $(IHX_FILE) -M > $(MAP_FILE)
-HEXDUMP_FLAGS=-C
 OBJCOPY_FLAGS= -I ihex -O binary $(IHX_FILE)
-
-VPORT0=/tmp/ttyV0
-VPORT1=/tmp/ttyV1
-
+HEXDUMP_FLAGS=-C
 UCSIM_FLAGS= -t 65C02 -C $(UC_SIM_FILE) -s$(VPORT0) -X 5.76768M 
 SOCAT_FLAGS=-d -d PTY,link=$(VPORT0),raw,echo=0 PTY,link=$(VPORT1),raw,echo=0
 MINICOM_FLAGS=-D $(VPORT1)
 SCREEN_FLAGS= -S sim_uart
 
+VPORT0=/tmp/ttyV0
+VPORT1=/tmp/ttyV1
+
+# Update your main target to depend on the final output
 .PHONY: all link build edit dump clean sim bridge uart screen
-
 all: link
-
-link: build
-	$(LD) $(LD_FLAGS) $(OBJ_FILE) bin/string.o
 	$(OBJCOPY) $(OBJCOPY_FLAGS) $(BIN_FILE)
-build:
-	@mkdir -p $(BIN_DIR)
-	$(AS) -I $(INC_DIR) -Fvobj -sect -wfail -dotdir -L bin/string.lst -o bin/string.o src/string.asm
-	$(AS) $(AS_FLAGS) $(SRC_FILE)
+
+$(BIN_DIR)/%.o : $(SRC_DIR)/%.asm
+	$(AS) $(AS_FLAGS) -L $(@:.o=.lst) -o $@ $<
+ 
+build : $(OBJS)
+
+$(IHX_FILE): $(OBJS)
+	@mkdir -p $(dir $@)
+	$(LD) $(LD_FLAGS) $(OBJS)
+
+link: $(IHX_FILE)
+
 edit:
 	$(VI) $(SRC_FILE)
+
 dump: link
 	$(HEXDUMP) $(HEXDUMP_FLAGS) $(BIN_FILE)
+
 sim: link
 	$(UCSIM) $(UCSIM_FLAGS) $(IHX_FILE)
 
@@ -64,6 +72,13 @@ uart: build
 screen:
 	$(SCREEN) $(SCREEN_FLAGS)
 
-clean:
-	rm -rf $(BIN_DIR)/*
+test:
+	$(AS) $(AS_FLAGS) -L bin/test.lst -o bin/test.obj src/test.asm
+	$(AS) $(AS_FLAGS) -L bin/parser_cmd_line.lst -o bin/parser_cmd_line.obj src/parser_cmd_line.asm
+	$(AS) $(AS_FLAGS) -L bin/string.lst -o bin/string.obj src/string.asm
+	$(LD) -T$(LD_FILE) -bihex -obin/test.ihx bin/test.obj bin/parser_cmd_line.obj bin/string.obj -M > bin/test.map
+	$(UCSIM) $(UCSIM_FLAGS) bin/test.ihx
+
+clean: 
+	rm -f $(BIN_DIR)/*
 

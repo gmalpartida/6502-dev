@@ -5,51 +5,60 @@
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.9~svn20110310	//
 AS	Makefile	/^AS=\/opt\/vbcc\/bin\/vasm6502_oldstyle$/;"	m
-AS_FLAGS	Makefile	/^AS_FLAGS=-I $(INC_DIR) -Fvobj -sect -wfail -dotdir -L $(LST_FILE) -o $(OBJ_FILE) $/;"	m
+AS_FLAGS	Makefile	/^AS_FLAGS=-I $(INC_DIR) -Fvobj -sect -wfail -dotdir $/;"	m
 BIN_DIR	Makefile	/^BIN_DIR=bin$/;"	m
 BIN_FILE	Makefile	/^BIN_FILE=$(BIN_DIR)\/$(TARGET).bin$/;"	m
 CFG_DIR	Makefile	/^CFG_DIR=cfg$/;"	m
-DLL	src/g65.asm	/^DLL       = UART_BASE + 0$/;"	d
-DLM	src/g65.asm	/^DLM       = UART_BASE + 1$/;"	d
 HEXDUMP	Makefile	/^HEXDUMP=hexdump$/;"	m
 HEXDUMP_FLAGS	Makefile	/^HEXDUMP_FLAGS=-C$/;"	m
+IER	src/uart_16x450.asm	/^IER       = UART_BASE + 1  ; Interrupt Enable$/;"	d
 IHX_FILE	Makefile	/^IHX_FILE=$(BIN_DIR)\/$(TARGET).ihx$/;"	m
 INC_DIR	Makefile	/^INC_DIR=inc$/;"	m
-LCR	src/g65.asm	/^LCR       = UART_BASE + 3$/;"	d
+LCR	src/uart_16x450.asm	/^LCR       = UART_BASE + 3  ; Line Control (DLAB is Bit 7)$/;"	d
 LD	Makefile	/^LD=\/opt\/vbcc\/bin\/vlink$/;"	m
 LD_FILE	Makefile	/^LD_FILE=$(CFG_DIR)\/$(TARGET).ld$/;"	m
 LD_FLAGS	Makefile	/^LD_FLAGS= -T$(LD_FILE) -bihex -o $(IHX_FILE) -M > $(MAP_FILE)$/;"	m
-LSR	src/g65.asm	/^LSR       = UART_BASE + 5$/;"	d
-LST_FILE	Makefile	/^LST_FILE=$(BIN_DIR)\/$(TARGET).lst$/;"	m
+LSR	src/uart_16x450.asm	/^LSR       = UART_BASE + 5  ; Line Status$/;"	d
 MAP_FILE	Makefile	/^MAP_FILE=$(BIN_DIR)\/$(TARGET).map$/;"	m
+MCR	src/uart_16x450.asm	/^MCR       = UART_BASE + 4  ; Modem Control$/;"	d
 MINICOM	Makefile	/^MINICOM=minicom$/;"	m
 MINICOM_FLAGS	Makefile	/^MINICOM_FLAGS=-D $(VPORT1)$/;"	m
 OBJCOPY	Makefile	/^OBJCOPY=\/opt\/sdcc\/bin\/sdobjcopy$/;"	m
 OBJCOPY_FLAGS	Makefile	/^OBJCOPY_FLAGS= -I ihex -O binary $(IHX_FILE)$/;"	m
-OBJ_FILE	Makefile	/^OBJ_FILE=$(BIN_DIR)\/$(TARGET).o$/;"	m
-RBR_THR	src/g65.asm	/^RBR_THR   = UART_BASE + 0$/;"	d
+OBJS	Makefile	/^OBJS = $(patsubst $(SRC_DIR)\/%.asm, $(BIN_DIR)\/%.o, $(SRCS))$/;"	m
+RHR_THR	src/uart_16x450.asm	/^RHR_THR   = UART_BASE + 0  ; Receiver \/ Transmitter Holding$/;"	d
 SCREEN	Makefile	/^SCREEN=screen$/;"	m
 SCREEN_FLAGS	Makefile	/^SCREEN_FLAGS= -S sim_uart$/;"	m
 SOCAT	Makefile	/^SOCAT=socat$/;"	m
 SOCAT_FLAGS	Makefile	/^SOCAT_FLAGS=-d -d PTY,link=$(VPORT0),raw,echo=0 PTY,link=$(VPORT1),raw,echo=0$/;"	m
+SRCS	sources.mk	/^SRCS =\\$/;"	m
 SRC_DIR	Makefile	/^SRC_DIR=src$/;"	m
 SRC_FILE	Makefile	/^SRC_FILE=$(SRC_DIR)\/$(TARGET).asm$/;"	m
 TARGET	Makefile	/^TARGET=$(notdir $(CURDIR))$/;"	m
-TICKS	src/g65.asm	/^TICKS     = $00     ; RAM counter$/;"	d
-UART_BASE	src/g65.asm	/^UART_BASE = $A000   ; Y5$/;"	d
+UART_BASE	src/uart_16x450.asm	/^UART_BASE = $8400$/;"	d
 UCSIM	Makefile	/^UCSIM=\/opt\/sdcc\/bin\/ucsim_mos6502$/;"	m
 UCSIM_FLAGS	Makefile	/^UCSIM_FLAGS= -t 65C02 -C $(UC_SIM_FILE) -s$(VPORT0) -X 5.76768M $/;"	m
 UC_SIM_FILE	Makefile	/^UC_SIM_FILE=$(CFG_DIR)\/$(TARGET).ucsim$/;"	m
 VI	Makefile	/^VI=vi$/;"	m
-VIA_BASE	src/g65.asm	/^VIA_BASE  = $C000   ; Y6$/;"	d
+VIA1_BASE	src/via_65x22.asm	/^VIA1_BASE	= $8000$/;"	d
+VIA1_DDRA	src/via_65x22.asm	/^VIA1_DDRA	= VIA1_BASE + 3$/;"	d
+VIA1_DDRB	src/via_65x22.asm	/^VIA1_DDRB	= VIA1_BASE + 2$/;"	d
+VIA1_DRA	src/via_65x22.asm	/^VIA1_DRA	= VIA1_BASE + 1$/;"	d
+VIA1_DRB	src/via_65x22.asm	/^VIA1_DRB	= VIA1_BASE + 0$/;"	d
 VPORT0	Makefile	/^VPORT0=\/tmp\/ttyV0$/;"	m
 VPORT1	Makefile	/^VPORT1=\/tmp\/ttyV1$/;"	m
-halt	src/g65.asm	/^halt:   $/;"	l
-init_regs	src/g65.asm	/^init_regs:$/;"	l
-irq_isr	src/g65.asm	/^irq_isr:$/;"	l
-little_brown_fox_txt	src/g65.asm	/^		little_brown_fox_txt: .asciiz "The quick brown fox jumps over the lazy dog."$/;"	l
+asc_bin2hex	src/test_ram.asm	/^asc_bin2hex:$/;"	l
+bne	src/test_ram.asm	/^	bne d1$/;"	d
+bne	src/test_ram.asm	/^	bne d2$/;"	d
+d1	src/test_ram.asm	/^d1:$/;"	l
+d2	src/test_ram.asm	/^d2:$/;"	l
+delay	src/test_ram.asm	/^delay:$/;"	l
+halt	src/test_ram.asm	/^halt:   $/;"	l
+init_regs	src/test_ram.asm	/^init_regs:$/;"	l
+irq_isr	src/test_ram.asm	/^irq_isr:$/;"	l
 memchr	src/string.asm	/^memchr:$/;"	l
 memcmp	src/string.asm	/^memcmp:$/;"	l
+memcmp	src/test_ram.asm	/^memcmp:$/;"	l
 memcmp_exit	src/string.asm	/^memcmp_exit:$/;"	l
 memcmp_inc	src/string.asm	/^memcmp_inc:$/;"	l
 memcmp_loop	src/string.asm	/^memcmp_loop:$/;"	l
@@ -58,6 +67,7 @@ memcmp_skip1	src/string.asm	/^memcmp_skip1:$/;"	l
 memcmp_skip2	src/string.asm	/^memcmp_skip2:$/;"	l
 memcmp_skip3	src/string.asm	/^memcmp_skip3:$/;"	l
 memcpy	src/string.asm	/^memcpy:$/;"	l
+memcpy	src/test_ram.asm	/^memcpy:$/;"	l
 memcpy_exit	src/string.asm	/^memcpy_exit:$/;"	l
 memcpy_loop	src/string.asm	/^memcpy_loop:$/;"	l
 memcpy_skip1	src/string.asm	/^memcpy_skip1:$/;"	l
@@ -68,13 +78,22 @@ memset_exit	src/string.asm	/^memset_exit:$/;"	l
 memset_loop	src/string.asm	/^memset_loop:$/;"	l
 memset_skip	src/string.asm	/^memset_skip:$/;"	l
 memset_skip2	src/string.asm	/^memset_skip2:$/;"	l
-nmi_isr	src/g65.asm	/^nmi_isr:$/;"	l
-reset_isr	src/g65.asm	/^reset_isr:$/;"	l
+nmi_isr	src/test_ram.asm	/^nmi_isr:$/;"	l
+println	src/test_ram.asm	/^println:$/;"	l
+quick_brown_fox_txt	src/test_ram.asm	/^quick_brown_fox_txt: .asciiz "The quick brown fox jumps over the lazy dog."$/;"	l
+reset_isr	src/test_ram.asm	/^reset_isr:$/;"	l
 strcpy	src/string.asm	/^strcpy:$/;"	l
 strcpy_exit	src/string.asm	/^strcpy_exit:$/;"	l
 strcpy_loop	src/string.asm	/^strcpy_loop:$/;"	l
-test_memcmp	src/g65.asm	/^test_memcmp:$/;"	l
-test_memcpy	src/g65.asm	/^test_memcpy:$/;"	l
-test_memset	src/g65.asm	/^test_memset:$/;"	l
-uart_init	src/g65.asm	/^uart_init:$/;"	l
-uart_tx_char	src/g65.asm	/^uart_tx_char:$/;"	l
+test_ram_failed	src/test_ram.asm	/^test_ram_failed:$/;"	l
+test_ram_failed_msg	src/test_ram.asm	/^test_ram_failed_msg: .asciiz "Ram test failed."$/;"	l
+test_ram_loop	src/test_ram.asm	/^test_ram_loop:$/;"	l
+test_ram_passed	src/test_ram.asm	/^test_ram_passed:$/;"	l
+test_ram_passed_msg	src/test_ram.asm	/^test_ram_passed_msg: .asciiz "Ram test passed."$/;"	l
+test_via	src/test_ram.asm	/^test_via:$/;"	l
+testing_mem_address_msg	src/test_ram.asm	/^testing_mem_address_msg: .asciiz "Testing memory address..."$/;"	l
+uart_init	src/uart_16x450.asm	/^uart_init:$/;"	l
+uart_rx_buffer	src/test_ram.asm	/^uart_rx_buffer:		$/;"	l
+uart_rx_char	src/uart_16x450.asm	/^uart_rx_char:$/;"	l
+uart_tx_asciiz	src/uart_16x450.asm	/^uart_tx_asciiz:$/;"	l
+uart_tx_char	src/uart_16x450.asm	/^uart_tx_char:$/;"	l
