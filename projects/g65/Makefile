@@ -24,7 +24,7 @@ BIN_FILE=$(BIN_DIR)/$(TARGET).bin
 SRC_FILE=$(SRC_DIR)/$(TARGET).asm
 UC_SIM_FILE=$(CFG_DIR)/$(TARGET).ucsim
 
-OBJS = $(patsubst $(SRC_DIR)/%.asm, $(BIN_DIR)/%.o, $(SRCS))
+OBJS = $(patsubst $(SRC_DIR)/%.asm, $(BIN_DIR)/%.obj, $(SRCS))
 
 AS_FLAGS=-I $(INC_DIR) -Fvobj -sect -dotdir  -wdc02
 LD_FLAGS= -T$(LD_FILE) -bihex -o $(IHX_FILE) -M > $(MAP_FILE)
@@ -43,8 +43,8 @@ VPORT1=/tmp/ttyV1
 all: link
 	$(OBJCOPY) $(OBJCOPY_FLAGS) $(BIN_FILE)
 
-$(BIN_DIR)/%.o : $(SRC_DIR)/%.asm
-	$(AS) $(AS_FLAGS) -L $(@:.o=.lst) -o $@ $<
+$(BIN_DIR)/%.obj : $(SRC_DIR)/%.asm
+	$(AS) $(AS_FLAGS) -L $(@:.obj=.lst) -o $@ $<
  
 build : $(OBJS)
 
