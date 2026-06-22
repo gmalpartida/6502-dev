@@ -1,4 +1,3 @@
-    
 ; Zero Page Register File definition
 R0 = $00
 R1 = $01
@@ -34,3 +33,4 @@ BS   = $08
 DEL  = $7F 
 TAB  = $09
 SPC  = $20
+

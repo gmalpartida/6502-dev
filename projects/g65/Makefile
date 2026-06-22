@@ -7,10 +7,12 @@ OBJCOPY=/opt/sdcc/bin/sdobjcopy
 SOCAT=socat
 MINICOM=minicom
 SCREEN=screen
+MINIPRO=minipro
 
 include sources.mk
 
 TARGET=$(notdir $(CURDIR))
+ROM= "AT28C64B"
 
 SRC_DIR=src
 BIN_DIR=bin
@@ -30,13 +32,9 @@ AS_FLAGS=-I $(INC_DIR) -Fvobj -sect -dotdir  -wdc02
 LD_FLAGS= -T$(LD_FILE) -bihex -o $(IHX_FILE) -M > $(MAP_FILE)
 OBJCOPY_FLAGS= -I ihex -O binary $(IHX_FILE)
 HEXDUMP_FLAGS=-C
-UCSIM_FLAGS= -t 65C02 -C $(UC_SIM_FILE) -s$(VPORT0) -X 5.76768M 
-SOCAT_FLAGS=-d -d PTY,link=$(VPORT0),raw,echo=0 PTY,link=$(VPORT1),raw,echo=0
-MINICOM_FLAGS=-D $(VPORT1)
-SCREEN_FLAGS= -S sim_uart
-
-VPORT0=/tmp/ttyV0
-VPORT1=/tmp/ttyV1
+UCSIM_FLAGS= -t 65C02 -C $(UC_SIM_FILE) -X 8.192M
+MINICOM_FLAGS=-D /dev/ttyUSB0 -b 57600
+MINIPRO_FLAGS= -p $(ROM) -w $(BIN_FILE)
 
 # Update your main target to depend on the final output
 .PHONY: all link build edit dump clean sim bridge uart screen
@@ -63,20 +61,18 @@ dump: link
 sim: link
 	$(UCSIM) $(UCSIM_FLAGS) $(IHX_FILE)
 
-bridge:
-	$(SOCAT) $(SOCAT_FLAGS) 
-
-uart: build
+uart: link
 	$(MINICOM) $(MINICOM_FLAGS) 
 
-screen:
-	$(SCREEN) $(SCREEN_FLAGS)
+flash:
+	$(MINIPRO) $(MINIPRO_FLAGS) 
 
 test:
 	$(AS) $(AS_FLAGS) -L bin/test.lst -o bin/test.obj src/test.asm
 	$(AS) $(AS_FLAGS) -L bin/parser_cmd_line.lst -o bin/parser_cmd_line.obj src/parser_cmd_line.asm
 	$(AS) $(AS_FLAGS) -L bin/string.lst -o bin/string.obj src/string.asm
-	$(LD) -T$(LD_FILE) -bihex -obin/test.ihx bin/test.obj bin/parser_cmd_line.obj bin/string.obj -M > bin/test.map
+	$(AS) $(AS_FLAGS) -L bin/convert.lst -o bin/convert.obj src/convert.asm
+	$(LD) -T$(LD_FILE) -bihex -obin/test.ihx bin/test.obj bin/parser_cmd_line.obj bin/string.obj bin/convert.obj -M > bin/test.map
 	$(UCSIM) $(UCSIM_FLAGS) bin/test.ihx
 
 clean: 

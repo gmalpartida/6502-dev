@@ -27,7 +27,7 @@ IHX_FILE=$(BIN_DIR)/$(TARGET).ihx
 VPORT0=/tmp/ttyV0
 VPORT1=/tmp/ttyV1
 
-AS_FLAGS=-I $(INC_DIR) -Fvobj -sect -wfail -dotdir -L $(LST_FILE) -o $(OBJ_FILE) 
+AS_FLAGS= -wdc02 -I $(INC_DIR) -Fvobj -sect -wfail -dotdir -L $(LST_FILE) -o $(OBJ_FILE) 
 LD_FLAGS= -T$(LD_FILE) -bihex -o $(IHX_FILE) -M > $(MAP_FILE)
 HEXDUMP_FLAGS=-C
 OBJCOPY_FLAGS= -I ihex -O binary $(IHX_FILE)

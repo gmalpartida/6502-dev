@@ -1,0 +1,2 @@
+
+	.global nmi_isr

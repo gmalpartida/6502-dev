@@ -14,7 +14,8 @@ MEMORY
     IO6 : org = 0x9800, len = 0x0400
     IO7 : org = 0x9C00, len = 0x0400
     
-    ROM : org = 0xE000, len = 0x1ffa
+    ROM : org = 0xE000, len = 0x1f00
+	BIOS: org = 0xFF00, len = 0x00fa
     VECT: org = 0xfffa, len = 0x0006
 }
 
@@ -26,6 +27,7 @@ SECTIONS
 	.text:    { *(.text) *(.rodata) } > ROM
     .data:    { *(.data) }             > RAM AT> ROM
     .bss(NOLOAD):     { *(.bss) }              > RAM
+	.bios: { *(.bios)}	> BIOS
     .vectors: { *(.vectors) }          > VECT
 
     /* Assign assembly segments to their physical hardware locations */

@@ -1,9 +1,6 @@
-	.include "stddefs.inc"
+	.include "logo.inc"
 
 	.section .rodata
-
-	.global g65_logo
-	.global copyright_txt
 
 g65_logo:
 	.db		TAB, "_____/\\\\\\\\\\\\____________/\\\\\___/\\\\\\\\\\\\\\\_         ", CR, LF 
@@ -17,3 +14,38 @@ g65_logo:
 	.db		TAB, "        __\////////////_______\/////////______\/////////////_____", CR, LF, NULL
 
 copyright_txt:	.asciiz	"Copyright Gino Malpartida 2026"
+
+	.section .text
+
+print_logo:
+
+	lda #<g65_logo
+	sta R4
+	lda #>g65_logo
+	sta R5
+	ldy #$00
+
+.next_char:
+	lda (R4), y
+	beq .exit
+	jsr uart_tx_char
+	iny
+	bne .next_char
+	inc R5
+	bra .next_char
+.exit:
+	rts
+
+print_copyright:
+	lda #TAB
+	jsr uart_tx_char
+	jsr uart_tx_char
+	jsr uart_tx_char
+	jsr uart_tx_char
+	lda #<copyright_txt
+	sta R6
+	lda #>copyright_txt
+	sta R7
+	jsr uart_tx_asciiz
+	rts
+

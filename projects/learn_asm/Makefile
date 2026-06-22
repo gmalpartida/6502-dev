@@ -21,7 +21,7 @@ LD_FILE=$(CFG_DIR)/$(TARGET).ld
 UC_SIM_FILE=$(CFG_DIR)/$(TARGET).ucsim
 IHX_FILE=$(BIN_DIR)/$(TARGET).ihx
 
-AS_FLAGS=-I $(INC_DIR) -Fvobj -sect -wfail -dotdir -L $(LST_FILE) -o $(OBJ_FILE) 
+AS_FLAGS=-I $(INC_DIR) -wdc02 -Fvobj -sect -wfail -dotdir -L $(LST_FILE) -o $(OBJ_FILE) 
 LD_FLAGS= -T$(LD_FILE) -bihex -o $(IHX_FILE) -M > $(MAP_FILE)
 HEXDUMP_FLAGS=-C
 UCSIM_FLAGS= -t 65C02 -C $(UC_SIM_FILE)

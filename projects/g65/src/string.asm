@@ -1,8 +1,6 @@
-	.include "stddefs.inc"
+	.include "string.inc"
 
 	.section .text
-
-	.global memcpy, memset, memcmp
 
 ; copies a byte value to the first n locations of a buffer
 ; --> R7, R6: address of buffer
