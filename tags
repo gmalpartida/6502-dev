@@ -156,6 +156,7 @@ CLEAR	projects/msbasic-master/flow1.s	/^CLEAR:$/;"	l
 CLEAR	projects/msbasic-master/program.s	/^CLEAR:$/;"	l
 CLEARC	projects/BASIC-M6502-main/m6502.asm	/^CLEARC: LDWD	MEMSIZ		;FREE UP STRING SPACE.$/;"	l
 CLEARC	projects/msbasic-master/program.s	/^CLEARC:$/;"	l
+CLEAR_CMD	projects/g65/src/cmd_dispatcher.asm	/^CLEAR_CMD:		.asciiz		"clear"$/;"	l
 CLOSE	projects/msbasic-master/defines_cbm1.s	/^CLOSE	:= $FFC3$/;"	d
 CLOSE	projects/msbasic-master/defines_cbm2.s	/^CLOSE	:= $FFC3$/;"	d
 CLRCH	projects/msbasic-master/defines_cbm1.s	/^CLRCH	:= $FFCC$/;"	d
@@ -398,6 +399,8 @@ DIMFLG	projects/BASIC-M6502-main/m6502.asm	/^DIMFLG: BLOCK	1		;IN GETTING A POIN
 DIMFLG	projects/msbasic-master/zeropage.s	/^DIMFLG:$/;"	l
 DIMRTS	projects/BASIC-M6502-main/m6502.asm	/^DIMRTS: RTS			;RETURN TO CALLER.$/;"	l
 DIRIS	projects/BASIC-M6502-main/m6502.asm	/^DIRIS:	PLA			;POP OFF NEWSTT ADDR.$/;"	l
+DISPATCH_CMD_REC_SIZE	projects/g65/src/cmd_dispatcher.asm	/^DISPATCH_CMD_REC_SIZE = $05$/;"	d
+DISPATCH_CMD_TABLE_LEN	projects/g65/src/cmd_dispatcher.asm	/^DISPATCH_CMD_TABLE_LEN = $07$/;"	d
 DIV	projects/msbasic-master/float.s	/^DIV:$/;"	l
 DIV10	projects/BASIC-M6502-main/m6502.asm	/^DIV10:	JSR	MOVAF		;MOVE FAC TO ARG.$/;"	l
 DIV10	projects/msbasic-master/float.s	/^DIV10:$/;"	l
@@ -424,6 +427,7 @@ DSCPTR	projects/msbasic-master/zeropage.s	/^DSCPTR:$/;"	l
 DU13	projects/msbasic-master/defines_aim65.s	/^DU13   := $E520$/;"	d
 DUMMY_START	projects/msbasic-master/macros.s	/^DUMMY_START:$/;"	l
 DUMPT	projects/msbasic-master/defines_sym1.s	/^DUMPT    := $8E87$/;"	d
+DUMP_CMD	projects/g65/src/cmd_dispatcher.asm	/^DUMP_CMD:		.asciiz		"dump"$/;"	l
 DV0ERR	projects/BASIC-M6502-main/m6502.asm	/^DV0ERR: LDXI	ERRDV0$/;"	l
 DVAR	projects/BASIC-M6502-main/m6502.asm	/^DVAR:	LDADY	INDEX1		;IS LENGTH=0?$/;"	l
 DVAR2	projects/BASIC-M6502-main/m6502.asm	/^DVAR2:	CMP	GRBTOP+1$/;"	l
@@ -784,6 +788,7 @@ GOTARY	projects/BASIC-M6502-main/m6502.asm	/^GOTARY: LDXI	ERRDD		;PERHAPS A "RE-
 GOTNUM	projects/BASIC-M6502-main/m6502.asm	/^GOTNUM: SBCI	"0"-1		;C IS OFF.$/;"	l
 GOTO	projects/BASIC-M6502-main/m6502.asm	/^GOTO:	JSR	LINGET		;PICK UP THE LINE NUMBER IN "LINNUM".$/;"	l
 GOTO	projects/msbasic-master/flow2.s	/^GOTO:$/;"	l
+GOTO_CMD	projects/g65/src/cmd_dispatcher.asm	/^GOTO_CMD:		.asciiz		"goto"$/;"	l
 GPOLYX	projects/BASIC-M6502-main/m6502.asm	/^GPOLYX: JMP	POLYX		;DO APPROXIMATION POLYNOMIAL.$/;"	l
 GRBPAS	projects/BASIC-M6502-main/m6502.asm	/^GRBPAS: LDA	GRBPNT+1	;VARIABLE POINTER.$/;"	l
 GRBRTS	projects/BASIC-M6502-main/m6502.asm	/^GRBRTS: LDX	INDEX1+1$/;"	l
@@ -1801,6 +1806,7 @@ LOAD	projects/msbasic-master/sym1_loadsave.s	/^LOAD:$/;"	l
 LOAD2	projects/msbasic-master/aim65_loadsave.s	/^LOAD2:$/;"	l
 LOADED	projects/msbasic-master/sym1_loadsave.s	/^LOADED:$/;"	l
 LOAD_ARG_FROM_YA	projects/msbasic-master/float.s	/^LOAD_ARG_FROM_YA:$/;"	l
+LOAD_CMD	projects/g65/src/cmd_dispatcher.asm	/^LOAD_CMD:		.asciiz		"load"$/;"	l
 LOAD_FAC_FROM_YA	projects/msbasic-master/float.s	/^LOAD_FAC_FROM_YA:$/;"	l
 LOFBUF	projects/BASIC-M6502-main/m6502.asm	/^LOFBUF: BLOCK	1		;THE LOW FAC BUFFER. COPYABLE.$/;"	l
 LOG	projects/BASIC-M6502-main/m6502.asm	/^LOG:	JSR	SIGN		;IS IT POSITIVE?$/;"	l
@@ -2119,6 +2125,7 @@ PATCH6	projects/msbasic-master/cbm1_patches.s	/^PATCH6:$/;"	l
 PATSAV	projects/BASIC-M6502-main/m6502.asm	/^PATSAV: BLOCK 20$/;"	l
 PEEK	projects/BASIC-M6502-main/m6502.asm	/^PEEK:	PSHWD	POKER$/;"	l
 PEEK	projects/msbasic-master/poke.s	/^PEEK:$/;"	l
+PEEK_CMD	projects/g65/src/cmd_dispatcher.asm	/^PEEK_CMD:		.asciiz		"peek"$/;"	l
 PI2	projects/BASIC-M6502-main/m6502.asm	/^PI2:	201	;PI\/2$/;"	l
 PIVAL	projects/BASIC-M6502-main/m6502.asm	/^PIVAL:	^O202$/;"	l
 PKINC	projects/BASIC-M6502-main/m6502.asm	/^PKINC:	DEX$/;"	l
@@ -2129,6 +2136,7 @@ PLT	projects/msbasic-master/apple_extra.s	/^PLT:$/;"	l
 POINT	projects/msbasic-master/string.s	/^POINT:$/;"	l
 POKE	projects/BASIC-M6502-main/m6502.asm	/^POKE:	JSR	GETNUM$/;"	l
 POKE	projects/msbasic-master/poke.s	/^POKE:$/;"	l
+POKE_CMD	projects/g65/src/cmd_dispatcher.asm	/^POKE_CMD:		.asciiz		"poke"$/;"	l
 POLY	projects/BASIC-M6502-main/m6502.asm	/^POLY:	STWD	POLYPT$/;"	l
 POLY1	projects/BASIC-M6502-main/m6502.asm	/^POLY1:	JSR	MOV2F		;SAVE FAC.$/;"	l
 POLY2	projects/BASIC-M6502-main/m6502.asm	/^POLY2:	JSR	FMULT$/;"	l
@@ -2279,6 +2287,7 @@ RESCON	projects/BASIC-M6502-main/m6502.asm	/^RESCON: LDA	BUFOFS,X$/;"	l
 RESCR1	projects/BASIC-M6502-main/m6502.asm	/^RESCR1: INY$/;"	l
 RESER	projects/BASIC-M6502-main/m6502.asm	/^RESER:	INY$/;"	l
 RESETC	projects/BASIC-M6502-main/m6502.asm	/^RESETC: CLC$/;"	l
+RESET_CMD	projects/g65/src/cmd_dispatcher.asm	/^RESET_CMD:		.asciiz		"reset"$/;"	l
 RESFIN	projects/BASIC-M6502-main/m6502.asm	/^RESFIN: STWD	DATPTR		;READ FINISHES COME TO "RESFIN".$/;"	l
 RESHO	projects/BASIC-M6502-main/m6502.asm	/^RESHO:	BLOCK	1		;RESULT OF MULTIPLIER AND DIVIDER.$/;"	l
 RESLO	projects/BASIC-M6502-main/m6502.asm	/^RESLO:	BLOCK	1$/;"	l
@@ -2870,7 +2879,8 @@ ahex2byte	projects/g65/src/convert.asm	/^ahex2byte:$/;"	l
 ahex2nib	projects/g65/src/convert.asm	/^ahex2nib:$/;"	l
 bios_init	projects/g65/src/bios.asm	/^bios_init:$/;"	l
 byte2ahex	projects/g65/src/convert.asm	/^byte2ahex:$/;"	l
-clear_cmd	projects/g65/src/commands.asm	/^clear_cmd:			.asciiz "clear"$/;"	l
+calc_checksum	projects/g65/src/commands.asm	/^calc_checksum:$/;"	l
+clear_cmd	projects/g65/src/cmd_dispatcher.asm	/^	clear_cmd:		CMD_REC $01, CLEAR_CMD,		process_clear_cmd$/;"	l
 cmd	projects/g65/src/commands.asm	/^cmd:			.ds		$20$/;"	l
 cmd_line_buffer	projects/g65/src/parser_cmd_line.asm	/^cmd_line_buffer:		.ds	256			; text entered by user at the command prompt$/;"	l
 cmd_line_buffer_pos	projects/g65/src/parser_cmd_line.asm	/^cmd_line_buffer_pos		.ds 1			; holds position of char being read$/;"	l
@@ -2913,39 +2923,37 @@ define_error	projects/msbasic-master/error.s	/^define_error ERR_UNDEFSTAT, "UNDE
 define_error	projects/msbasic-master/error.s	/^define_error ERR_UNDEFSTAT, "US"$/;"	l
 define_error	projects/msbasic-master/error.s	/^define_error ERR_ZERODIV, "DIVISION BY ZERO"$/;"	l
 define_error	projects/msbasic-master/error.s	/^define_error ERR_ZERODIV, "\/0"$/;"	l
-dump_cmd	projects/g65/src/commands.asm	/^dump_cmd:			.asciiz "dump"$/;"	l
+dispatch_cmd	projects/g65/src/cmd_dispatcher.asm	/^dispatch_cmd:$/;"	l
+dispatch_cmd_table	projects/g65/src/cmd_dispatcher.asm	/^dispatch_cmd_table:$/;"	l
+dispatch_is_cmd	projects/g65/src/cmd_dispatcher.asm	/^dispatch_is_cmd:$/;"	l
+dump_cmd	projects/g65/src/cmd_dispatcher.asm	/^	dump_cmd:		CMD_REC $04, DUMP_CMD,		process_dump_cmd$/;"	l
 error	projects/msbasic-master/macros.s	/^		error := <(*-ERROR_MESSAGES)$/;"	d
 expcon	projects/BASIC-M6502-main/m6502.asm	/^expcon: 6	; degree -1.$/;"	l
 g65_logo	projects/g65/src/logo.asm	/^g65_logo:$/;"	l
 get_addr	projects/g65/src/commands.asm	/^get_addr:$/;"	l
 get_cmd	projects/g65/src/commands.asm	/^get_cmd:$/;"	l
+get_cmd_address	projects/g65/src/commands.asm	/^get_cmd_address:$/;"	l
 get_cmd_line	projects/g65/src/commands.asm	/^get_cmd_line:$/;"	l
 get_value	projects/g65/src/commands.asm	/^get_value:$/;"	l
-goto_cmd	projects/g65/src/commands.asm	/^goto_cmd:			.asciiz "goto"$/;"	l
+goto_cmd	projects/g65/src/cmd_dispatcher.asm	/^	goto_cmd:		CMD_REC $06, GOTO_CMD,		process_goto_cmd$/;"	l
 halt	projects/g65/src/g65.asm	/^halt:$/;"	l
 halt	projects/g65/src/test.asm	/^halt: $/;"	l
 handle_backspace	projects/g65/src/uart_16x450.asm	/^handle_backspace:$/;"	l
 ife	projects/BASIC-M6502-main/m6502.asm	/^ife	addprc,<$/;"	l
+ihex_address	projects/g65/src/commands.asm	/^ihex_address	.ds		$02$/;"	l
 ihex_checksum	projects/g65/src/commands.asm	/^ihex_checksum	.ds		$01$/;"	l
 ihex_rec_len	projects/g65/src/commands.asm	/^ihex_rec_len	.ds		$01$/;"	l
 ihex_rec_type	projects/g65/src/commands.asm	/^ihex_rec_type	.ds		$01$/;"	l
+ihex_row_count	projects/g65/src/commands.asm	/^ihex_row_count	.ds		$01$/;"	l
 inc_addr	projects/g65/src/commands.asm	/^inc_addr:$/;"	l
 init_error_table	projects/msbasic-master/error.s	/^init_error_table$/;"	l
 init_regs	projects/g65/src/bios.asm	/^init_regs:$/;"	l
-init_regs	projects/g65/src/g65.asm	/^init_regs:$/;"	l
 irq_isr	projects/g65-sdcc/src/g65-sdcc.asm	/^irq_isr:$/;"	l
 irq_isr	projects/g65-sdcc/src/g65.asm	/^irq_isr:$/;"	l
 irq_isr	projects/g65/src/test.asm	/^irq_isr:$/;"	l
 irq_vector	projects/learn_asm/src/learn_asm.asm	/^irq_vector:$/;"	l
-is_clear_cmd	projects/g65/src/commands.asm	/^is_clear_cmd:$/;"	l
-is_dump_cmd	projects/g65/src/commands.asm	/^is_dump_cmd:$/;"	l
-is_goto_cmd	projects/g65/src/commands.asm	/^is_goto_cmd:$/;"	l
-is_load_cmd	projects/g65/src/commands.asm	/^is_load_cmd:$/;"	l
-is_peek_cmd	projects/g65/src/commands.asm	/^is_peek_cmd:$/;"	l
-is_poke_cmd	projects/g65/src/commands.asm	/^is_poke_cmd:$/;"	l
-is_reset_cmd	projects/g65/src/commands.asm	/^is_reset_cmd:$/;"	l
 little_brown_fox_txt	projects/learn_asm/src/learn_asm.asm	/^little_brown_fox_txt: .asciiz "The quick brown fox jumps over the lazy dog."$/;"	l
-load_cmd	projects/g65/src/commands.asm	/^load_cmd:			.asciiz "load"$/;"	l
+load_cmd	projects/g65/src/cmd_dispatcher.asm	/^	load_cmd:		CMD_REC $05, LOAD_CMD,		process_load_cmd$/;"	l
 memcmp	projects/g65/src/string.asm	/^memcmp:$/;"	l
 memcpy	projects/g65/src/string.asm	/^memcpy:$/;"	l
 memset	projects/g65/src/string.asm	/^memset:$/;"	l
@@ -2981,15 +2989,15 @@ parser_cmd_line_next_token	projects/g65/src/parser_cmd_line.asm	/^parser_cmd_lin
 parser_cmd_line_reset	projects/g65/src/parser_cmd_line.asm	/^parser_cmd_line_reset:$/;"	l
 parser_cmd_line_set_test_command	projects/g65/src/parser_cmd_line.asm	/^parser_cmd_line_set_test_command:$/;"	l
 parser_cmd_line_skip_blanks	projects/g65/src/parser_cmd_line.asm	/^parser_cmd_line_skip_blanks:$/;"	l
-peek_cmd	projects/g65/src/commands.asm	/^peek_cmd:			.asciiz "peek"$/;"	l
-poke_cmd	projects/g65/src/commands.asm	/^poke_cmd:			.asciiz "poke"$/;"	l
+peek_cmd	projects/g65/src/cmd_dispatcher.asm	/^	peek_cmd:		CMD_REC $02, PEEK_CMD,		process_peek_cmd$/;"	l
+poke_cmd	projects/g65/src/cmd_dispatcher.asm	/^	poke_cmd:		CMD_REC $03, POKE_CMD,		process_poke_cmd$/;"	l
 print_addr	projects/g65/src/commands.asm	/^print_addr:$/;"	l
+print_checksum_validation	projects/g65/src/commands.asm	/^print_checksum_validation:$/;"	l
 print_cmd	projects/g65/src/commands.asm	/^print_cmd:$/;"	l
 print_cmd_prompt	projects/g65/src/g65.asm	/^print_cmd_prompt:$/;"	l
 print_copyright	projects/g65/src/logo.asm	/^print_copyright:$/;"	l
 print_dump_col_headers	projects/g65/src/commands.asm	/^print_dump_col_headers:$/;"	l
 print_hex_byte	projects/g65/src/bios.asm	/^print_hex_byte:$/;"	l
-print_hex_word	projects/g65/src/g65.asm	/^print_hex_word:$/;"	l
 print_logo	projects/g65/src/logo.asm	/^print_logo:$/;"	l
 println	projects/g65/src/bios.asm	/^println:$/;"	l
 printspc	projects/g65/src/bios.asm	/^printspc:$/;"	l
@@ -3002,11 +3010,10 @@ process_peek_cmd	projects/g65/src/commands.asm	/^process_peek_cmd:$/;"	l
 process_poke_cmd	projects/g65/src/commands.asm	/^process_poke_cmd:$/;"	l
 process_reset_cmd	projects/g65/src/commands.asm	/^process_reset_cmd:$/;"	l
 process_unknown_cmd	projects/g65/src/commands.asm	/^process_unknown_cmd:$/;"	l
-process_user_input	projects/g65/src/g65.asm	/^process_user_input:$/;"	l
 read_hex_byte	projects/g65/src/bios.asm	/^read_hex_byte:$/;"	l
 read_hex_byte	projects/g65/src/test.asm	/^read_hex_byte:$/;"	l
 read_hex_word	projects/g65/src/test.asm	/^read_hex_word:$/;"	l
-reset_cmd	projects/g65/src/commands.asm	/^reset_cmd:			.asciiz "reset"$/;"	l
+reset_cmd	projects/g65/src/cmd_dispatcher.asm	/^	reset_cmd:		CMD_REC $00, RESET_CMD,		process_reset_cmd$/;"	l
 reset_isr	projects/g65-sdcc/src/g65-sdcc.asm	/^reset_isr:$/;"	l
 reset_isr	projects/g65-sdcc/src/g65.asm	/^reset_isr:$/;"	l
 reset_isr	projects/g65/src/g65.asm	/^reset_isr:$/;"	l
@@ -3015,6 +3022,7 @@ reset_vector	projects/learn_asm/src/learn_asm.asm	/^reset_vector:$/;"	l
 rx_line_done	projects/g65/src/uart_16x450.asm	/^rx_line_done:$/;"	l
 rx_line_loop	projects/g65/src/uart_16x450.asm	/^rx_line_loop:$/;"	l
 start_entry	projects/test_io_port/src/test_io_port.s	/^start_entry:$/;"	l
+strcmp	projects/g65/src/string.asm	/^strcmp:$/;"	l
 sys_clrscrn	projects/g65/src/bios.asm	/^sys_clrscrn:		jmp vt102_clrscrn	; clears screen$/;"	l
 sys_getc	projects/g65/src/bios.asm	/^sys_getc:			jmp uart_rx_char	; Non-blocking: Get character (Carry set = success)$/;"	l
 sys_gets	projects/g65/src/bios.asm	/^sys_gets:			jmp uart_rx_asciiz	; rean null-terminated string$/;"	l
@@ -3028,10 +3036,13 @@ sys_printtab	projects/g65/src/bios.asm	/^sys_printtab:		jmp printtab		; prints t
 sys_putc	projects/g65/src/bios.asm	/^sys_putc:			jmp uart_tx_char	; Blocking: Transmit character in A$/;"	l
 sys_puts	projects/g65/src/bios.asm	/^sys_puts:			jmp uart_tx_asciiz	; Print null-terminated string at R1:R0$/;"	l
 sys_read_hex_byte	projects/g65/src/bios.asm	/^sys_read_hex_byte:	jmp read_hex_byte	; get hex byte$/;"	l
-test_address	projects/g65/src/test.asm	/^test_address: .db '9', '6', '3', '0'$/;"	l
-test_command	projects/g65/src/test.asm	/^test_command: .asciiz "       peek     a1b2     00fd            1234   "$/;"	l
+test_address	projects/g65/src/test.asm	/^test_address:	.db '9', '6', '3', '0'$/;"	l
+test_command	projects/g65/src/test.asm	/^test_command:	.asciiz "       peek     a1b2     00fd            1234   "$/;"	l
 test_convert_functions	projects/g65/src/test.asm	/^test_convert_functions:$/;"	l
+test_memory_functions	projects/g65/src/test.asm	/^test_memory_functions:$/;"	l
 test_parser_cmd_line	projects/g65/src/test.asm	/^test_parser_cmd_line:$/;"	l
+test_text	projects/g65/src/test.asm	/^test_text:		.asciiz ""		;"The little brown fox jumps over the lazy dog."$/;"	l
+test_text2	projects/g65/src/test.asm	/^test_text2:		.asciiz "The little brow fox jumps over the lazy dog."$/;"	l
 token	projects/msbasic-master/macros.s	/^			token := <(*-DUMMY_START)+$80$/;"	d
 uart_init	projects/g65/src/uart_16x450.asm	/^uart_init:$/;"	l
 uart_rx_asciiz	projects/g65/src/uart_16x450.asm	/^uart_rx_asciiz:$/;"	l
@@ -3043,7 +3054,8 @@ uart_rx_q_tail	projects/g65/src/uart_16x450.asm	/^uart_rx_q_tail:		.ds 1	$/;"	l
 uart_tx_asciiz	projects/g65/src/uart_16x450.asm	/^uart_tx_asciiz:$/;"	l
 uart_tx_char	projects/g65/src/uart_16x450.asm	/^uart_tx_char:$/;"	l
 uart_xoff_sent	projects/g65/src/uart_16x450.asm	/^uart_xoff_sent:		.ds	1$/;"	l
-unknown_cmd_msg	projects/g65/src/commands.asm	/^unknown_cmd_msg:	.asciiz "Unknown command."$/;"	l
+unknown_cmd	projects/g65/src/cmd_dispatcher.asm	/^	unknown_cmd:	CMD_REC $07, $00,			process_unknown_cmd$/;"	l
+unknown_cmd_msg	projects/g65/src/commands.asm	/^unknown_cmd_msg:		.asciiz		"unknown"$/;"	l
 value	projects/g65/src/commands.asm	/^value:			.ds		$02$/;"	l
 via6522_porta_config	projects/g65/src/via_65x22.asm	/^via6522_porta_config:$/;"	l
 via6522_portb_config	projects/g65/src/via_65x22.asm	/^via6522_portb_config:$/;"	l

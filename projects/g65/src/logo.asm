@@ -28,7 +28,7 @@ print_logo:
 .next_char:
 	lda (R4), y
 	beq .exit
-	jsr uart_tx_char
+	jsr sys_putc
 	iny
 	bne .next_char
 	inc R5
@@ -38,14 +38,13 @@ print_logo:
 
 print_copyright:
 	lda #TAB
-	jsr uart_tx_char
-	jsr uart_tx_char
-	jsr uart_tx_char
-	jsr uart_tx_char
+	jsr sys_putc
+	jsr sys_putc
+	jsr sys_putc
 	lda #<copyright_txt
 	sta R6
 	lda #>copyright_txt
 	sta R7
-	jsr uart_tx_asciiz
+	jsr sys_puts
 	rts
 

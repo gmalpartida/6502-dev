@@ -1,6 +1,5 @@
 	.include "bios.inc"
 
-
 	.section .bios
 
 sys_init:			jmp bios_init		; Initialize UART, VIA, Queues, Variables
@@ -18,10 +17,6 @@ sys_print_copyright jmp print_copyright	; prints copyright statement
 sys_clrscrn:		jmp vt102_clrscrn	; clears screen
 
 bios_init:
-    sei             			; Disable interrupts
-    cld             			; Clear decimal mode
-    ldx #$ff        			; Initialize stack pointer to $01ff
-    txs
 
 	jsr init_regs				; initialize all registers to 00
 	jsr uart_init
@@ -105,12 +100,14 @@ read_hex_byte:
 
 init_regs:
 	lda #$00
-	ldy #R0
-.loop:
-	sta (R0), y
-	iny
-	cpy #R7
-	bne .loop
+	sta R0
+	sta R1
+	sta R2
+	sta R3
+	sta R4
+	sta R5
+	sta R6
+	sta R7
 	rts
 
 

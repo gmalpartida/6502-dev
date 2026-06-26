@@ -4,13 +4,13 @@
 
 ; copies a byte value to the first n locations of a buffer
 ; --> R7, R6: address of buffer
-; --> R5:	  byte value to copy
+; --> R5:     byte value to copy
 ; --> R3, R2: count of bytes to set
 ; <-- none
 memset:
     ldy #0
-    lda R5
 .loop:
+	lda R5
     sta (R6), y
     ldx R2
     bne .skip_dec_hi
@@ -29,66 +29,121 @@ memset:
 .exit:
     rts
 
-; compares the first n bytes of two buffers
-; --> R7, R6: address of first buffer
-; --> R5, R4: address of second buffer
-; --> R3, R2: count of bytes to compare
-; <-- Carry = 0 if equal, otherwise Carry = 1
-memcmp:
-	ldy #0
-.next_byte:
-	lda R3
-	ora R2
-	beq .equal						; if count = 0 then nothing to do
-	; Compare one byte
-	lda (R6), y
-	cmp (R4), y
-	bne .not_equal
-	inc R6
-	bne .skip1
-	inc R7
-.skip1:
-	inc R4
-	bne .skip2
-	inc R5
-.skip2:
-	lda R2
-	bne .skip3
-	lda R3
-.skip3:
-	dec R2
-	jmp .next_byte
-.not_equal:
-	sec
-	rts
-.equal:
-	clc
-    rts
-
-; copies the first n bytes from source buffer to destination buffer
-; R7:R6			address of source buffer
-; R5:R4			address of destination buffer
-; R3:R2			how many bytes to copy
+; copies n bytes from a source buffer to a destination buffer
+; --> R7, R6: address of source buffer       (R7=High, R6=Low)
+; --> R5, R4: address of destination buffer  (R5=High, R4=Low)
+; --> R3, R2: count of bytes to copy         (R3=High, R2=Low)
+; <-- none
 memcpy:
     ldy #0
 .loop:
+	lda R2				; exit if count is zero
+	ora R3
+	beq .exit
+    lda (R6), y         ; Read byte from source buffer
+    sta (R4), y         ; Write byte to destination buffer
     ldx R2
-    bne .continue
-    ldx R3
-    beq .exit
-.continue:
-    lda (R6), y
-    sta (R4), y
+    bne .skip_dec_hi    ; If low count isn't zero, skip high decrement
+    dec R3              ; Decrement high count
+.skip_dec_hi:
+    dec R2              ; Decrement low count
+.next_char:
+    iny
+    bne .loop           ; Continue loop if page boundary not hit
+    inc R7              ; Source page rolled over
+    inc R5              ; Destination page rolled over
+    bra .loop
+.exit:
+    rts
+
+; compares n bytes of two memory buffers
+; --> R7, R6: address of buffer 1            (R7=High, R6=Low)
+; --> R5, R4: address of buffer 2            (R5=High, R4=Low)
+; --> R3, R2: count of bytes to compare      (R3=High, R2=Low)
+; <-- A:      result (0 = equal, 1 = B1 > B2, $FF = B1 < B2)
+memcmp:
+    ldy #0
+.loop:
+	lda R2
+	ora R3
+	beq .equal_exit
+
+    lda (R6), y         ; Fetch byte from Buffer 1
+    cmp (R4), y         ; Compare with Buffer 2
+    bne .mismatch       ; Bytes don't match! Jump straight to evaluation
     ldx R2
     bne .skip_dec_hi
     dec R3
 .skip_dec_hi:
     dec R2
+.next_char:
     iny
     bne .loop
-    inc R7
-    inc R5
+    inc R7              ; Buffer 1 page rolled over
+    inc R5              ; Buffer 2 page rolled over
     bra .loop
-.exit:
+
+.mismatch:
+    bcc .less_than      ; If Carry flag is clear, Buffer 1 < Buffer 2
+    lda #$01            ; Buffer 1 is greater
+	sec
     rts
+.less_than:
+    lda #$ff            ; Buffer 1 is less
+	sec
+    rts
+
+.equal_exit:
+	clc
+    lda #0              ; Clean match found
+    rts
+
+; compares two null-terminated strings.
+; preserves the pointers
+; -->	R7:R6		pointer of first string
+; -->	R5:R4		pointer of second string
+; <--	C			set if matched, otherwise clear
+strcmp:
+	lda R7
+	pha
+	lda R6
+	pha
+	lda R5
+	pha
+	lda R4
+	pha
+	ldy #$00
+.loop:
+	lda (R6), y
+	sta R3
+	lda (R4), y
+	ora R3
+	beq .match
+	lda (R4), y
+	cmp R3
+	bne .mismatch
+	inc R4
+	bne .cont
+	inc R5
+.cont:
+	inc R6
+	bne .cont2
+	inc R7
+.cont2:
+	bra .loop
+.mismatch:
+	clc
+	bra .exit
+.match:
+	sec
+.exit:
+	pla
+	sta R4
+	pla
+	sta R5
+	pla
+	sta R6
+	pla
+	sta R7
+	rts
 

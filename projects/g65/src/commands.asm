@@ -2,123 +2,6 @@
 
 	.section .text
 
-is_poke_cmd:
-
-	lda #<cmd
-	sta R6
-	lda #>cmd
-	sta R7
-	lda #<poke_cmd
-	sta R4
-	lda #>poke_cmd
-	sta R5
-	lda #$04
-	sta R2
-	lda #$00
-	sta R3
-	jsr memcmp
-	rts
-
-is_peek_cmd:
-	lda #<cmd
-	sta R6
-	lda #>cmd
-	sta R7
-	lda #<peek_cmd
-	sta R4
-	lda #>peek_cmd
-	sta R5
-	lda #$04
-	sta R2
-	lda #$00
-	sta R3
-	jsr memcmp
-	rts
-
-is_reset_cmd:
-
-	lda #<cmd
-	sta R6
-	lda #>cmd
-	sta R7
-	lda #<reset_cmd
-	sta R4
-	lda #>reset_cmd
-	sta R5
-	lda #$04
-	sta R2
-	lda #$00
-	sta R3
-	jsr memcmp
-	rts
-
-is_clear_cmd:
-
-	lda #<cmd
-	sta R6
-	lda #>cmd
-	sta R7
-	lda #<clear_cmd
-	sta R4
-	lda #>clear_cmd
-	sta R5
-	lda #$04
-	sta R2
-	lda #$00
-	sta R3
-	jsr memcmp
-	rts
-
-is_dump_cmd:
-
-	lda #<cmd
-	sta R6
-	lda #>cmd
-	sta R7
-	lda #<dump_cmd
-	sta R4
-	lda #>dump_cmd
-	sta R5
-	lda #$04
-	sta R2
-	lda #$00
-	sta R3
-	jsr memcmp
-	rts
-
-is_load_cmd:
-
-	lda #<cmd
-	sta R6
-	lda #>cmd
-	sta R7
-	lda #<load_cmd
-	sta R4
-	lda #>load_cmd
-	sta R5
-	lda #$04
-	sta R2
-	lda #$00
-	sta R3
-	jsr memcmp
-	rts
-
-is_goto_cmd:
-	lda #<cmd
-	sta R6
-	lda #>cmd
-	sta R7
-	lda #<goto_cmd
-	sta R4
-	lda #>goto_cmd
-	sta R5
-	lda #$04
-	sta R2
-	lda #$00
-	sta R3
-	jsr memcmp
-	rts
-
 process_poke_cmd:
 	jsr get_addr
 	bcc .error
@@ -212,7 +95,7 @@ process_peek_cmd:
 
 process_reset_cmd:
 
-	jmp reset_isr
+	jmp ($fffc)
 
 	rts
 
@@ -222,14 +105,18 @@ get_cmd_line:
 	rts
 
 get_cmd:
-	lda #<cmd
-	sta R6
-	lda #>cmd
-	sta R7
+	jsr get_cmd_address
 	jsr parser_cmd_line_next_token
 	; add NULL character to turn it into an asciiz
 	lda #NULL
 	sta cmd, y
+	rts
+
+get_cmd_address:
+	lda #<cmd
+	sta R6
+	lda #>cmd
+	sta R7
 	rts
 
 get_addr:
@@ -397,6 +284,8 @@ process_load_cmd:
 	jsr addr2bin							; convert address to binary, saved to R1:R0
 
 	; R1:R0 contain address to which data will be stored
+	lda #$20
+	sta ihex_row_count						; keeps row count for checksum validation
 .next_record:
 	; read record marker
 	jsr uart_rx_char				; read next char from buffer
@@ -407,19 +296,14 @@ process_load_cmd:
 	sta ihex_rec_len				; store record length
 
 	jsr sys_read_hex_byte				; read upper byte of address, ignore
+	sta ihex_address + 1
 	jsr sys_read_hex_byte				; read lower byte of address, ignore
+	sta ihex_address
 
 	jsr sys_read_hex_byte				; read record type
 	sta ihex_rec_type				; store record type
 
-	; print address
-	lda R1
-	jsr sys_print_hex_byte
-	lda R0
-	jsr sys_print_hex_byte
-	jsr sys_printtab
-
-	lda #$00						; zero out checksum
+	lda ihex_rec_len						; initialize checksum with record length
 	sta ihex_checksum
 .next_byte:
 	ldx ihex_rec_len				; have we read all bytes?
@@ -430,7 +314,9 @@ process_load_cmd:
 	jsr sys_read_hex_byte				; process data byte
 	ldy #$00
 	sta (R0), y
-	jsr sys_print_hex_byte
+	clc
+	adc ihex_checksum
+	sta ihex_checksum
 .inc_addr:
 	inc R0							; increment address
 	bne .nocarry
@@ -440,14 +326,60 @@ process_load_cmd:
 	bra .next_byte
 
 .checksum:
-	jsr sys_read_hex_byte				; read checksum, ignore
-	jsr sys_println
+	jsr sys_read_hex_byte			; read received checksum
+	pha								; save for later
 	lda ihex_rec_type
 	cmp #$00						; if data record, then go read next record, otherwise exit
-	bne .exit
+	beq .continue
+	pla
+	bra .exit
+.continue:
+	jsr sys_printspc
+	pla
+	pha
+	jsr calc_checksum				; ihex_checksum = record checksum
+	pha
+	pla
+	pla
+	clc
+	adc ihex_checksum				;  add calculated checksum, sum should be 0
+	jsr print_checksum_validation
+	;jsr sys_println
 	bra .next_record
-
 .exit:
+	jsr sys_println
+	rts
+
+print_checksum_validation:
+	beq .checksum_valid
+	lda #'x'
+	jsr sys_putc
+	bra .exit
+.checksum_valid:
+	lda #'.'
+	jsr sys_putc
+.exit:
+	lda ihex_row_count
+	dec 
+	beq .new_line
+	sta ihex_row_count
+	rts
+.new_line:
+	lda #$20
+	sta ihex_row_count						; reset row count
+	jsr sys_println						; start a new line every 32 rows
+	rts
+
+calc_checksum:
+	lda ihex_checksum
+	clc
+	;adc ihex_rec_len						; record length was added at the beginning
+	adc ihex_rec_type
+	clc
+	adc ihex_address
+	clc
+	adc ihex_address + 1
+	sta ihex_checksum
 	rts
 
 process_goto_cmd:
@@ -472,14 +404,7 @@ process_goto_cmd:
 
 	.section .rodata
 
-peek_cmd:			.asciiz "peek"
-poke_cmd:			.asciiz "poke"
-reset_cmd:			.asciiz "reset"
-clear_cmd:			.asciiz "clear"
-dump_cmd:			.asciiz "dump"
-load_cmd:			.asciiz "load"
-goto_cmd:			.asciiz "goto"
-unknown_cmd_msg:	.asciiz "Unknown command."
+unknown_cmd_msg:		.asciiz		"unknown"
 
 	.section .bss
 cmd:			.ds		$20
@@ -488,5 +413,5 @@ value:			.ds		$02
 ihex_rec_len	.ds		$01
 ihex_rec_type	.ds		$01
 ihex_checksum	.ds		$01
-
-
+ihex_address	.ds		$02
+ihex_row_count	.ds		$01

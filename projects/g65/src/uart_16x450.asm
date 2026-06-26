@@ -222,7 +222,7 @@ uart_rx_isr:
 	txa
 	sec
 	sbc uart_rx_q_head	; calculate buffer fill
-	cmp #192			; about 75% full
+	cmp #128			; about 75% full
 	bcc .exit			; no, so exit
 	lda #XOFF
 	jsr uart_tx_char	; send XOFF
