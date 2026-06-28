@@ -6,7 +6,7 @@ for i in cbmbasic1 cbmbasic2 kbdbasic osi kb9 applesoft microtan aim65 sym1 w65c
 
 echo $i
 /opt/cc65/bin/ca65 -D $i -I /opt/cc65/asminc/ msbasic.s -o tmp/$i.o &&
-/opt/cc65/bin/ld65 -C $i.cfg tmp/$i.o -o tmp/$i.bin -Ln tmp/$i.lbl
-
+/opt/cc65/bin/ld65 -C $i.cfg tmp/$i.o -o tmp/$i.bin -Ln tmp/$i.lbl -m tmp/$i.map
+objcopy -I binary -O ihex tmp/$i.bin tmp/$i.ihx
 done
 

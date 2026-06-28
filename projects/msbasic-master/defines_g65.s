@@ -8,13 +8,13 @@ CONFIG_SCRTCH_ORDER := 3
 CONFIG_SMALL := 1
 
 ; zero page
-ZP_START1 = $00
-ZP_START2 = $0D
-ZP_START3 = $5B
-ZP_START4 = $65
+ZP_START1 = $20
+ZP_START2 = $2D
+ZP_START3 = $7B
+ZP_START4 = $85
 
 ;extra ZP variables
-USR             := $000A
+USR             := $002A
 
 ; constants
 STACK_TOP		:= $FC
@@ -24,14 +24,14 @@ WIDTH			:= 72
 WIDTH2			:= 56
 
 ; memory layout
-RAMSTART2		:= $0300
+RAMSTART2		:= $0500
 
 ; magic memory locations
 L0200           := $0200
 
 ; monitor functions
-MONRDKEY        := $FFEB
-MONCOUT         := $FFEE
+MONRDKEY        := $FF03
+MONCOUT         := $FF06
 MONISCNTC       := $FFF1
 LOAD            := $FFF4
 SAVE            := $FFF7

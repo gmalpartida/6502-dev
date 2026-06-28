@@ -84,7 +84,7 @@ uart_rx_char:
 	lda uart_rx_q_tail
 	cmp uart_rx_q_head
 	cli								; re-enable interrupts
-	beq uart_rx_char				; exit if no char received.
+	beq uart_rx_char				; keep looping if no char received.
 
 	ldx uart_rx_q_head				; process character
 	lda uart_rx_q, x
@@ -111,6 +111,7 @@ uart_rx_char:
 
 .exit:
 	pla
+	sec
 	rts
 
 ; ---------------------------------------------------------------------
