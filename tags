@@ -42,19 +42,13 @@ ARYVA2	projects/BASIC-M6502-main/m6502.asm	/^ARYVA2: LDWX	ARYPNT		;GET THE POINT
 ARYVA3	projects/BASIC-M6502-main/m6502.asm	/^ARYVA3: CPX	STREND+1	;DONE WITH ARRAYS?$/;"	l
 ARYVAR	projects/BASIC-M6502-main/m6502.asm	/^ARYVAR: STWX	ARYPNT		;SAVE FOR ADDITION.$/;"	l
 ARYVGO	projects/BASIC-M6502-main/m6502.asm	/^ARYVGO: STWX	INDEX1$/;"	l
-AS	projects/g65-sdcc/Makefile	/^AS=\/opt\/sdcc\/bin\/sdas6500$/;"	m
 AS	projects/g65/Makefile	/^AS=\/opt\/vbcc\/bin\/vasm6502_oldstyle$/;"	m
-AS	projects/learn_asm/Makefile	/^AS=\/opt\/vbcc\/bin\/vasm6502_oldstyle$/;"	m
-AS	projects/test_io_port/Makefile	/^AS=\/opt\/vbcc\/bin\/vasm6502_oldstyle$/;"	m
 ASC	projects/BASIC-M6502-main/m6502.asm	/^ASC:	JSR	LEN1$/;"	l
 ASC	projects/msbasic-master/string.s	/^ASC:$/;"	l
 ASCNIB	projects/msbasic-master/defines_sym1.s	/^ASCNIB   := $8275$/;"	d
 ASKAGN	projects/BASIC-M6502-main/m6502.asm	/^ASKAGN:$/;"	l
 ASPAC	projects/BASIC-M6502-main/m6502.asm	/^ASPAC:	TAX$/;"	l
-AS_FLAGS	projects/g65-sdcc/Makefile	/^AS_FLAGS=-los -I$(INC_DIR) $(REL_FILE) $/;"	m
 AS_FLAGS	projects/g65/Makefile	/^AS_FLAGS=-I $(INC_DIR) -Fvobj -sect -dotdir  -wdc02$/;"	m
-AS_FLAGS	projects/learn_asm/Makefile	/^AS_FLAGS=-I $(INC_DIR) -wdc02 -Fvobj -sect -wfail -dotdir -L $(LST_FILE) -o $(OBJ_FILE) $/;"	m
-AS_FLAGS	projects/test_io_port/Makefile	/^AS_FLAGS= -wdc02 -I $(INC_DIR) -Fvobj -sect -wfail -dotdir -L $(LST_FILE) -o $(OBJ_FILE) $/;"	m
 ATN	projects/BASIC-M6502-main/m6502.asm	/^ATN:	LDA	FACSGN		;WHAT IS SIGN?$/;"	l
 ATN	projects/msbasic-master/defines_sym1.s	/^ATN      := USR1$/;"	d
 ATN	projects/msbasic-master/trig.s	/^ATN:$/;"	l
@@ -73,14 +67,8 @@ BAD_LOAD	projects/msbasic-master/sym1_loadsave.s	/^BAD_LOAD:$/;"	l
 BAD_SAVE	projects/msbasic-master/sym1_loadsave.s	/^BAD_SAVE:$/;"	l
 BE	projects/BASIC-M6502-main/m6502.asm	/^		BE SET UP UNTIL THE OLD ONE(S) ARE FREED. TRYING$/;"	d
 BIGGES	projects/BASIC-M6502-main/m6502.asm	/^BIGGES: JSR	QINT$/;"	l
-BIN_DIR	projects/g65-sdcc/Makefile	/^BIN_DIR=bin$/;"	m
 BIN_DIR	projects/g65/Makefile	/^BIN_DIR=bin$/;"	m
-BIN_DIR	projects/learn_asm/Makefile	/^BIN_DIR=bin$/;"	m
-BIN_DIR	projects/test_io_port/Makefile	/^BIN_DIR=bin$/;"	m
-BIN_FILE	projects/g65-sdcc/Makefile	/^BIN_FILE=$(BIN_DIR)\/$(TARGET).bin$/;"	m
 BIN_FILE	projects/g65/Makefile	/^BIN_FILE=$(BIN_DIR)\/$(TARGET).bin$/;"	m
-BIN_FILE	projects/learn_asm/Makefile	/^BIN_FILE=$(BIN_DIR)\/$(TARGET).bin$/;"	m
-BIN_FILE	projects/test_io_port/Makefile	/^BIN_FILE=$(BIN_DIR)\/$(TARGET).bin$/;"	m
 BITS	projects/BASIC-M6502-main/m6502.asm	/^BITS:	0			;SOMETHING FOR "SHIFTR" TO USE.$/;"	l
 BLT1	projects/BASIC-M6502-main/m6502.asm	/^BLT1:	LDA	HIGHDS		;MOD BASE OF DEST ADDR.$/;"	l
 BLTLP	projects/BASIC-M6502-main/m6502.asm	/^BLTLP:	LDADY	HIGHTR		;FETCH BYTE TO MOVE$/;"	l
@@ -102,11 +90,7 @@ CAT	projects/BASIC-M6502-main/m6502.asm	/^CAT:	LDA	FACLO		;PSH HIGH ORDER ONTO S
 CAT	projects/msbasic-master/string.s	/^CAT:$/;"	l
 CBM1	projects/msbasic-master/defines.s	/^CBM1 := 1$/;"	d
 CBM2	projects/msbasic-master/defines.s	/^CBM2 := 1$/;"	d
-CFG_DIR	projects/g65-sdcc/Makefile	/^CFG_DIR=cfg$/;"	m
 CFG_DIR	projects/g65/Makefile	/^CFG_DIR=cfg$/;"	m
-CFG_DIR	projects/learn_asm/Makefile	/^CFG_DIR=cfg$/;"	m
-CFG_DIR	projects/test_io_port/Makefile	/^CFG_DIR=cfg$/;"	m
-CFG_FILE	projects/g65-sdcc/Makefile	/^CFG_FILE=$(CFG_DIR)\/$(TARGET).cfg$/;"	m
 CHANNL	projects/BASIC-M6502-main/m6502.asm	/^CHANNL: BLOCK	1>		;HOLDS CHANNEL NUMBER.$/;"	l
 CHARAC	projects/BASIC-M6502-main/m6502.asm	/^CHARAC: BLOCK	1		;A DELIMITING CHARACTER.$/;"	l
 CHARAC	projects/msbasic-master/zeropage.s	/^CHARAC:$/;"	l
@@ -800,14 +784,8 @@ GTBYTC	projects/msbasic-master/string.s	/^GTBYTC:$/;"	l
 GTFORPNT	projects/msbasic-master/memory.s	/^GTFORPNT:$/;"	l
 GTNUM	projects/msbasic-master/poke.s	/^GTNUM:$/;"	l
 HAVFOR	projects/BASIC-M6502-main/m6502.asm	/^HAVFOR: TXS			;SETUP STACK. CHOP FIRST.$/;"	l
-HEXDUMP	projects/g65-sdcc/Makefile	/^HEXDUMP=hexdump$/;"	m
 HEXDUMP	projects/g65/Makefile	/^HEXDUMP=hexdump$/;"	m
-HEXDUMP	projects/learn_asm/Makefile	/^HEXDUMP=hexdump$/;"	m
-HEXDUMP	projects/test_io_port/Makefile	/^HEXDUMP=hexdump$/;"	m
-HEXDUMP_FLAGS	projects/g65-sdcc/Makefile	/^HEXDUMP_FLAGS=-C$/;"	m
 HEXDUMP_FLAGS	projects/g65/Makefile	/^HEXDUMP_FLAGS=-C$/;"	m
-HEXDUMP_FLAGS	projects/learn_asm/Makefile	/^HEXDUMP_FLAGS=-C$/;"	m
-HEXDUMP_FLAGS	projects/test_io_port/Makefile	/^HEXDUMP_FLAGS=-C$/;"	m
 HIGH	projects/BASIC-M6502-main/m6502.asm	/^HIGH LOCATIONS$/;"	l
 HIGHDS	projects/BASIC-M6502-main/m6502.asm	/^HIGHDS: BLOCK	2		;DESINATION OF HIGHEST ELEMENT IN BLT.$/;"	l
 HIGHDS	projects/msbasic-master/zeropage.s	/^HIGHDS:$/;"	l
@@ -914,10 +892,7 @@ IFN	projects/BASIC-M6502-main/m6502.asm	/^IFN EXTIO,<$/;"	l
 IFN	projects/BASIC-M6502-main/m6502.asm	/^IFN LNGERR,<$/;"	l
 IFN	projects/BASIC-M6502-main/m6502.asm	/^IFN REALIO-3,<$/;"	l
 IFNDEF	projects/BASIC-M6502-main/m6502.asm	/^IFNDEF	START,<START==0>$/;"	l
-IHX_FILE	projects/g65-sdcc/Makefile	/^IHX_FILE=$(BIN_DIR)\/$(TARGET).ihx$/;"	m
 IHX_FILE	projects/g65/Makefile	/^IHX_FILE=$(BIN_DIR)\/$(TARGET).ihx$/;"	m
-IHX_FILE	projects/learn_asm/Makefile	/^IHX_FILE=$(BIN_DIR)\/$(TARGET).ihx$/;"	m
-IHX_FILE	projects/test_io_port/Makefile	/^IHX_FILE=$(BIN_DIR)\/$(TARGET).ihx$/;"	m
 IIR	projects/g65/src/uart_16x450.asm	/^IIR		= UART_BASE + $02		; Interrupt Idenfitifer Register$/;"	d
 IN	projects/BASIC-M6502-main/m6502.asm	/^IN MEMORY THE NUMBER LOOKS LIKE THIS:$/;"	l
 INALL	projects/msbasic-master/defines_aim65.s	/^INALL  := $E993$/;"	d
@@ -930,10 +905,7 @@ INCREMENT_MANTISSA	projects/msbasic-master/float.s	/^INCREMENT_MANTISSA:$/;"	l
 INCRND	projects/BASIC-M6502-main/m6502.asm	/^INCRND: JSR	INCFAC		;YES, ADD ONE TO LSB(FAC).$/;"	l
 INCRTS	projects/BASIC-M6502-main/m6502.asm	/^INCRTS: RTS			;END OF INCHR.$/;"	l
 INCTRM	projects/BASIC-M6502-main/m6502.asm	/^INCTRM: INC	TRMPOS		;INCREMENT COUNT.$/;"	l
-INC_DIR	projects/g65-sdcc/Makefile	/^INC_DIR=inc$/;"	m
 INC_DIR	projects/g65/Makefile	/^INC_DIR=inc$/;"	m
-INC_DIR	projects/learn_asm/Makefile	/^INC_DIR=inc$/;"	m
-INC_DIR	projects/test_io_port/Makefile	/^INC_DIR=inc$/;"	m
 INDEX	projects/msbasic-master/zeropage.s	/^INDEX:$/;"	l
 INDEX1	projects/BASIC-M6502-main/m6502.asm	/^INDEX1: BLOCK	2		;INDEXES.$/;"	l
 INDEX2	projects/BASIC-M6502-main/m6502.asm	/^INDEX2: BLOCK	2$/;"	l
@@ -1477,10 +1449,7 @@ LCE82	projects/msbasic-master/eval.s	/^LCE82:$/;"	l
 LCE90	projects/msbasic-master/eval.s	/^LCE90:$/;"	l
 LCFFA	projects/msbasic-master/aim65_extra.s	/^LCFFA:$/;"	l
 LCR	projects/g65/src/uart_16x450.asm	/^LCR		= UART_BASE + $03		; Line Control (DLAB is Bit 7)$/;"	d
-LD	projects/g65-sdcc/Makefile	/^LD=\/opt\/sdcc\/bin\/sdld$/;"	m
 LD	projects/g65/Makefile	/^LD=\/opt\/vbcc\/bin\/vlink$/;"	m
-LD	projects/learn_asm/Makefile	/^LD=\/opt\/vbcc\/bin\/vlink$/;"	m
-LD	projects/test_io_port/Makefile	/^LD=\/opt\/vbcc\/bin\/vlink$/;"	m
 LD015	projects/msbasic-master/var.s	/^LD015:$/;"	l
 LD02C	projects/msbasic-master/var.s	/^LD02C:$/;"	l
 LD02F	projects/msbasic-master/var.s	/^LD02F:$/;"	l
@@ -1509,14 +1478,8 @@ LDF63	projects/msbasic-master/rnd.s	/^LDF63:$/;"	l
 LDF88	projects/msbasic-master/rnd.s	/^LDF88:$/;"	l
 LDFONE	projects/BASIC-M6502-main/m6502.asm	/^LDFONE: LDWDI	FONE		;PUT 1.0 INTO FAC.$/;"	l
 LDZR	projects/BASIC-M6502-main/m6502.asm	/^LDZR:	LDWDI	ZERO		;SET UP PNTR TO SIMULATED ZERO.$/;"	l
-LD_FILE	projects/g65-sdcc/Makefile	/^LD_FILE=$(SRC_DIR)\/$(TARGET).ld$/;"	m
 LD_FILE	projects/g65/Makefile	/^LD_FILE=$(CFG_DIR)\/$(TARGET).ld$/;"	m
-LD_FILE	projects/learn_asm/Makefile	/^LD_FILE=$(CFG_DIR)\/$(TARGET).ld$/;"	m
-LD_FILE	projects/test_io_port/Makefile	/^LD_FILE=$(CFG_DIR)\/$(TARGET).ld$/;"	m
-LD_FLAGS	projects/g65-sdcc/Makefile	/^LD_FLAGS= -i$/;"	m
 LD_FLAGS	projects/g65/Makefile	/^LD_FLAGS= -T$(LD_FILE) -bihex -o $(IHX_FILE) -M > $(MAP_FILE)$/;"	m
-LD_FLAGS	projects/learn_asm/Makefile	/^LD_FLAGS= -T$(LD_FILE) -bihex -o $(IHX_FILE) -M > $(MAP_FILE)$/;"	m
-LD_FLAGS	projects/test_io_port/Makefile	/^LD_FLAGS= -T$(LD_FILE) -bihex -o $(IHX_FILE) -M > $(MAP_FILE)$/;"	m
 LE1AA	projects/msbasic-master/cbm1_patches.s	/^LE1AA:$/;"	l
 LE1B2	projects/msbasic-master/cbm1_patches.s	/^LE1B2:$/;"	l
 LE1B9	projects/msbasic-master/cbm1_patches.s	/^LE1B9:$/;"	l
@@ -1837,9 +1800,6 @@ LOWTRX	projects/msbasic-master/zeropage.s	/^LOWTRX:$/;"	l
 LPOPER	projects/BASIC-M6502-main/m6502.asm	/^LPOPER: PHA			;SAVE LOW PRECEDENCE. (MASK.)$/;"	l
 LSR	projects/g65/src/uart_16x450.asm	/^LSR		= UART_BASE + $05		; Line Status$/;"	d
 LSTEND	projects/BASIC-M6502-main/m6502.asm	/^LSTEND: PLA$/;"	l
-LST_FILE	projects/g65-sdcc/Makefile	/^LST_FILE=$(BIN_DIR)\/$(TARGET).lst$/;"	m
-LST_FILE	projects/learn_asm/Makefile	/^LST_FILE=$(BIN_DIR)\/$(TARGET).lst$/;"	m
-LST_FILE	projects/test_io_port/Makefile	/^LST_FILE=$(BIN_DIR)\/$(TARGET).lst$/;"	m
 LUK4IT	projects/BASIC-M6502-main/m6502.asm	/^LUK4IT: LDWX	TXTTAB$/;"	l
 LUKALL	projects/BASIC-M6502-main/m6502.asm	/^LUKALL: JSR	FNDLNC		;[X,A] ARE ALL SET UP.$/;"	l
 M6502	projects/BASIC-M6502-main/m6502.asm	/^M6502 BASIC CONFIGURES BASIC AS FOLLOWS$/;"	l
@@ -1850,10 +1810,7 @@ MAKENEWVARIABLE	projects/msbasic-master/var.s	/^MAKENEWVARIABLE:$/;"	l
 MAKE_NEW_ARRAY	projects/msbasic-master/array.s	/^MAKE_NEW_ARRAY:$/;"	l
 MAKINT	projects/msbasic-master/array.s	/^MAKINT:$/;"	l
 MANTISSA_BYTES	projects/msbasic-master/defines.s	/^MANTISSA_BYTES	:= BYTES_FP-1$/;"	d
-MAP_FILE	projects/g65-sdcc/Makefile	/^MAP_FILE=$(BIN_DIR)\/$(TARGET).map$/;"	m
 MAP_FILE	projects/g65/Makefile	/^MAP_FILE=$(BIN_DIR)\/$(TARGET).map$/;"	m
-MAP_FILE	projects/learn_asm/Makefile	/^MAP_FILE=$(BIN_DIR)\/$(TARGET).map$/;"	m
-MAP_FILE	projects/test_io_port/Makefile	/^MAP_FILE=$(BIN_DIR)\/$(TARGET).map$/;"	m
 MATHTBL	projects/msbasic-master/token.s	/^MATHTBL:$/;"	l
 MAX_EXPON	projects/msbasic-master/defines.s	/^MAX_EXPON = 10$/;"	d
 MAX_EXPON	projects/msbasic-master/defines_cbm1.s	/^MAX_EXPON		:= 12 ; XXX override$/;"	d
@@ -1872,9 +1829,7 @@ MID2	projects/BASIC-M6502-main/m6502.asm	/^MID2:	JSR	PREAM		;CHECK IT OUT.$/;"	l
 MIDSTR	projects/msbasic-master/string.s	/^MIDSTR:$/;"	l
 MIN	projects/msbasic-master/eval.s	/^MIN:$/;"	l
 MINICOM	projects/g65/Makefile	/^MINICOM=minicom$/;"	m
-MINICOM	projects/test_io_port/Makefile	/^MINICOM=minicom$/;"	m
 MINICOM_FLAGS	projects/g65/Makefile	/^MINICOM_FLAGS=-D \/dev\/ttyUSB0 -b 57600$/;"	m
-MINICOM_FLAGS	projects/test_io_port/Makefile	/^MINICOM_FLAGS=-D $(VPORT1)$/;"	m
 MINIPRO	projects/g65/Makefile	/^MINIPRO=minipro$/;"	m
 MINIPRO_FLAGS	projects/g65/Makefile	/^MINIPRO_FLAGS= -p $(ROM) -w $(BIN_FILE)$/;"	m
 MKINT	projects/msbasic-master/array.s	/^MKINT:$/;"	l
@@ -2054,15 +2009,8 @@ NZ9999	projects/BASIC-M6502-main/m6502.asm	/^NZ9999: 236	; 999999999.499$/;"	l
 NZMIL	projects/BASIC-M6502-main/m6502.asm	/^NZMIL:	224	; 10^6.$/;"	l
 NZMIL	projects/BASIC-M6502-main/m6502.asm	/^NZMIL:	236	; 10^9$/;"	l
 OBJCOPY	projects/g65/Makefile	/^OBJCOPY=\/opt\/sdcc\/bin\/sdobjcopy$/;"	m
-OBJCOPY	projects/learn_asm/Makefile	/^OBJCOPY=\/opt\/sdcc\/bin\/sdobjcopy$/;"	m
-OBJCOPY	projects/test_io_port/Makefile	/^OBJCOPY=\/opt\/sdcc\/bin\/sdobjcopy$/;"	m
 OBJCOPY_FLAGS	projects/g65/Makefile	/^OBJCOPY_FLAGS= -I ihex -O binary $(IHX_FILE)$/;"	m
-OBJCOPY_FLAGS	projects/learn_asm/Makefile	/^OBJCOPY_FLAGS= -I ihex -O binary $(IHX_FILE)$/;"	m
-OBJCOPY_FLAGS	projects/test_io_port/Makefile	/^OBJCOPY_FLAGS= -I ihex -O binary $(IHX_FILE)$/;"	m
 OBJS	projects/g65/Makefile	/^OBJS = $(patsubst $(SRC_DIR)\/%.asm, $(BIN_DIR)\/%.obj, $(SRCS))$/;"	m
-OBJ_FILE	projects/g65-sdcc/Makefile	/^OBJ_FILE=$(BIN_DIR)\/$(TARGET).o$/;"	m
-OBJ_FILE	projects/learn_asm/Makefile	/^OBJ_FILE=$(BIN_DIR)\/$(TARGET).o$/;"	m
-OBJ_FILE	projects/test_io_port/Makefile	/^OBJ_FILE=$(BIN_DIR)\/$(TARGET).o$/;"	m
 OF	projects/BASIC-M6502-main/m6502.asm	/^OF THE HO TURNED ON. THE EXP IS THE SAME AS STORED FORMAT.$/;"	l
 OKCHAR	projects/BASIC-M6502-main/m6502.asm	/^OKCHAR: LDXYI	FCERR$/;"	l
 OKGOTO	projects/BASIC-M6502-main/m6502.asm	/^OKGOTO: LDA	FACEXP		;0=FALSE. ALL OTHERS TRUE.$/;"	l
@@ -2275,7 +2223,6 @@ REASON	projects/msbasic-master/memory.s	/^REASON:$/;"	l
 REASTO	projects/BASIC-M6502-main/m6502.asm	/^REASTO: PLA$/;"	l
 REDDY	projects/BASIC-M6502-main/m6502.asm	/^REDDY:	ACRLF$/;"	l
 RELOPS	projects/msbasic-master/eval.s	/^RELOPS:$/;"	l
-REL_FILE	projects/g65-sdcc/Makefile	/^REL_FILE=$(BIN_DIR)\/$(TARGET).rel$/;"	m
 REM	projects/BASIC-M6502-main/m6502.asm	/^REM:	JSR	REMN		;SKIP REST OF STATEMENT.$/;"	l
 REM	projects/msbasic-master/flow2.s	/^REM:$/;"	l
 REMER	projects/BASIC-M6502-main/m6502.asm	/^REMER:	LDADY	TXTPTR$/;"	l
@@ -2363,8 +2310,6 @@ SAVQUO	projects/BASIC-M6502-main/m6502.asm	/^SAVQUO: PHP$/;"	l
 SCR	projects/g65/src/uart_16x450.asm	/^SCR		= UART_BASE + $07		; Scratch Register$/;"	d
 SCRATH	projects/BASIC-M6502-main/m6502.asm	/^SCRATH: BNE	FLNRTS		;MAKE SURE THERE IS A TERMINATOR.$/;"	l
 SCREEN	projects/g65/Makefile	/^SCREEN=screen$/;"	m
-SCREEN	projects/test_io_port/Makefile	/^SCREEN=screen$/;"	m
-SCREEN_FLAGS	projects/test_io_port/Makefile	/^SCREEN_FLAGS= -S sim_uart$/;"	m
 SCRTCH	projects/BASIC-M6502-main/m6502.asm	/^SCRTCH: LDAI	0		;GET A CLEARER.$/;"	l
 SCRTCH	projects/msbasic-master/program.s	/^SCRTCH:$/;"	l
 SEARCH	projects/BASIC-M6502-main/m6502.asm	/^SEARCH	M6502$/;"	l
@@ -2426,8 +2371,6 @@ SNGFLT	projects/msbasic-master/misc2.s	/^SNGFLT:$/;"	l
 SNGFLT1	projects/msbasic-master/string.s	/^SNGFLT1:$/;"	l
 SNTXERR	projects/msbasic-master/eval.s	/^SNTXERR:$/;"	l
 SOCAT	projects/g65/Makefile	/^SOCAT=socat$/;"	m
-SOCAT	projects/test_io_port/Makefile	/^SOCAT=socat$/;"	m
-SOCAT_FLAGS	projects/test_io_port/Makefile	/^SOCAT_FLAGS=-d -d PTY,link=$(VPORT0),raw,echo=0 PTY,link=$(VPORT1),raw,echo=0$/;"	m
 SOMEWHERE	projects/BASIC-M6502-main/m6502.asm	/^SOMEWHERE IN MEMORY. IT IS UNPACKED INTO ARG BY "CONUPK".$/;"	l
 SPACE_FOR_GOSUB	projects/msbasic-master/defines_aim65.s	/^SPACE_FOR_GOSUB := $44$/;"	d
 SPACE_FOR_GOSUB	projects/msbasic-master/defines_apple.s	/^SPACE_FOR_GOSUB := $36$/;"	d
@@ -2446,14 +2389,8 @@ SQRHLF	projects/BASIC-M6502-main/m6502.asm	/^SQRHLF: 200	; SQR(0.5)$/;"	l
 SQRTWO	projects/BASIC-M6502-main/m6502.asm	/^SQRTWO: 201	; SQR(2.0)$/;"	l
 SQUEEZ	projects/BASIC-M6502-main/m6502.asm	/^SQUEEZ: BCC	RNDRTS		;BITS TO SHIFT?$/;"	l
 SRCS	projects/g65/sources.mk	/^SRCS =\\$/;"	m
-SRC_DIR	projects/g65-sdcc/Makefile	/^SRC_DIR=src$/;"	m
 SRC_DIR	projects/g65/Makefile	/^SRC_DIR=src$/;"	m
-SRC_DIR	projects/learn_asm/Makefile	/^SRC_DIR=src$/;"	m
-SRC_DIR	projects/test_io_port/Makefile	/^SRC_DIR=src$/;"	m
-SRC_FILE	projects/g65-sdcc/Makefile	/^SRC_FILE=$(SRC_DIR)\/$(TARGET).asm$/;"	m
 SRC_FILE	projects/g65/Makefile	/^SRC_FILE=$(SRC_DIR)\/$(TARGET).asm$/;"	m
-SRC_FILE	projects/learn_asm/Makefile	/^SRC_FILE=$(SRC_DIR)\/$(TARGET).asm$/;"	m
-SRC_FILE	projects/test_io_port/Makefile	/^SRC_FILE=$(SRC_DIR)\/$(TARGET).s$/;"	m
 ST2TXT	projects/BASIC-M6502-main/m6502.asm	/^ST2TXT: LDXY	STRNG2$/;"	l
 STACK	projects/msbasic-master/defines.s	/^STACK           := $0100$/;"	d
 STACK2	projects/msbasic-master/defines.s	/^STACK2          := STACK$/;"	d
@@ -2612,10 +2549,7 @@ TAND	projects/msbasic-master/eval.s	/^TAND:$/;"	l
 TANFIX	projects/BASIC-M6502-main/m6502.asm	/^TANFIX: ADR(TAN)$/;"	l
 TANSGN	projects/BASIC-M6502-main/m6502.asm	/^TANSGN: BLOCK	1		;USED IN DETERMINING SIGN OF TANGENT.$/;"	l
 TAPMES	projects/BASIC-M6502-main/m6502.asm	/^TAPMES: DT"SAVED"$/;"	l
-TARGET	projects/g65-sdcc/Makefile	/^TARGET=$(notdir $(CURDIR))$/;"	m
 TARGET	projects/g65/Makefile	/^TARGET=$(notdir $(CURDIR))$/;"	m
-TARGET	projects/learn_asm/Makefile	/^TARGET=$(notdir $(CURDIR))$/;"	m
-TARGET	projects/test_io_port/Makefile	/^TARGET=$(notdir $(CURDIR))$/;"	m
 TEMP1	projects/msbasic-master/zeropage.s	/^TEMP1:$/;"	l
 TEMP1X	projects/msbasic-master/float.s	/^TEMP1X = TEMP1+(5-BYTES_FP)$/;"	d
 TEMP2	projects/msbasic-master/zeropage.s	/^TEMP2:$/;"	l
@@ -2681,18 +2615,9 @@ TYPAUT	projects/BASIC-M6502-main/m6502.asm	/^TYPAUT: LDWDI	AUTTXT$/;"	l
 TYPERR	projects/BASIC-M6502-main/m6502.asm	/^TYPERR: JSR	STKINI		;RESET THE STACK AND FLAGS.$/;"	l
 TYPLIN	projects/BASIC-M6502-main/m6502.asm	/^TYPLIN: STY	LSTPNT$/;"	l
 UART_BASE	projects/g65/src/uart_16x450.asm	/^UART_BASE = $8400$/;"	d
-UCSIM	projects/g65-sdcc/Makefile	/^UCSIM=\/opt\/sdcc\/bin\/ucsim_mos6502$/;"	m
 UCSIM	projects/g65/Makefile	/^UCSIM=\/opt\/sdcc\/bin\/ucsim_mos6502$/;"	m
-UCSIM	projects/learn_asm/Makefile	/^UCSIM=\/opt\/sdcc\/bin\/ucsim_mos6502$/;"	m
-UCSIM	projects/test_io_port/Makefile	/^UCSIM=\/opt\/sdcc\/bin\/ucsim_mos6502$/;"	m
-UCSIM_FLAGS	projects/g65-sdcc/Makefile	/^UCSIM_FLAGS= -t 65C02 -C $(UC_SIM_FILE)$/;"	m
 UCSIM_FLAGS	projects/g65/Makefile	/^UCSIM_FLAGS= -t 65C02 -C $(UC_SIM_FILE) -X 8.192M$/;"	m
-UCSIM_FLAGS	projects/learn_asm/Makefile	/^UCSIM_FLAGS= -t 65C02 -C $(UC_SIM_FILE)$/;"	m
-UCSIM_FLAGS	projects/test_io_port/Makefile	/^UCSIM_FLAGS= -t 65C02 -C $(UC_SIM_FILE) -s$(VPORT0) -X 5.76768M $/;"	m
-UC_SIM_FILE	projects/g65-sdcc/Makefile	/^UC_SIM_FILE=$(CFG_DIR)\/$(TARGET).ucsim$/;"	m
 UC_SIM_FILE	projects/g65/Makefile	/^UC_SIM_FILE=$(CFG_DIR)\/$(TARGET).ucsim$/;"	m
-UC_SIM_FILE	projects/learn_asm/Makefile	/^UC_SIM_FILE=$(CFG_DIR)\/$(TARGET).ucsim$/;"	m
-UC_SIM_FILE	projects/test_io_port/Makefile	/^UC_SIM_FILE=$(CFG_DIR)\/$(TARGET).ucsim$/;"	m
 UMLCNT	projects/BASIC-M6502-main/m6502.asm	/^UMLCNT: DEC	DECCNT		;DONE?$/;"	l
 UMLRTS	projects/BASIC-M6502-main/m6502.asm	/^UMLRTS: RTS			;YES, ALL DONE.$/;"	l
 UMULT	projects/BASIC-M6502-main/m6502.asm	/^UMULT:	STY	INDEX$/;"	l
@@ -2748,10 +2673,7 @@ VARY0	projects/BASIC-M6502-main/m6502.asm	/^VARY0:	LDYI	0$/;"	l
 VER	projects/msbasic-master/kbd_loadsave.s	/^VER:$/;"	l
 VERIFY	projects/msbasic-master/defines_cbm1.s	/^VERIFY	:= $FFDB$/;"	d
 VERIFY	projects/msbasic-master/defines_cbm2.s	/^VERIFY	:= $FFDB$/;"	d
-VI	projects/g65-sdcc/Makefile	/^VI=vi$/;"	m
 VI	projects/g65/Makefile	/^VI=vi$/;"	m
-VI	projects/learn_asm/Makefile	/^VI=vi$/;"	m
-VI	projects/test_io_port/Makefile	/^VI=vi$/;"	m
 VIA1_BASE	projects/g65/src/via_65x22.asm	/^VIA1_BASE	= $8000$/;"	d
 VIA1_DDRA	projects/g65/src/via_65x22.asm	/^VIA1_DDRA	= VIA1_BASE + 3$/;"	d
 VIA1_DDRB	projects/g65/src/via_65x22.asm	/^VIA1_DDRB	= VIA1_BASE + 2$/;"	d
@@ -2766,8 +2688,6 @@ VIA_USB_REG_PORTB	projects/msbasic-master/w65c816sxb_extra.s	/^VIA_USB_REG_PORTB
 VIA_USB_WR	projects/msbasic-master/w65c816sxb_extra.s	/^VIA_USB_WR        := %00000100 ; make WR  high to output data from FTDI$/;"	d
 VIA_USB_nRXF	projects/msbasic-master/w65c816sxb_extra.s	/^VIA_USB_nRXF      := %00000010$/;"	d
 VLOD	projects/msbasic-master/kbd_extra.s	/^VLOD:$/;"	l
-VPORT0	projects/test_io_port/Makefile	/^VPORT0=\/tmp\/ttyV0$/;"	m
-VPORT1	projects/test_io_port/Makefile	/^VPORT1=\/tmp\/ttyV1$/;"	m
 VSAV	projects/msbasic-master/kbd_extra.s	/^VSAV:$/;"	l
 VT102_CLEAR_SCREEN	projects/g65/src/vt102.asm	/^VT102_CLEAR_SCREEN: .asciiz		VT102_ESC, '[', 'H', VT102_ESC, '[', '2', 'J'$/;"	l
 VT102_DOWN	projects/g65/src/vt102.asm	/^VT102_DOWN:         .db			VT102_ESC, '[', 'B', 0$/;"	l
@@ -2948,41 +2868,14 @@ ihex_row_count	projects/g65/src/commands.asm	/^ihex_row_count	.ds		$01$/;"	l
 inc_addr	projects/g65/src/commands.asm	/^inc_addr:$/;"	l
 init_error_table	projects/msbasic-master/error.s	/^init_error_table$/;"	l
 init_regs	projects/g65/src/bios.asm	/^init_regs:$/;"	l
-irq_isr	projects/g65-sdcc/src/g65-sdcc.asm	/^irq_isr:$/;"	l
-irq_isr	projects/g65-sdcc/src/g65.asm	/^irq_isr:$/;"	l
 irq_isr	projects/g65/src/test.asm	/^irq_isr:$/;"	l
-irq_vector	projects/learn_asm/src/learn_asm.asm	/^irq_vector:$/;"	l
-little_brown_fox_txt	projects/learn_asm/src/learn_asm.asm	/^little_brown_fox_txt: .asciiz "The quick brown fox jumps over the lazy dog."$/;"	l
 load_cmd	projects/g65/src/cmd_dispatcher.asm	/^	load_cmd:		CMD_REC $05, LOAD_CMD,		process_load_cmd$/;"	l
 memcmp	projects/g65/src/string.asm	/^memcmp:$/;"	l
 memcpy	projects/g65/src/string.asm	/^memcpy:$/;"	l
 memset	projects/g65/src/string.asm	/^memset:$/;"	l
 nib2ahex	projects/g65/src/convert.asm	/^nib2ahex:$/;"	l
-nmi_isr	projects/g65-sdcc/src/g65-sdcc.asm	/^nmi_isr:$/;"	l
-nmi_isr	projects/g65-sdcc/src/g65.asm	/^nmi_isr:$/;"	l
 nmi_isr	projects/g65/src/interrupts.asm	/^nmi_isr:$/;"	l
 nmi_isr	projects/g65/src/test.asm	/^nmi_isr:$/;"	l
-nmi_vector	projects/learn_asm/src/learn_asm.asm	/^nmi_vector:$/;"	l
-pad1	projects/test_io_port/src/test_io_port.s	/^pad1: .asciiz "STRESS_TEST_PADDING_A_THE_QUICK_BROWN_FOX_JUMPS_OVER_THE_LAZY_DOG!"$/;"	l
-pad10	projects/test_io_port/src/test_io_port.s	/^pad10: .asciiz "STRESS_TEST_PADDING_J_THE_QUICK_BROWN_FOX_JUMPS_OVER_THE_LAZY_DOG!"$/;"	l
-pad11	projects/test_io_port/src/test_io_port.s	/^pad11: .asciiz "STRESS_TEST_PADDING_K_THE_QUICK_BROWN_FOX_JUMPS_OVER_THE_LAZY_DOG!"$/;"	l
-pad12	projects/test_io_port/src/test_io_port.s	/^pad12: .asciiz "STRESS_TEST_PADDING_L_THE_QUICK_BROWN_FOX_JUMPS_OVER_THE_LAZY_DOG!"$/;"	l
-pad13	projects/test_io_port/src/test_io_port.s	/^pad13: .asciiz "STRESS_TEST_PADDING_M_THE_QUICK_BROWN_FOX_JUMPS_OVER_THE_LAZY_DOG!"$/;"	l
-pad14	projects/test_io_port/src/test_io_port.s	/^pad14: .asciiz "STRESS_TEST_PADDING_N_THE_QUICK_BROWN_FOX_JUMPS_OVER_THE_LAZY_DOG!"$/;"	l
-pad15	projects/test_io_port/src/test_io_port.s	/^pad15: .asciiz "STRESS_TEST_PADDING_O_THE_QUICK_BROWN_FOX_JUMPS_OVER_THE_LAZY_DOG!"$/;"	l
-pad16	projects/test_io_port/src/test_io_port.s	/^pad16: .asciiz "STRESS_TEST_PADDING_P_THE_QUICK_BROWN_FOX_JUMPS_OVER_THE_LAZY_DOG!"$/;"	l
-pad17	projects/test_io_port/src/test_io_port.s	/^pad17: .asciiz "STRESS_TEST_PADDING_Q_THE_QUICK_BROWN_FOX_JUMPS_OVER_THE_LAZY_DOG!"$/;"	l
-pad18	projects/test_io_port/src/test_io_port.s	/^pad18: .asciiz "STRESS_TEST_PADDING_R_THE_QUICK_BROWN_FOX_JUMPS_OVER_THE_LAZY_DOG!"$/;"	l
-pad19	projects/test_io_port/src/test_io_port.s	/^pad19: .asciiz "STRESS_TEST_PADDING_S_THE_QUICK_BROWN_FOX_JUMPS_OVER_THE_LAZY_DOG!"$/;"	l
-pad2	projects/test_io_port/src/test_io_port.s	/^pad2: .asciiz "STRESS_TEST_PADDING_B_THE_QUICK_BROWN_FOX_JUMPS_OVER_THE_LAZY_DOG!"$/;"	l
-pad20	projects/test_io_port/src/test_io_port.s	/^pad20: .asciiz "STRESS_TEST_PADDING_T_THE_QUICK_BROWN_FOX_JUMPS_OVER_THE_LAZY_DOG!"$/;"	l
-pad3	projects/test_io_port/src/test_io_port.s	/^pad3: .asciiz "STRESS_TEST_PADDING_C_THE_QUICK_BROWN_FOX_JUMPS_OVER_THE_LAZY_DOG!"$/;"	l
-pad4	projects/test_io_port/src/test_io_port.s	/^pad4: .asciiz "STRESS_TEST_PADDING_D_THE_QUICK_BROWN_FOX_JUMPS_OVER_THE_LAZY_DOG!"$/;"	l
-pad5	projects/test_io_port/src/test_io_port.s	/^pad5: .asciiz "STRESS_TEST_PADDING_E_THE_QUICK_BROWN_FOX_JUMPS_OVER_THE_LAZY_DOG!"$/;"	l
-pad6	projects/test_io_port/src/test_io_port.s	/^pad6: .asciiz "STRESS_TEST_PADDING_F_THE_QUICK_BROWN_FOX_JUMPS_OVER_THE_LAZY_DOG!"$/;"	l
-pad7	projects/test_io_port/src/test_io_port.s	/^pad7: .asciiz "STRESS_TEST_PADDING_G_THE_QUICK_BROWN_FOX_JUMPS_OVER_THE_LAZY_DOG!"$/;"	l
-pad8	projects/test_io_port/src/test_io_port.s	/^pad8: .asciiz "STRESS_TEST_PADDING_H_THE_QUICK_BROWN_FOX_JUMPS_OVER_THE_LAZY_DOG!"$/;"	l
-pad9	projects/test_io_port/src/test_io_port.s	/^pad9: .asciiz "STRESS_TEST_PADDING_I_THE_QUICK_BROWN_FOX_JUMPS_OVER_THE_LAZY_DOG!"$/;"	l
 parser_cmd_line_get_buffer	projects/g65/src/parser_cmd_line.asm	/^parser_cmd_line_get_buffer:$/;"	l
 parser_cmd_line_init	projects/g65/src/parser_cmd_line.asm	/^parser_cmd_line_init:$/;"	l
 parser_cmd_line_next_token	projects/g65/src/parser_cmd_line.asm	/^parser_cmd_line_next_token:$/;"	l
@@ -3014,14 +2907,10 @@ read_hex_byte	projects/g65/src/bios.asm	/^read_hex_byte:$/;"	l
 read_hex_byte	projects/g65/src/test.asm	/^read_hex_byte:$/;"	l
 read_hex_word	projects/g65/src/test.asm	/^read_hex_word:$/;"	l
 reset_cmd	projects/g65/src/cmd_dispatcher.asm	/^	reset_cmd:		CMD_REC $00, RESET_CMD,		process_reset_cmd$/;"	l
-reset_isr	projects/g65-sdcc/src/g65-sdcc.asm	/^reset_isr:$/;"	l
-reset_isr	projects/g65-sdcc/src/g65.asm	/^reset_isr:$/;"	l
 reset_isr	projects/g65/src/g65.asm	/^reset_isr:$/;"	l
 reset_isr	projects/g65/src/test.asm	/^reset_isr:$/;"	l
-reset_vector	projects/learn_asm/src/learn_asm.asm	/^reset_vector:$/;"	l
 rx_line_done	projects/g65/src/uart_16x450.asm	/^rx_line_done:$/;"	l
 rx_line_loop	projects/g65/src/uart_16x450.asm	/^rx_line_loop:$/;"	l
-start_entry	projects/test_io_port/src/test_io_port.s	/^start_entry:$/;"	l
 strcmp	projects/g65/src/string.asm	/^strcmp:$/;"	l
 sys_clrscrn	projects/g65/src/bios.asm	/^sys_clrscrn:		jmp vt102_clrscrn	; clears screen$/;"	l
 sys_getc	projects/g65/src/bios.asm	/^sys_getc:			jmp uart_rx_char	; Non-blocking: Get character (Carry set = success)$/;"	l
